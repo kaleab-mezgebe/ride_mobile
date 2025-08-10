@@ -43,6 +43,7 @@ public class CustomerController {
     }
 
     @PatchMapping("/updateCustomer/{customerId}")
+    @Operation(summary = "Update customer details")
     public ResponseEntity<CustomerResponseDTO> updateCustomer(
             @PathVariable Long customerId,
             @Valid @RequestBody CustomerUpdateDTO updateDTO) {

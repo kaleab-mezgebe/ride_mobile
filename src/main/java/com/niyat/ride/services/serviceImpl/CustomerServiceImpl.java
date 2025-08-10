@@ -37,6 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerMapper.toEntity(customerSignupDTO);
         customer.setPassword(Helpers.encryptPassword(customerSignupDTO.getPassword()));
         customer.setRole(Role.CUSTOMER);
+        customer.setPhoneNumber(customerSignupDTO.getPhoneNumber());
         customer.setStatus(AccountStatus.ACTIVE);
         customer.setCreatedAt(LocalDateTime.now());
         customer.setUpdatedAt(LocalDateTime.now());
