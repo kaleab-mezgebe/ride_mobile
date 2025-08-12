@@ -1,6 +1,6 @@
 package com.niyat.ride.models;
 
-import com.niyat.ride.enums.AccountStatus;
+
 import com.niyat.ride.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)  // <-- Joined inheritance strategy
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
 
     @Id
@@ -24,7 +24,6 @@ public abstract class User {
     private String email;
 
     private String password;
-    private AccountStatus status;
 
     @Enumerated(EnumType.STRING)
     private Role role;
