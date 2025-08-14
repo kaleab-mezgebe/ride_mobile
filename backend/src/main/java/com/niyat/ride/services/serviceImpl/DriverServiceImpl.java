@@ -24,13 +24,24 @@ public class DriverServiceImpl implements DriverService {
     private final DriverMapper driverMapper;
 
     @Override
+    public void checkIfDriverExists(String phoneNumber) {
+
+//          driverRepository.findByPhoneNumber(phoneNumber)
+//                .ifPresent(d -> {
+//                    throw new RuntimeException(
+//                            "Driver with phone number " + phoneNumber + " already exists"
+//                    );
+//                });
+    }
+
+    @Override
     @Transactional
     public DriverResponseDTO signUpDriver(DriverSignupDTO driverSignupDTO) {
-        driverRepository.findByPhoneNumber(driverSignupDTO.getPhoneNumber())
-                .ifPresent(d -> {
-                    throw new RuntimeException(
-                            "Driver with phone number " + d.getPhoneNumber() + " already exists");
-                });
+//        driverRepository.findByPhoneNumber(driverSignupDTO.getPhoneNumber())
+//                .ifPresent(d -> {
+//                    throw new RuntimeException(
+//                            "Driver with phone number " + d.getPhoneNumber() + " already exists");
+//                });
 
         driverRepository.findByLicenseNumber(driverSignupDTO.getLicenseNumber())
                 .ifPresent(d -> {

@@ -61,4 +61,14 @@ public class CustomerServiceImpl implements CustomerService {
         Customer updatedCustomer = customerRepository.save(customer);
         return customerMapper.toResponseDTO(updatedCustomer);
     }
+
+    @Override
+    public void checkIfCustomerExists(String phoneNumber) {
+        customerRepository.findByPhoneNumber(phoneNumber)
+                .ifPresent(c -> {
+                    throw new CustomerAlreadyExistsException(
+                            "Customer with phone number " + phoneNumber + " already exists"
+                    );
+                });
+    }
 }

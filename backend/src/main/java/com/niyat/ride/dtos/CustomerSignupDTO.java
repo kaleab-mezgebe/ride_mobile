@@ -25,7 +25,6 @@ public class CustomerSignupDTO {
     private String email;
 
     @NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^[0-9]{9,15}$", message = "Invalid phone number")
     private String phoneNumber;
 
     @NotBlank(message = "Password is required")

@@ -7,4 +7,5 @@ import com.niyat.ride.dtos.AdminUpdateDTO;
 public interface AdminService {
     AdminResponseDTO signUpAdmin(AdminSignupDTO adminSignupDTO);
     AdminResponseDTO updateAdmin(Long adminId, AdminUpdateDTO updateDTO);
+
 }

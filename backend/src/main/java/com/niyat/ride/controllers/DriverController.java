@@ -4,8 +4,8 @@ import com.niyat.ride.dtos.DriverResponseDTO;
 import com.niyat.ride.dtos.DriverSignupDTO;
 import com.niyat.ride.dtos.DriverUpdateDTO;
 import com.niyat.ride.services.DriverService;
+import com.niyat.ride.services.OtpService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/api/drivers")
@@ -21,22 +23,37 @@ import java.net.URI;
 public class DriverController {
 
     private final DriverService driverService;
+    private final OtpService otpService;
 
-    @PostMapping("/signup")
-    @Operation(
-            summary = "Register a new driver",
-            description = "Creates a new driver account with the provided signup details.",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Driver created successfully"),
-                    @ApiResponse(responseCode = "400", description = "Validation error"),
-                    @ApiResponse(responseCode = "409", description = "Driver already exists"),
-                    @ApiResponse(responseCode = "500", description = "Internal server error")
-            }
-    )
-    public ResponseEntity<DriverResponseDTO> signUpDriver(
-            @Valid @RequestBody DriverSignupDTO driverSignupDTO) {
 
-        DriverResponseDTO response = driverService.signUpDriver(driverSignupDTO);
+    private final Map<String, DriverSignupDTO> tempSignupStorage = new ConcurrentHashMap<>();
+
+    @PostMapping("/signup/request-otp")
+    @Operation(summary = "Request OTP for driver signup")
+    public ResponseEntity<String> requestOtp(@Valid @RequestBody DriverSignupDTO driverSignupDTO) {
+        driverService.checkIfDriverExists(driverSignupDTO.getPhoneNumber());
+        otpService.sendOtp(driverSignupDTO.getPhoneNumber());
+        tempSignupStorage.put(driverSignupDTO.getPhoneNumber(), driverSignupDTO);
+        return ResponseEntity.ok("OTP sent to " + driverSignupDTO.getPhoneNumber());
+    }
+
+    @PostMapping("/signup/verify-otp")
+    @Operation(summary = "Verify OTP and complete driver signup")
+    public ResponseEntity<DriverResponseDTO> verifyOtp(@RequestParam String phoneNumber,
+                                                       @RequestParam String otp) {
+        if (!otpService.verifyOtp(phoneNumber, otp)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        DriverSignupDTO signupDTO = tempSignupStorage.get(phoneNumber);
+        if (signupDTO == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        DriverResponseDTO response = driverService.signUpDriver(signupDTO);
+        otpService.clearOtp(phoneNumber);
+        tempSignupStorage.remove(phoneNumber);
+
         return ResponseEntity.created(URI.create("/api/drivers/" + response.getId()))
                 .body(response);
     }

@@ -4,8 +4,8 @@ import com.niyat.ride.dtos.CustomerResponseDTO;
 import com.niyat.ride.dtos.CustomerSignupDTO;
 import com.niyat.ride.dtos.CustomerUpdateDTO;
 import com.niyat.ride.services.CustomerService;
+import com.niyat.ride.services.OtpService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -22,22 +23,37 @@ import java.net.URI;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final OtpService otpService;
 
-    @PostMapping("/signup")
-    @Operation(
-            summary = "Register a new customer",
-            description = "Creates a new customer account with the provided signup details.",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Customer created successfully"),
-                    @ApiResponse(responseCode = "400", description = "Validation error"),
-                    @ApiResponse(responseCode = "409", description = "Customer already exists"),
-                    @ApiResponse(responseCode = "500", description = "Internal server error")
-            }
-    )
-    public ResponseEntity<CustomerResponseDTO> signUpCustomer(
-            @Valid @RequestBody CustomerSignupDTO customerSignupDTO) {
+    // Temporary storage for pending signups
+    private final Map<String, CustomerSignupDTO> tempSignupStorage = new ConcurrentHashMap<>();
 
-        CustomerResponseDTO response = customerService.signUpCustomer(customerSignupDTO);
+    @PostMapping("/signup/request-otp")
+    @Operation(summary = "Request OTP for customer signup")
+    public ResponseEntity<String> requestOtp(@Valid @RequestBody CustomerSignupDTO customerSignupDTO) {
+        customerService.checkIfCustomerExists(customerSignupDTO.getPhoneNumber());
+        otpService.sendOtp(customerSignupDTO.getPhoneNumber());
+        tempSignupStorage.put(customerSignupDTO.getPhoneNumber(), customerSignupDTO);
+        return ResponseEntity.ok("OTP sent to " + customerSignupDTO.getPhoneNumber());
+    }
+
+    @PostMapping("/signup/verify-otp")
+    @Operation(summary = "Verify OTP and complete customer signup")
+    public ResponseEntity<CustomerResponseDTO> verifyOtp(@RequestParam String phoneNumber,
+                                                         @RequestParam String otp) {
+        if (!otpService.verifyOtp(phoneNumber, otp)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        CustomerSignupDTO signupDTO = tempSignupStorage.get(phoneNumber);
+        if (signupDTO == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        CustomerResponseDTO response = customerService.signUpCustomer(signupDTO);
+        otpService.clearOtp(phoneNumber);
+        tempSignupStorage.remove(phoneNumber);
+
         return ResponseEntity.created(URI.create("/api/customers/" + response.getId()))
                 .body(response);
     }
@@ -51,6 +67,4 @@ public class CustomerController {
         CustomerResponseDTO response = customerService.updateCustomer(customerId, updateDTO);
         return ResponseEntity.ok(response);
     }
-
-
 }

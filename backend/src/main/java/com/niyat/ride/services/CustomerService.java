@@ -7,6 +7,6 @@ import com.niyat.ride.dtos.CustomerUpdateDTO;
 public interface CustomerService {
     CustomerResponseDTO signUpCustomer(CustomerSignupDTO customerSignupDTO);
     CustomerResponseDTO updateCustomer(Long customerId, CustomerUpdateDTO updateDTO);
-
+    void checkIfCustomerExists(String phoneNumber);
 
 }
