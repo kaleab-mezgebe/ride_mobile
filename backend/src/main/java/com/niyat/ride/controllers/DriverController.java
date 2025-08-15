@@ -25,12 +25,13 @@ public class DriverController {
     private final DriverService driverService;
     private final OtpService otpService;
 
-
+    // Temporary storage for signup data before OTP verification
     private final Map<String, DriverSignupDTO> tempSignupStorage = new ConcurrentHashMap<>();
+
 
     @PostMapping("/signup/request-otp")
     @Operation(summary = "Request OTP for driver signup")
-    public ResponseEntity<String> requestOtp(@Valid @RequestBody DriverSignupDTO driverSignupDTO) {
+    public ResponseEntity<String> requestSignupOtp(@Valid @RequestBody DriverSignupDTO driverSignupDTO) {
         driverService.checkIfDriverExists(driverSignupDTO.getPhoneNumber());
         otpService.sendOtp(driverSignupDTO.getPhoneNumber());
         tempSignupStorage.put(driverSignupDTO.getPhoneNumber(), driverSignupDTO);
@@ -39,8 +40,8 @@ public class DriverController {
 
     @PostMapping("/signup/verify-otp")
     @Operation(summary = "Verify OTP and complete driver signup")
-    public ResponseEntity<DriverResponseDTO> verifyOtp(@RequestParam String phoneNumber,
-                                                       @RequestParam String otp) {
+    public ResponseEntity<DriverResponseDTO> verifySignupOtp(@RequestParam String phoneNumber,
+                                                             @RequestParam String otp) {
         if (!otpService.verifyOtp(phoneNumber, otp)) {
             return ResponseEntity.badRequest().build();
         }
@@ -58,12 +59,34 @@ public class DriverController {
                 .body(response);
     }
 
+
+    @PostMapping("/login/request-otp")
+    @Operation(summary = "Request OTP for driver login")
+    public ResponseEntity<String> requestLoginOtp(@RequestParam String phoneNumber) {
+        driverService.getDriverByPhoneNumber(phoneNumber);
+        otpService.sendOtp(phoneNumber);
+        return ResponseEntity.ok("OTP sent to " + phoneNumber);
+    }
+
+    @PostMapping("/login/verify-otp")
+    @Operation(summary = "Verify OTP and log in driver")
+    public ResponseEntity<DriverResponseDTO> verifyLoginOtp(@RequestParam String phoneNumber,
+                                                            @RequestParam String otp) {
+        if (!otpService.verifyOtp(phoneNumber, otp)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        DriverResponseDTO driver = driverService.getDriverByPhoneNumber(phoneNumber);
+        otpService.clearOtp(phoneNumber);
+        return ResponseEntity.ok(driver);
+    }
+
+
     @PatchMapping("/updateDriver/{driverId}")
     @Operation(summary = "Update driver details")
     public ResponseEntity<DriverResponseDTO> updateDriver(
             @PathVariable Long driverId,
             @Valid @RequestBody DriverUpdateDTO updateDTO) {
-
         DriverResponseDTO response = driverService.updateDriver(driverId, updateDTO);
         return ResponseEntity.ok(response);
     }

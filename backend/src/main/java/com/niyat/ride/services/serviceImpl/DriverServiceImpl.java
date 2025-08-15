@@ -9,7 +9,6 @@ import com.niyat.ride.mappers.DriverMapper;
 import com.niyat.ride.models.Driver;
 import com.niyat.ride.repositories.DriverRepository;
 import com.niyat.ride.services.DriverService;
-import com.niyat.ride.utils.Helpers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,23 +24,26 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public void checkIfDriverExists(String phoneNumber) {
-
-//          driverRepository.findByPhoneNumber(phoneNumber)
-//                .ifPresent(d -> {
-//                    throw new RuntimeException(
-//                            "Driver with phone number " + phoneNumber + " already exists"
-//                    );
-//                });
+          driverRepository.findByPhoneNumber(phoneNumber)
+                .ifPresent(d -> {
+                    throw new RuntimeException(
+                            "Driver with phone number " + phoneNumber + " already exists"
+                    );
+                });
     }
+
+    @Override
+    public DriverResponseDTO getDriverByPhoneNumber(String phoneNumber) {
+        Driver driver = driverRepository.findByPhoneNumber(phoneNumber)
+                .orElseThrow(() -> new RuntimeException("Driver not found with phone: " + phoneNumber));
+        return driverMapper.toResponseDTO(driver);
+    }
+
 
     @Override
     @Transactional
     public DriverResponseDTO signUpDriver(DriverSignupDTO driverSignupDTO) {
-//        driverRepository.findByPhoneNumber(driverSignupDTO.getPhoneNumber())
-//                .ifPresent(d -> {
-//                    throw new RuntimeException(
-//                            "Driver with phone number " + d.getPhoneNumber() + " already exists");
-//                });
+        checkIfDriverExists(driverSignupDTO.getPhoneNumber());
 
         driverRepository.findByLicenseNumber(driverSignupDTO.getLicenseNumber())
                 .ifPresent(d -> {
@@ -50,10 +52,14 @@ public class DriverServiceImpl implements DriverService {
                 });
 
         Driver driver = driverMapper.toEntity(driverSignupDTO);
-        driver.setPassword(Helpers.encryptPassword(driverSignupDTO.getPassword()));
+        driver.setName(driverSignupDTO.getFullName());
         driver.setRole(Role.DRIVER);
+        driver.setPlateNumber(driverSignupDTO.getVehiclePlateNumber());
+        driver.setVehicleType(driver.getVehicleType());
         driver.setPhoneNumber(driverSignupDTO.getPhoneNumber());
         driver.setStatus(AccountStatus.ACTIVE);
+        driver.setIsVerified(true);
+        driver.setVerifiedAt(LocalDateTime.now());
         driver.setCreatedAt(LocalDateTime.now());
         driver.setUpdatedAt(LocalDateTime.now());
         Driver savedDriver = driverRepository.save(driver);
@@ -67,18 +73,19 @@ public class DriverServiceImpl implements DriverService {
         Driver driver = driverRepository.findById(driverId)
                 .orElseThrow(() -> new RuntimeException("Driver not found with id: " + driverId));
 
-        driver.setFirstName(updateDTO.getFirstName());
-        driver.setLastName(updateDTO.getLastName());
         driver.setEmail(updateDTO.getEmail());
         if (updateDTO.getVehicleType() != null) {
             driver.setVehicleType(updateDTO.getVehicleType());
         }
         if (updateDTO.getVehiclePlateNumber() != null) {
-            driver.setVehiclePlateNumber(updateDTO.getVehiclePlateNumber());
+            driver.setPlateNumber(updateDTO.getVehiclePlateNumber());
         }
         driver.setUpdatedAt(LocalDateTime.now());
 
         Driver updatedDriver = driverRepository.save(driver);
         return driverMapper.toResponseDTO(updatedDriver);
     }
+
+
+
 }

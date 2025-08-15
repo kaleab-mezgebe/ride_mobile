@@ -9,13 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 public class CustomerUpdateDTO {
 
-    @NotBlank(message = "First name is required")
-    private String firstName;
+    @NotBlank(message = "full name is required")
+    private String fullName;
 
-    @NotBlank(message = "Last name is required")
-    private String lastName;
-
-    @NotBlank(message = "Last name is required")
     @Email(message = "Email should be valid")
     private String email;
 

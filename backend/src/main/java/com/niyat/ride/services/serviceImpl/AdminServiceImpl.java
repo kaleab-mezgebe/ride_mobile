@@ -32,7 +32,6 @@ public class AdminServiceImpl implements AdminService {
                 });
 
         Admin admin = adminMapper.toEntity(adminSignupDTO);
-        admin.setPassword(Helpers.encryptPassword(adminSignupDTO.getPassword()));
         admin.setRole(Role.Admin);
         admin.setPhoneNumber(adminSignupDTO.getPhoneNumber());
         admin.setCreatedAt(LocalDateTime.now());
@@ -48,8 +47,7 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = adminRepository.findById(adminId)
                 .orElseThrow(() -> new RuntimeException("Admin not found with id: " + adminId));
 
-        admin.setFirstName(updateDTO.getFirstName());
-        admin.setLastName(updateDTO.getLastName());
+        admin.setName(updateDTO.getFirstName());
         admin.setEmail(updateDTO.getEmail());
         admin.setUpdatedAt(LocalDateTime.now());
 

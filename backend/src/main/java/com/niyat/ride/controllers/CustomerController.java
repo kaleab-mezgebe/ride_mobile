@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RestController
 @RequestMapping("/api/customers")
 @RequiredArgsConstructor
-@Tag(name = "Customer Management", description = "Endpoints for customer operations")
+@Tag(name = "Customer Management", description = "Endpoints for passenger operations")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -30,24 +30,26 @@ public class CustomerController {
 
     @PostMapping("/signup/request-otp")
     @Operation(summary = "Request OTP for customer signup")
-    public ResponseEntity<String> requestOtp(@Valid @RequestBody CustomerSignupDTO customerSignupDTO) {
-        customerService.checkIfCustomerExists(customerSignupDTO.getPhoneNumber());
-        otpService.sendOtp(customerSignupDTO.getPhoneNumber());
-        tempSignupStorage.put(customerSignupDTO.getPhoneNumber(), customerSignupDTO);
-        return ResponseEntity.ok("OTP sent to " + customerSignupDTO.getPhoneNumber());
+    public ResponseEntity<String> requestSignupOtp(@Valid @RequestBody CustomerSignupDTO signupDTO) {
+        customerService.checkIfCustomerExists(signupDTO.getPhoneNumber());
+        otpService.sendOtp(signupDTO.getPhoneNumber());
+        tempSignupStorage.put(signupDTO.getPhoneNumber(), signupDTO);
+        return ResponseEntity.ok("OTP sent to " + signupDTO.getPhoneNumber());
     }
 
     @PostMapping("/signup/verify-otp")
     @Operation(summary = "Verify OTP and complete customer signup")
-    public ResponseEntity<CustomerResponseDTO> verifyOtp(@RequestParam String phoneNumber,
-                                                         @RequestParam String otp) {
+    public ResponseEntity<CustomerResponseDTO> verifySignupOtp(
+            @RequestParam String phoneNumber,
+            @RequestParam String otp) {
+
         if (!otpService.verifyOtp(phoneNumber, otp)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(null);
         }
 
         CustomerSignupDTO signupDTO = tempSignupStorage.get(phoneNumber);
         if (signupDTO == null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(null);
         }
 
         CustomerResponseDTO response = customerService.signUpCustomer(signupDTO);
@@ -56,6 +58,31 @@ public class CustomerController {
 
         return ResponseEntity.created(URI.create("/api/customers/" + response.getId()))
                 .body(response);
+    }
+
+
+    @PostMapping("/login/request-otp")
+    @Operation(summary = "Request OTP for customer login")
+    public ResponseEntity<String> requestLoginOtp(@RequestParam String phoneNumber) {
+        customerService.getCustomerByPhoneNumber(phoneNumber); // throws if not found
+        otpService.sendOtp(phoneNumber);
+        return ResponseEntity.ok("OTP sent to " + phoneNumber);
+    }
+
+    @PostMapping("/login/verify-otp")
+    @Operation(summary = "Verify OTP and log in customer")
+    public ResponseEntity<CustomerResponseDTO> verifyLoginOtp(
+            @RequestParam String phoneNumber,
+            @RequestParam String otp) {
+
+        if (!otpService.verifyOtp(phoneNumber, otp)) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        CustomerResponseDTO response = customerService.getCustomerByPhoneNumber(phoneNumber);
+        otpService.clearOtp(phoneNumber);
+
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/updateCustomer/{customerId}")

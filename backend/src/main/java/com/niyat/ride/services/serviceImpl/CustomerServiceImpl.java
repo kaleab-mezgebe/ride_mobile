@@ -11,7 +11,6 @@ import com.niyat.ride.mappers.CustomerMapper;
 import com.niyat.ride.models.Customer;
 import com.niyat.ride.repositories.CustomerRepository;
 import com.niyat.ride.services.CustomerService;
-import com.niyat.ride.utils.Helpers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,16 +27,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public CustomerResponseDTO signUpCustomer(CustomerSignupDTO customerSignupDTO) {
-        customerRepository.findByPhoneNumber(customerSignupDTO.getPhoneNumber())
-                .ifPresent(c -> {
-                    throw new CustomerAlreadyExistsException(
-                            "Customer with phone number " + c.getPhoneNumber() + " already exists");
-                });
+        checkIfCustomerExists(customerSignupDTO.getPhoneNumber());
 
         Customer customer = customerMapper.toEntity(customerSignupDTO);
-        customer.setPassword(Helpers.encryptPassword(customerSignupDTO.getPassword()));
         customer.setRole(Role.CUSTOMER);
         customer.setPhoneNumber(customerSignupDTO.getPhoneNumber());
+        customer.setIsVerified(true);
+        customer.setVerifiedAt(LocalDateTime.now());
         customer.setStatus(AccountStatus.ACTIVE);
         customer.setCreatedAt(LocalDateTime.now());
         customer.setUpdatedAt(LocalDateTime.now());
@@ -53,8 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new CustomerDoesNotExistException("Customer not found with id: " + customerId));
 
-        customer.setFirstName(updateDTO.getFirstName());
-        customer.setLastName(updateDTO.getLastName());
+        customer.setName(updateDTO.getFullName());
         customer.setEmail(updateDTO.getEmail());
         customer.setUpdatedAt(LocalDateTime.now());
 
@@ -71,4 +66,12 @@ public class CustomerServiceImpl implements CustomerService {
                     );
                 });
     }
+
+    @Override
+    public CustomerResponseDTO getCustomerByPhoneNumber(String phoneNumber) {
+        Customer customer = customerRepository.findByPhoneNumber(phoneNumber)
+                .orElseThrow(() -> new RuntimeException("Customer not found with phone: " + phoneNumber));
+        return customerMapper.toResponseDTO(customer);
+    }
+
 }

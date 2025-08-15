@@ -7,5 +7,4 @@ import lombok.Data;
 @Entity
 @Table(name = "customers")
 public class Customer extends User {
-    private AccountStatus status;
 }

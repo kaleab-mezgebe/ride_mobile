@@ -18,10 +18,10 @@ public class Driver extends User {
     @Column(unique = true, nullable = false)
     private String plateNumber;
     
-    @Column(nullable = false)
+
     private String vehicleType;
     
-    @Column(nullable = false)
+
     private String vehicleColor;
 
     @Column(name = "license_image_path")

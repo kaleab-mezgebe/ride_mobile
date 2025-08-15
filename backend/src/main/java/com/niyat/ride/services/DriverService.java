@@ -8,4 +8,7 @@ public interface DriverService {
     DriverResponseDTO signUpDriver(DriverSignupDTO driverSignupDTO);
     DriverResponseDTO updateDriver(Long driverId, DriverUpdateDTO updateDTO);
     void checkIfDriverExists(String phoneNumber);
+    DriverResponseDTO getDriverByPhoneNumber(String phoneNumber);
+
+
 }
