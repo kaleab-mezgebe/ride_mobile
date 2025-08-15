@@ -23,10 +23,10 @@ const Login = () => {
     isChecked: false,
   });
   const InputChangeHandler = (event) => {
-    const { name, value, type, checked } = event.target;
+    const { name, value } = event.target;
     setValues((prevValues) => ({
       ...prevValues,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
   const submitHandler = async (event) => {
@@ -52,8 +52,8 @@ const Login = () => {
         token: response.credential,
       });
       if (res.status === 200) {
-        const { email, fullName, _id, companyName, role } = res.data.data.user;
-        const name = role === "company" ? companyName : fullName;
+        const { email, fullName, _id, companyName: adminName, role } = res.data.data.user;
+        const name = role === "company" ? adminName : fullName;
         dispatch(authActions.login({ email, name, _id, role }));
         navigate("/Dashboard");
       }
@@ -67,11 +67,11 @@ const Login = () => {
     <div className="registrationContainer">
       <h2 className="title">
         <img src={enter} alt="" width={45} height={45} />
-        Login
+      Admin Login
       </h2>
       <GoogleOAuthProvider clientId="664999914369-t8udl75vmjfughnd95here6ak2bd3jf4.apps.googleusercontent.com">
-        <form onSubmit={submitHandler}>
-          <div className="gridContainer">
+        <form onSubmit={submitHandler} className="form">
+          <div className="gridContainerForlogin">
             <Input
               type="email"
               id="email"
@@ -108,29 +108,18 @@ const Login = () => {
               }
             />
           </div>
-          <div className="checkboxLabel">
-            <input
-              type="checkbox"
-              id="terms"
-              name="isChecked"
-              className="checkbox"
-              checked={values.isChecked}
-              onChange={InputChangeHandler}
-            />
-            <label htmlFor="terms">Remember me next time.</label>
-          </div>
+          <button type="submit" className="registerButton">
+              Login
+            </button>
           <div className="authOption">
             <p className="loginOption">
-              Forgot Password?{" "}
               <NavLink to="/Resetpassword" className="highlight">
-                Reset
+                 Forgot Password
               </NavLink>
               <br/>
               <p>if you have not an account <NavLink to="/Signup">Signup</NavLink></p>
             </p>
-            <button type="submit" className="registerButton">
-              Login
-            </button>
+           
           </div>
           <div className="divider">OR CONTINUE WITH</div>
           <div className="google">

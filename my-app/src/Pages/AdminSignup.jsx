@@ -185,28 +185,7 @@ const AdminSignup = () => {
             />
           </div>
 
-          <div className="checkboxLabel">
-            <input
-              type="checkbox"
-              id="terms"
-              name="terms"
-              className="checkbox"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-            />
-            <label htmlFor="terms">
-              By creating an account, you agree to our{" "}
-              <NavLink to="/terms" className="highlight">
-                Terms and Conditions
-              </NavLink>{" "}
-              and{" "}
-              <NavLink to="/privacy" className="highlight">
-                Privacy Policy
-              </NavLink>
-              .
-            </label>
-          </div>
-
+         
           <div className="authOption">
             <p className="loginOption">
               Already have an account? <NavLink to="/">Login</NavLink>
