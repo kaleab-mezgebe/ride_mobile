@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AdminRegistration from "./Pages/AdminRegistration";
 import Login from "./Pages/Login";
 import RootLayout from "./Pages/RootLayout";
+import AdminSignup from "./Pages/AdminSignup";
 // import PageNotFound from "./Pages/Layout/PageNotFound";
 
 function App() {
@@ -11,13 +11,10 @@ function App() {
       element: <RootLayout />,
       children: [
         { index: true, element: <Login /> },
-        // { path: "*", element: <PageNotFound /> },
+        { path: "/Signup", element: <AdminSignup /> },
       ],
     },
-    {
-      path: "/admin-registration",
-      element: <AdminRegistration />,
-    },
+  
   ]);
   return <RouterProvider router={router} />
 }

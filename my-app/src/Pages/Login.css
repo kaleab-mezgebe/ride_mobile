@@ -90,7 +90,7 @@
 .checkbox:checked {
   position: relative;
   content: "";
-  /* background: url("../../assets/check.png") no-repeat center; */
+  background: url("../../assets/check.png") no-repeat center;
   background-size: contain;
   background-color: #dfdfdf;
   border: none;
@@ -112,7 +112,7 @@
 .registerButton {
   margin-bottom: 30px;
   padding: 14px 26px;
-  background: #4285f4;
+  background: #8967b3;
   color: #ffff;
   font-size: 20px;
   border: none;
@@ -162,10 +162,55 @@
   right: 0;
 }
 
-.google {
-  position: relative;
+.S9gUrf-YoZ4jf {
+  border-radius: 10px;
+  width: 340px;
+  left: 0%;
+  overflow: hidden;
+  color: white;
+}
+.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+  font-family: "Kantumruy Pro" !important;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
 }
 
+.S9gUrf-YoZ4jf,
+.S9gUrf-YoZ4jf *,
+.S9gUrf-YoZ4jf,
+.S9gUrf-YoZ4jf *:hover {
+  background: #4285f4;
+  height: 50.5px;
+  display: flex;
+  border: none !important;
+  justify-content: center;
+  align-items: center;
+}
+.S9gUrf-YoZ4jf div {
+  background: #4285f4;
+}
+.google {
+  display: flex;
+  align-items: center;
+  position: relative;
+  left: 27%;
+}
+.icon {
+  z-index: 100;
+  width: 16px;
+  position: relative;
+  left: 9%;
+  bottom: -5px;
+}
+
+.nsm7Bb-HzV7m-LgbsSe-Bz112c svg path {
+  fill: none;
+}
+.domainText {
+  font-size: 16px; /* Adjust font size */
+  color: white; /* Text color */
+}
 @media (max-width: 414px) {
   .registrationContainer {
     width: 98%;

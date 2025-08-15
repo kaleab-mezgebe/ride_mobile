@@ -125,6 +125,8 @@ const Login = () => {
               <NavLink to="/Resetpassword" className="highlight">
                 Reset
               </NavLink>
+              <br/>
+              <p>if you have not an account <NavLink to="/Signup">Signup</NavLink></p>
             </p>
             <button type="submit" className="registerButton">
               Login
