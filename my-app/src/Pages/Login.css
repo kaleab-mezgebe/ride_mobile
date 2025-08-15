@@ -49,7 +49,6 @@
   justify-content: center;
   gap: 40px;
 }
-
 /* Grid Container for Inputs */
 .gridContainer {
   display: grid;
@@ -81,11 +80,7 @@
   color: red;
   text-align: center;
 }
-.authOption {
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-}
+
 /* Register Button */
 .registerButton {
   padding: 14px 26px;
@@ -167,12 +162,14 @@
 }
 .S9gUrf-YoZ4jf div {
   background: #4285f4;
+  width: 100%;
+  height: 100%;
 }
 .google {
   display: flex;
   align-items: center;
   position: relative;
-  left: 27%;
+  left: 20%;
 }
 .icon {
   z-index: 100;

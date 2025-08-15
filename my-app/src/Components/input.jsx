@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./input.module.css";
 // import eye from "../../assets/eye.png";
-// import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 const Input = ({
   id,
   label,
@@ -58,11 +58,11 @@ const Input = ({
               onClick={togglePasswordVisibility}
               className={styles.eyeIconContainer}
             >
-              {/* {showPassword ? (
+              {showPassword ? (
                 <MdVisibility className={styles.eyeIcon} />
               ) : (
                 <MdVisibilityOff className={styles.eyeIcon} />
-              )} */}
+              )}
             </span>
           )}
         </div>

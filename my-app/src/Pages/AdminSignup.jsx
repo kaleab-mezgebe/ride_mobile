@@ -51,13 +51,7 @@ const AdminSignup = () => {
     inputBlurHandler: confirmPasswordBlurHandler,
     resetValue: resetConfirmPasswordValue,
   } = useInput((value) => value.trim().length > 6 && value === enteredPassword);
-
-  const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false); // Loading state for the API call
-
-  const handleCheckboxChange = (event) => {
-    setIsChecked(event.target.checked);
-  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -67,7 +61,6 @@ const AdminSignup = () => {
       email: enteredEmail,
       password: enteredPassword,
       passwordConfirm: confirmEnteredPassword,
-      isChecked: isChecked,
     };
     try {
       setLoading(true);
@@ -78,7 +71,6 @@ const AdminSignup = () => {
       resetEmailValue();
       resetPasswordValue();
       resetConfirmPasswordValue();
-      setIsChecked(false);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -186,14 +178,13 @@ const AdminSignup = () => {
           </div>
 
          
-          <div className="authOption">
-            <p className="loginOption">
-              Already have an account? <NavLink to="/">Login</NavLink>
-            </p>
-
+          <div className="">
             <button type="submit" className="registerButton" disabled={loading}>
               {loading ? "Registering..." : "Register"}
             </button>
+            <p className="loginOption">
+              Already have an account? <NavLink to="/">Login</NavLink>
+            </p>
           </div>
 
           <div className="divider">OR CONTINUE WITH</div>

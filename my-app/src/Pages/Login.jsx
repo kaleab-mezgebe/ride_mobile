@@ -111,16 +111,16 @@ const Login = () => {
           <button type="submit" className="registerButton">
               Login
             </button>
-          <div className="authOption">
+        
             <p className="loginOption">
               <NavLink to="/Resetpassword" className="highlight">
                  Forgot Password
               </NavLink>
               <br/>
-              <p>if you have not an account <NavLink to="/Signup">Signup</NavLink></p>
+              <p>If you have not an account <NavLink to="/Signup">Signup</NavLink></p>
             </p>
            
-          </div>
+     
           <div className="divider">OR CONTINUE WITH</div>
           <div className="google">
             <img src={google} alt="" className="icon" />
