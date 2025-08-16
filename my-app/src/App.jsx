@@ -14,8 +14,14 @@ function App() {
         { path: "/Signup", element: <AdminSignup /> },
       ],
     },
-  
   ]);
-  return <RouterProvider router={router} />
+  return (
+    <>
+      <RouterProvider router={router} />
+      <div className="bg-blue-500 text-white p-4 rounded shadow-lg">
+        Tailwind CSS is working! ✅
+      </div>
+    </>
+  );
 }
 export default App;

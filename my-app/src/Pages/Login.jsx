@@ -31,33 +31,39 @@ const Login = () => {
   };
   const submitHandler = async (event) => {
     event.preventDefault();
-    try {
-      const res = await api.post("/auth/login", values, {});
-      if (res.status === 200) {
-        console.log(res);
-        const { email, fullName, _id, companyName, role } = res.data.data.user;
-        const token = res.data.token;
-        const name = role === "company" ? companyName : fullName;
-        dispatch(
-          authActions.login({ email, name, fullName, _id, token, role })
-        );
-        navigate(Redirectpath, { replace: true });
-      }
-    } catch (error) {}
+    // try {
+    //   const res = await api.post("/auth/login", values, {});
+    //   if (res.status === 200) {
+    //     console.log(res);
+    //     const { email, fullName, _id, adminName, role } = res.data.data.user;
+    //     const token = res.data.token;
+    //     const name = role === "admin" ? adminName : fullName;
+    //     dispatch(
+    //       authActions.login({ email, name, fullName, _id, token, role })
+    //     );
+    //     navigate(Redirectpath, { replace: true });
+    //   }
+    // } catch (error) {}
   };
   const { width } = Windowresponsiv();
   const handleGoogleSuccess = async (response) => {
-    try {
-      const res = await api.post("/auth/google/login", {
-        token: response.credential,
-      });
-      if (res.status === 200) {
-        const { email, fullName, _id, companyName: adminName, role } = res.data.data.user;
-        const name = role === "company" ? adminName : fullName;
-        dispatch(authActions.login({ email, name, _id, role }));
-        navigate("/Dashboard");
-      }
-    } catch (error) {}
+    // try {
+    //   const res = await api.post("/auth/google/login", {
+    //     token: response.credential,
+    //   });
+    //   if (res.status === 200) {
+    //     const {
+    //       email,
+    //       fullName,
+    //       _id,
+    //       adminyName: adminName,
+    //       role,
+    //     } = res.data.data.user;
+    //     const name = role === "admin" ? adminName : fullName;
+    //     dispatch(authActions.login({ email, name, _id, role }));
+    //     navigate("/Dashboard");
+    //   }
+    // } catch (error) {}
   };
   const handleGoogleFailure = (error) => {
     dispatch(setError("login failed!"));
@@ -67,7 +73,7 @@ const Login = () => {
     <div className="registrationContainer">
       <h2 className="title">
         <img src={enter} alt="" width={45} height={45} />
-      Admin Login
+        Admin Login
       </h2>
       <GoogleOAuthProvider clientId="664999914369-t8udl75vmjfughnd95here6ak2bd3jf4.apps.googleusercontent.com">
         <form onSubmit={submitHandler} className="form">
@@ -109,18 +115,19 @@ const Login = () => {
             />
           </div>
           <button type="submit" className="registerButton">
-              Login
-            </button>
-        
-            <p className="loginOption">
-              <NavLink to="/Resetpassword" className="highlight">
-                 Forgot Password
-              </NavLink>
-              <br/>
-              <p>If you have not an account <NavLink to="/Signup">Signup</NavLink></p>
+            Login
+          </button>
+
+          <p className="loginOption">
+            <NavLink to="/Resetpassword" className="highlight">
+              Forgot Password
+            </NavLink>
+            <br />
+            <p>
+              If you have not an account <NavLink to="/Signup">Signup</NavLink>
             </p>
-           
-     
+          </p>
+
           <div className="divider">OR CONTINUE WITH</div>
           <div className="google">
             <img src={google} alt="" className="icon" />

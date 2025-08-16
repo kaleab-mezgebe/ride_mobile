@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import "./Login.css";
 import key from "../assets/mdkey.png";
 import email from "../assets/email.png";
@@ -62,23 +62,23 @@ const AdminSignup = () => {
       password: enteredPassword,
       passwordConfirm: confirmEnteredPassword,
     };
-    try {
-      setLoading(true);
-      const response = await api.post("/freelancers/register", userData);
-      alert("Registration successful!");
-      // Reset form
-      resetNameValue();
-      resetEmailValue();
-      resetPasswordValue();
-      resetConfirmPasswordValue();
-    } catch (error) {
-    } finally {
-      setLoading(false);
-    }
+    // try {
+    //   setLoading(true);
+    //   const response = await api.post("/register", userData);
+    //   alert("Registration successful!");
+    //   // Reset form
+    //   resetNameValue();
+    //   resetEmailValue();
+    //   resetPasswordValue();
+    //   resetConfirmPasswordValue();
+    // } catch (error) {
+    // } finally {
+    //   setLoading(false);
+    // }
   };
   const handleGoogleSuccess = async (response) => {
     try {
-      const res = await api.post("/freelancers/auth/google/register", {
+      const res = await api.post("/auth/google/register", {
         token: response.credential, // Send Google token to the backend
       });
       if (res.status === 200) {
@@ -94,11 +94,8 @@ const AdminSignup = () => {
   const handleGoogleFailure = (error) => {};
   return (
     <GoogleOAuthProvider clientId="664999914369-t8udl75vmjfughnd95here6ak2bd3jf4.apps.googleusercontent.com">
-     
       <div className="registrationContainer">
-        <h2 className="title">
-          Admin Registration
-        </h2>
+        <h2 className="title">Admin Registration</h2>
         <form onSubmit={submitHandler}>
           <div className="gridContainer">
             <Input
@@ -177,7 +174,6 @@ const AdminSignup = () => {
             />
           </div>
 
-         
           <div className="">
             <button type="submit" className="registerButton" disabled={loading}>
               {loading ? "Registering..." : "Register"}
