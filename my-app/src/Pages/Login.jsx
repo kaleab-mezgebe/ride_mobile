@@ -134,7 +134,7 @@ className="text-blue-500"        >
           If you have n't an account{" "}
           <NavLink
             to="/Signup"
-className="text-blue-500 "          >
+className="text-blue-500"          >
             Signup
           </NavLink>
      
