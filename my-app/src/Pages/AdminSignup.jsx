@@ -32,14 +32,14 @@ const AdminSignup = () => {
     inputBlurHandler: emailBlurHandler,
     resetValue: resetEmailValue,
   } = useInput((value) => value.includes("@"));
- const {
+  const {
     value: enteredPhone,
     isValid: enteredPhoneIsValid,
     hasError: enteredPhoneHasError,
     valueChangeHandler: phoneChangeHandler,
     inputBlurHandler: phoneBlurHandler,
     resetValue: resetPhoneValue,
-  } = useInput((value) => value.trim().length===10);
+  } = useInput((value) => value.trim().length === 10);
   const {
     value: enteredPassword,
     isValid: enteredPasswordIsValid,
@@ -62,7 +62,7 @@ const AdminSignup = () => {
     const userData = {
       fullName: enteredName,
       email: enteredEmail,
-    phone: enteredPhone,
+      phone: enteredPhone,
       password: enteredPassword,
       passwordConfirm: confirmEnteredPassword,
     };
@@ -98,149 +98,142 @@ const AdminSignup = () => {
   const handleGoogleFailure = (error) => {};
   return (
     <GoogleOAuthProvider clientId="">
-     <div className="w-[72%] mx-[15%] mt-[50px] mb-[70px] max-[414px]:w-[98%] max-[414px]:mx-[1%]">
-  <h2 className="text-[32px] font-bold mb-8 flex items-center justify-center gap-10 max-[414px]:flex-col max-[414px]:text-[28px] max-[414px]:gap-3">
-        <img src={admin} alt="" width={90} height={90} />
-    
-    Admin Registration
-  </h2>
-
-  <form onSubmit={submitHandler}>
-    {/* Grid Container for Inputs */}
-<div className="grid grid-cols-1 gap-7 sm:grid-cols-2 mb-5">
-      <Input
-        type="text"
-        id="fullName"
-        name="fullName"
-        label="Full Name"
-        placeholder="Abebe Bekila"
-        value={enteredName}
-        onChange={nameChangeHandler}
-        onBlur={nameBlurHandler}
-        hasError={enteredNameHasError}
-        icon={<img src={user} alt="" width={20} height={20} />}
-        required
-      />
-      <Input
-        type="email"
-        id="email"
-        name="email"
-        label="Email"
-        placeholder="abebe@gmail.com"
-        value={enteredEmail}
-        onChange={emailChangeHandler}
-        onBlur={emailBlurHandler}
-        hasError={enteredEmailHasError}
-        icon={
+      <div className="w-[72%] mx-[15%] mt-[50px] mb-[70px] max-[414px]:w-[98%] max-[414px]:mx-[1%]">
+        <h2 className="text-[32px] font-bold mb-8 flex items-center justify-center gap-10 max-[414px]:flex-col max-[414px]:text-[28px] max-[414px]:gap-3">
           <img
-            src={email}
+            src={admin}
             alt=""
-            width={width > 414 ? 17 : 23}
-            height={width > 414 ? 16 : 18}
+            width={90}
+            height={90}
+            className="dark:invert"
           />
-        }
-        required
-      />
-<Input
-        type="number"
-        id="Phone"
-        name="Phone"
-        label="Phone"
-        placeholder="enter phone number"
-        value={enteredPhone}
-        onChange={phoneChangeHandler}
-        onBlur={phoneBlurHandler}
-        hasError={enteredPhoneHasError}
-        icon={
-          <img className=" bg-white-500"
-            src={call
-}
-            alt=""
-            width={width > 414 ? 17 : 23}
-            height={width > 414 ? 16 : 18}
-          />
-        }
-        required
-      />
-      <Input
-        type="password"
-        id="password"
-        name="password"
-        label="Password"
-        placeholder="*************"
-        value={enteredPassword}
-        onChange={passwordChangeHandler}
-        onBlur={passwordBlurHandler}
-        hasError={enteredPasswordHasError}
-        icon={
-          <img
-            src={key}
-            alt=""
-          width={23}
-            height={12}
-          />
-        }
-        isVisible
-        required
-      />
-      <Input
-        type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        label="Confirm Password"
-        placeholder="**************"
-        value={confirmEnteredPassword}
-        onChange={confirmPasswordChangeHandler}
-        onBlur={confirmPasswordBlurHandler}
-        hasError={confirmEnteredPasswordHasError}
-        icon={
-          <img
-            src={key}
-            alt=""
-            width={23}
-            height={12}
-          />
-        }
-        required
-      />
-    </div>
+          Admin Registration
+        </h2>
 
-    {/* Submit Button + Login Option */}
-    <div className="mb-5">
-      <button
-        type="submit"
-        className="block mx-auto bg-blue-500 text-white text-[20px] font-semibold px-6 py-3 rounded-lg hover:bg-black transition duration-300"
-        disabled={loading}
-      >
-        {loading ? "Registering..." : "Register"}
-      </button>
-      <p className="text-center text-[16px] mt-4">
-        Already have an account?{" "}
-        <NavLink className="text-blue-500 " to="/">
-          Login
-        </NavLink>
-      </p>
-    </div>
+        <form onSubmit={submitHandler}>
+          {/* Grid Container for Inputs */}
+          <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 mb-5">
+            <Input
+              type="text"
+              id="fullName"
+              name="fullName"
+              label="Full Name"
+              placeholder="Abebe Bekila"
+              value={enteredName}
+              onChange={nameChangeHandler}
+              onBlur={nameBlurHandler}
+              hasError={enteredNameHasError}
+              icon={<img src={user} alt="" width={20} height={20} />}
+              required
+            />
+            <Input
+              type="email"
+              id="email"
+              name="email"
+              label="Email"
+              placeholder="abebe@gmail.com"
+              value={enteredEmail}
+              onChange={emailChangeHandler}
+              onBlur={emailBlurHandler}
+              hasError={enteredEmailHasError}
+              icon={
+                <img
+                  src={email}
+                  alt=""
+                  width={width > 414 ? 17 : 23}
+                  height={width > 414 ? 16 : 18}
+                />
+              }
+              required
+            />
+            <Input
+              type="number"
+              id="Phone"
+              name="Phone"
+              label="Phone"
+              placeholder="enter phone number"
+              value={enteredPhone}
+              onChange={phoneChangeHandler}
+              onBlur={phoneBlurHandler}
+              hasError={enteredPhoneHasError}
+              icon={
+                <img
+                  className=" bg-white-500"
+                  src={call}
+                  alt=""
+                  width={width > 414 ? 17 : 23}
+                  height={width > 414 ? 16 : 18}
+                />
+              }
+              required
+            />
 
-    {/* Divider */}
-    <div className="relative text-center text-[14px] font-bold text-gray-500 my-6">
-      <span className="relative z-10 bg-white px-3">OR CONTINUE WITH</span>
-      <div className="absolute top-1/2 left-0 w-[35%] h-[3px] bg-gray-300"></div>
-      <div className="absolute top-1/2 right-0 w-[35%] h-[3px] bg-gray-300"></div>
-    </div>
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              label="Password"
+              placeholder="*************"
+              value={enteredPassword}
+              onChange={passwordChangeHandler}
+              onBlur={passwordBlurHandler}
+              hasError={enteredPasswordHasError}
+              icon={<img src={key} alt="" width={23} height={12} />}
+              isVisible
+              required
+            />
+            <Input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              label="Confirm Password"
+              placeholder="**************"
+              value={confirmEnteredPassword}
+              onChange={confirmPasswordChangeHandler}
+              onBlur={confirmPasswordBlurHandler}
+              hasError={confirmEnteredPasswordHasError}
+              icon={<img src={key} alt="" width={23} height={12} />}
+              required
+            />
+          </div>
 
-    {/* Google Login */}
-    <div className=" w-3/4 lg:w-1/4 mx-auto ">
-      <GoogleLogin
-        onSuccess={handleGoogleSuccess}
-        onError={handleGoogleFailure}
-        useOneTap
-        text="continue_with"
-      />
-    </div>
-  </form>
-</div>
+          {/* Submit Button + Login Option */}
+          <div className="mb-5">
+            <button
+              type="submit"
+              className="block mx-auto bg-blue-500 text-white text-[20px] font-semibold px-6 py-3 rounded-lg hover:bg-black transition duration-300"
+              disabled={loading}
+            >
+              {loading ? "Registering..." : "Register"}
+            </button>
+            <p className="text-center text-[16px] mt-4">
+              Already have an account?{" "}
+              <NavLink className="text-blue-500 " to="/">
+                Login
+              </NavLink>
+            </p>
+          </div>
 
+          {/* Divider */}
+          <div className="relative text-center text-[14px] font-bold text-gray-500 my-6">
+            <span className="relative z-10 bg-white px-3">
+              OR CONTINUE WITH
+            </span>
+            <div className="absolute top-1/2 left-0 w-[35%] h-[3px] bg-gray-300"></div>
+            <div className="absolute top-1/2 right-0 w-[35%] h-[3px] bg-gray-300"></div>
+          </div>
+
+          {/* Google Login */}
+          <div className=" w-3/4 lg:w-1/4 mx-auto ">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleFailure}
+              useOneTap
+              text="continue_with"
+            />
+          </div>
+        </form>
+      </div>
     </GoogleOAuthProvider>
   );
 };

@@ -31,11 +31,10 @@ const Input = ({
       <label
         htmlFor={id}
         className={`text-[22px] font-medium mb-2 ${
-          hasError ? "text-red-500" : "text-gray-800"
+          hasError ? "text-red-500" : ""
         }`}
       >
-        {label}{" "}
-        {required && <span className="text-red-500">*</span>}
+        {label} {required && <span className="text-red-500">*</span>}
       </label>
 
       {/* Input Wrapper */}
@@ -47,7 +46,9 @@ const Input = ({
         {/* Icon Container */}
         <div
           className={`flex items-center justify-center ${
-            domainIcon ? "w-1/5 text-[20px] text-gray-300" : "w-[12.7%] bg-black h-full"
+            domainIcon
+              ? "w-1/5 text-[20px] text-gray-300"
+              : "w-[12.7%] bg-black h-full"
           }`}
         >
           {domainIcon === undefined ? icon : domainIcon}
