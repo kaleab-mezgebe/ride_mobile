@@ -52,7 +52,8 @@ public class DriverServiceImpl implements DriverService {
                 });
 
         Driver driver = driverMapper.toEntity(driverSignupDTO);
-        driver.setName(driverSignupDTO.getFullName());
+        driver.setFirstName(driverSignupDTO.getFirstName());
+        driver.setLastName(driverSignupDTO.getLastName());
         driver.setRole(Role.DRIVER);
         driver.setPlateNumber(driverSignupDTO.getVehiclePlateNumber());
         driver.setVehicleType(driver.getVehicleType());

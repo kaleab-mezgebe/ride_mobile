@@ -16,7 +16,12 @@ public class AdminUpdateDTO {
     @NotBlank(message = "Last name is required")
     private String lastName;
 
+    @NotBlank(message = "password is required")
+    private String password;
+
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;
+
+
 }

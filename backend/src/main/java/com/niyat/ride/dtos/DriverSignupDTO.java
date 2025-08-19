@@ -12,7 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DriverSignupDTO {
     @NotBlank(message = "Full name is required")
-    private String fullName;
+    private String firstName;
+
+    @NotBlank(message = "Full name is required")
+    private String lastName;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")

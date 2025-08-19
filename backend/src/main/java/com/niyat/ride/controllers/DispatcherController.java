@@ -23,16 +23,7 @@ public class DispatcherController {
     private final DispatcherService dispatcherService;
 
     @PostMapping("/signup")
-    @Operation(
-            summary = "Register a new dispatcher",
-            description = "Creates a new dispatcher account with the provided signup details.",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Dispatcher created successfully"),
-                    @ApiResponse(responseCode = "400", description = "Validation error"),
-                    @ApiResponse(responseCode = "409", description = "Dispatcher already exists"),
-                    @ApiResponse(responseCode = "500", description = "Internal server error")
-            }
-    )
+    @Operation(summary = "Register a new dispatcher")
     public ResponseEntity<DispatcherResponseDTO> signUpDispatcher(
             @Valid @RequestBody DispatcherSignupDTO dispatcherSignupDTO) {
 
