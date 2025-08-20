@@ -70,40 +70,42 @@ const UserTable = ({ filter }) => {
       />
 
       {/* User Table */}
-      <table className="w-full text-left border-collapse">
-        <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-700 ">
-            <th className="p-3">Profile</th>
-            <th className="p-3">User ID</th>
-            <th className="p-3">Name</th>
-            <th className="p-3">Email</th>
-            <th className="p-3">Role</th>
-            <th className="p-3">Status</th>
-            <th className="p-3">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedUsers.map((user) => (
-            <UserRow
-              key={user.id}
-              user={user}
-              onView={setSelectedUser}
-              onEdit={setEditUser}
-              onDelete={handleDelete}
-            />
-          ))}
-          {paginatedUsers.length === 0 && (
-            <tr>
-              <td
-                className="p-4 text-center text-gray-500 dark:text-gray-400"
-                colSpan={7}
-              >
-                No users found.
-              </td>
+      <div class="overflow-hidden rounded-lg border border-gray-300">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-[#dfdfdf] dark:bg-gray-700 border-b border-gray-400 border-b border-gray-200 dark:border-gray-800 ">
+              <th className="p-3">Profile</th>
+              <th className="p-3">User ID</th>
+              <th className="p-3">Name</th>
+              <th className="p-3">Email</th>
+              <th className="p-3">Role</th>
+              <th className="p-3">Status</th>
+              <th className="p-3">Actions</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {paginatedUsers.map((user) => (
+              <UserRow
+                key={user.id}
+                user={user}
+                onView={setSelectedUser}
+                onEdit={setEditUser}
+                onDelete={handleDelete}
+              />
+            ))}
+            {paginatedUsers.length === 0 && (
+              <tr>
+                <td
+                  className="p-4 text-center text-gray-500 dark:text-gray-400"
+                  colSpan={7}
+                >
+                  No users found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {/* Pagination */}
       <Pagination
