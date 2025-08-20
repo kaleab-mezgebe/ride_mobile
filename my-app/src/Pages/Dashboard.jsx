@@ -56,7 +56,7 @@ const recent = [
 
 export default function Dashboard() {
   return (
-    <Box sx={{ display: "flex", bgcolor: "#f6f7fb", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
       <Sidebar />
       <Box sx={{ flex: 1 }}>
         <Topbar />
