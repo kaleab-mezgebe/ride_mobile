@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -25,12 +25,13 @@ import {
 
 export default function Sidebar() {
   const [openSidebar, setOpenSidebar] = useState(true);
-  const [openUserMenu, setOpenUserMenu] = useState(false);
+  const [openUserMenu, setOpenUserMenu] = useState(true); // default open
+  const location = useLocation(); // ✅ Track current route
 
   const toggleSidebar = () => setOpenSidebar(!openSidebar);
 
   const navItems = [
-    { to: "/admin/dashboard", label: "Dashboard", icon: <MdDashboard /> },
+    { to: "/dashboard", label: "Dashboard", icon: <MdDashboard /> },
     { label: "User Management", icon: <MdPeople />, isDropdown: true },
     { to: "/admin/rides", label: "Ride Management", icon: <MdDirectionsCar /> },
     {
@@ -53,6 +54,16 @@ export default function Sidebar() {
     { to: "/BannedUsers", label: "Banned Users" },
   ];
 
+  // ✅ Auto-open if current route is inside userSubItems
+  useEffect(() => {
+    const isUserRoute = userSubItems.some((sub) =>
+      location.pathname.startsWith(sub.to)
+    );
+    if (isUserRoute) {
+      setOpenUserMenu(true);
+    }
+  }, [location.pathname]);
+
   return (
     <Box sx={{ display: "flex" }}>
       {/* Sidebar */}
@@ -72,7 +83,7 @@ export default function Sidebar() {
           },
         }}
       >
-        {/* Header with Toggle Button */}
+        {/* Header */}
         <Box
           sx={{
             display: "flex",
@@ -105,7 +116,7 @@ export default function Sidebar() {
                       justifyContent: openSidebar ? "flex-start" : "center",
                       "&:hover": { backgroundColor: "#1f2937" },
                       borderRadius: "8px",
-                      mx: 1,
+
                       transition: "background-color 0.2s",
                     }}
                   >
@@ -140,16 +151,13 @@ export default function Sidebar() {
                             sx={{
                               pl: 6,
                               py: 1.2,
-                              mx: 1,
                               borderRadius: "6px",
                               "&:hover": {
-                                backgroundColor: "#3c414bff", // Blue hover
+                                backgroundColor: "#3c414bff",
                                 color: "#fff",
                                 transform: "scale(1.02)",
                                 transition: "all 0.2s ease-in-out",
                               },
-                              backgroundColor: (isActive) =>
-                                isActive ? "#1f2937" : "transparent",
                             }}
                           >
                             <ListItemText
