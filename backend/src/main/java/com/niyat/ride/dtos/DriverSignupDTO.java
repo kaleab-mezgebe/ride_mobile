@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,8 +31,19 @@ public class DriverSignupDTO {
     private String licenseNumber;
 
     @NotBlank(message = "Vehicle type is required")
-    private String vehicleType;
+    private String vehicleModel;
 
     @NotBlank(message = "Vehicle plate number is required")
     private String vehiclePlateNumber;
+
+    @NotBlank(message = "front side licence image is required")
+    private String frontLicenceImage;
+
+    @NotBlank(message = "front side license image is required")
+    private String backLicenceImage;
+
+    @NotBlank(message = "Vehicle plate number is required")
+    private LocalDate licesneExipirationDate;
+
+
 }

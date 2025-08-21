@@ -55,8 +55,6 @@ public class DriverServiceImpl implements DriverService {
         driver.setFirstName(driverSignupDTO.getFirstName());
         driver.setLastName(driverSignupDTO.getLastName());
         driver.setRole(Role.DRIVER);
-        driver.setPlateNumber(driverSignupDTO.getVehiclePlateNumber());
-        driver.setVehicleType(driver.getVehicleType());
         driver.setPhoneNumber(driverSignupDTO.getPhoneNumber());
         driver.setStatus(AccountStatus.ACTIVE);
         driver.setIsVerified(true);
@@ -75,18 +73,10 @@ public class DriverServiceImpl implements DriverService {
                 .orElseThrow(() -> new RuntimeException("Driver not found with id: " + driverId));
 
         driver.setEmail(updateDTO.getEmail());
-        if (updateDTO.getVehicleType() != null) {
-            driver.setVehicleType(updateDTO.getVehicleType());
-        }
-        if (updateDTO.getVehiclePlateNumber() != null) {
-            driver.setPlateNumber(updateDTO.getVehiclePlateNumber());
-        }
         driver.setUpdatedAt(LocalDateTime.now());
 
         Driver updatedDriver = driverRepository.save(driver);
         return driverMapper.toResponseDTO(updatedDriver);
     }
-
-
 
 }

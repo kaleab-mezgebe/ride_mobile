@@ -20,9 +20,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository userRepository;
-    private final AdminRepository adminRepository;
-    private final DispatcherRepository dispatcherRepository;
     private final CredentialRepository credentialRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
@@ -53,9 +50,5 @@ public class AuthServiceImpl implements AuthService {
         String token = jwtUtil.generateToken(user.getId(), user.getRole().name());
         return new AuthResponseDTO(token, user.getId(), user.getRole().name());
     }
-
-
-
-
 }
 
