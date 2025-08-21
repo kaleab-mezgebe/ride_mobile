@@ -10,17 +10,21 @@ export default function Topbar() {
         height: 56,
         borderBottom: "1px solid #eee",
         px: 2,
-        display:"flex",
+        display: "flex",
         alignItems: "center",
         justifyContent: "flex-end",
         bgcolor: "#fff",
         position: "sticky",
         top: 0,
-        zIndex: 10,
+        marginRight: 6,
       }}
     >
-      <IconButton><FiBell /></IconButton>
-      <IconButton><FiUser /></IconButton>
+      <IconButton>
+        <FiBell />
+      </IconButton>
+      <IconButton>
+        <FiUser />
+      </IconButton>
     </Box>
   );
 }
