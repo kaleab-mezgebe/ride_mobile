@@ -36,12 +36,10 @@ const EditUserModal = ({ user, onChange, onSave, onCancel }) => {
         >
           ✖
         </button>
-
         {/* Header */}
         <h2 className="text-xl font-bold mb-4 text-center text-gray-900 dark:text-gray-200">
           Edit User Details
         </h2>
-
         {/* Avatar Section */}
         <div className="flex flex-col items-center mb-4">
           <img
