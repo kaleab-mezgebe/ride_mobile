@@ -10,7 +10,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       >
         Previous
       </button>
-
       <span className="px-2 text-gray-700 dark:text-gray-700">
         Page {currentPage} of {totalPages}
       </span>

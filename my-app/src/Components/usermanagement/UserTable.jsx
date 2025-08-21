@@ -10,13 +10,11 @@ const UserTable = ({ filter }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredUsers, setFilteredUsers] = useState(initialUsers);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [editUser, setEditUser] = useState(null);
-
   useEffect(() => {
     const term = searchTerm.trim().toLowerCase();
-
     const byStatus = (u) => {
       if (filter === "banned") return u.status.toLowerCase() === "banned";
       if (filter === "active") return u.status.toLowerCase() === "active";
@@ -24,6 +22,9 @@ const UserTable = ({ filter }) => {
       return true;
     };
 
+    // !term
+    // If the search term is empty (term === ""), !term is true.
+    // That means if there is no search input, every user passes (because nothing to search for).
     const bySearch = (u) =>
       !term ||
       String(u.id).includes(term) ||
@@ -31,19 +32,16 @@ const UserTable = ({ filter }) => {
       u.email.toLowerCase().includes(term) ||
       u.role.toLowerCase().includes(term) ||
       u.status.toLowerCase().includes(term);
-
     const next = allUsers.filter(byStatus).filter(bySearch);
     setFilteredUsers(next);
     setCurrentPage(1);
   }, [searchTerm, filter, allUsers]);
-
   const totalPages = Math.max(1, Math.ceil(filteredUsers.length / rowsPerPage));
   const startIndex = (currentPage - 1) * rowsPerPage;
   const paginatedUsers = filteredUsers.slice(
     startIndex,
     startIndex + rowsPerPage
   );
-
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditUser({ ...editUser, [name]: value });
@@ -63,12 +61,10 @@ const UserTable = ({ filter }) => {
     <div className="space-y-4">
       {/* Search Bar */}
       <SearchBar
-        searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}
       />
-
       {/* User Table */}
       <table className="w-full text-left border-collapse">
         <thead>
@@ -104,14 +100,12 @@ const UserTable = ({ filter }) => {
           )}
         </tbody>
       </table>
-
       {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-
       {/* Modals */}
       <ViewUserModal
         user={selectedUser}
@@ -126,5 +120,4 @@ const UserTable = ({ filter }) => {
     </div>
   );
 };
-
 export default UserTable;
