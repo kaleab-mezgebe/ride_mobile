@@ -10,7 +10,10 @@ import lombok.*;
 public class CustomerUpdateDTO {
 
     @NotBlank(message = "full name is required")
-    private String fullName;
+    private String firstName;
+
+    @NotBlank(message = "full name is required")
+    private String lastName;
 
     @Email(message = "Email should be valid")
     private String email;

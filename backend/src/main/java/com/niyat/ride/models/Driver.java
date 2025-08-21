@@ -14,19 +14,8 @@ public class Driver extends User {
     
     @Column(unique = true, nullable = false)
     private String licenseNumber;
-    
-    @Column(unique = true, nullable = false)
-    private String plateNumber;
-    
-
-    private String vehicleType;
-    
-
-    private String vehicleColor;
 
     @Column(name = "license_image_path")
     private String licenseImagePath;
 
-    @Column(name = "vehicle_registration_doc_path")
-    private String vehicleRegistrationDocPath;
 }

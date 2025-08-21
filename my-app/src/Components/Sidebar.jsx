@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Box,
+  Drawer,
+  IconButton,
   List,
   ListItemButton,
   ListItemText,
   Collapse,
-  IconButton,
+  Tooltip,
 } from "@mui/material";
 import {
   MdDashboard,
@@ -22,9 +24,11 @@ import {
 } from "react-icons/md";
 
 export default function Sidebar() {
-  const [openUserMenu, setOpenUserMenu] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
-  const location = useLocation();
+  const [openSidebar, setOpenSidebar] = useState(true);
+  const [openUserMenu, setOpenUserMenu] = useState(true); // default open
+  const location = useLocation(); // ✅ Track current route
+
+  const toggleSidebar = () => setOpenSidebar(!openSidebar);
 
   const navItems = [
     { to: "/dashboard", label: "Dashboard", icon: <MdDashboard /> },
@@ -50,132 +54,162 @@ export default function Sidebar() {
     { to: "/BannedUsers", label: "Banned Users" },
   ];
 
-  // Keep User Menu open if any sub-item route is active
+  // ✅ Auto-open if current route is inside userSubItems
   useEffect(() => {
-    if (userSubItems.some((item) => location.pathname === item.to)) {
+    const isUserRoute = userSubItems.some((sub) =>
+      location.pathname.startsWith(sub.to)
+    );
+    if (isUserRoute) {
       setOpenUserMenu(true);
     }
   }, [location.pathname]);
 
   return (
-    <Box
-      component="aside"
-      sx={{
-        width: collapsed ? 70 : 220,
-        flexShrink: 0,
-        bgcolor: "#111",
-        color: "#fff",
-        minHeight: "100vh",
-        position: "",
-        top: 0,
-        overflow: "hidden", // Prevent scroll
-        transition: "width 0.3s ease",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {/* Header with Toggle Button */}
-      <Box
+    <Box sx={{ display: "flex" }}>
+      {/* Sidebar */}
+      <Drawer
+        variant="permanent"
+        open={openSidebar}
         sx={{
-          px: collapsed ? 1 : 2,
-          py: 2,
-          fontWeight: 700,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: collapsed ? "center" : "space-between",
-          fontSize: 18,
-          whiteSpace: "nowrap",
+          width: openSidebar ? 240 : 70,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: openSidebar ? 240 : 70,
+            boxSizing: "border-box",
+            backgroundColor: "#111",
+            color: "#fff",
+            transition: "width 0.3s ease-in-out",
+            overflowX: "hidden",
+          },
         }}
       >
-        {!collapsed && "🚗 Nyat Ride"}
-        <IconButton
-          onClick={() => setCollapsed(!collapsed)}
-          sx={{ color: "#fff", fontSize: 22 }}
+        {/* Header */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: openSidebar ? "space-between" : "center",
+            px: 2,
+            py: 2,
+            borderBottom: "1px solid #333",
+          }}
         >
-          {collapsed ? <MdMenu /> : <MdClose />}
-        </IconButton>
-      </Box>
+          {openSidebar && (
+            <Box sx={{ fontWeight: 700, fontSize: 18 }}>🚗 Nyat Ride</Box>
+          )}
+          <IconButton onClick={toggleSidebar} sx={{ color: "#fff" }}>
+            {openSidebar ? <MdClose /> : <MdMenu />}
+          </IconButton>
+        </Box>
 
-      {/* Main Navigation */}
-      <List sx={{ pt: 0 }}>
-        {navItems.map((item) => {
-          if (item.isDropdown) {
+        {/* Navigation List */}
+        <List sx={{ pt: 1 }}>
+          {navItems.map((item) => {
+            if (item.isDropdown) {
+              return (
+                <Box key={item.label}>
+                  <ListItemButton
+                    onClick={() => setOpenUserMenu(!openUserMenu)}
+                    sx={{
+                      gap: 1.5,
+                      py: 1.2,
+                      justifyContent: openSidebar ? "flex-start" : "center",
+                      "&:hover": { backgroundColor: "#1f2937" },
+                      borderRadius: "8px",
+
+                      transition: "background-color 0.2s",
+                    }}
+                  >
+                    <Tooltip
+                      title={!openSidebar ? item.label : ""}
+                      placement="right"
+                    >
+                      <Box style={{ fontSize: 22 }}>{item.icon}</Box>
+                    </Tooltip>
+                    {openSidebar && <ListItemText primary={item.label} />}
+                    {openSidebar &&
+                      (openUserMenu ? <MdExpandLess /> : <MdExpandMore />)}
+                  </ListItemButton>
+
+                  <Collapse
+                    in={openUserMenu && openSidebar}
+                    timeout="auto"
+                    unmountOnExit
+                  >
+                    <List component="div" disablePadding>
+                      {userSubItems.map((subItem) => (
+                        <NavLink
+                          key={subItem.to}
+                          to={subItem.to}
+                          style={({ isActive }) => ({
+                            textDecoration: "none",
+                            color: "#fff",
+                            display: "block",
+                          })}
+                        >
+                          <ListItemButton
+                            sx={{
+                              pl: 6,
+                              py: 1.2,
+                              borderRadius: "6px",
+                              "&:hover": {
+                                backgroundColor: "#3c414bff",
+                                color: "#fff",
+                                transform: "scale(1.02)",
+                                transition: "all 0.2s ease-in-out",
+                              },
+                            }}
+                          >
+                            <ListItemText
+                              primary={subItem.label}
+                              primaryTypographyProps={{
+                                fontSize: 14,
+                                fontWeight: 500,
+                              }}
+                            />
+                          </ListItemButton>
+                        </NavLink>
+                      ))}
+                    </List>
+                  </Collapse>
+                </Box>
+              );
+            }
+
             return (
-              <Box key={item.label}>
+              <NavLink
+                key={item.to}
+                to={item.to}
+                style={({ isActive }) => ({
+                  textDecoration: "none",
+                  color: "#fff",
+                  display: "block",
+                })}
+              >
                 <ListItemButton
-                  onClick={() => setOpenUserMenu(!openUserMenu)}
                   sx={{
-                    gap: collapsed ? 0 : 1.5,
+                    gap: 1.5,
                     py: 1.2,
-                    justifyContent: collapsed ? "center" : "flex-start",
-                    "&:hover": { bgcolor: "#1f2937" },
+                    justifyContent: openSidebar ? "flex-start" : "center",
+                    "&:hover": { backgroundColor: "#1f2937" },
+                    borderRadius: "8px",
+                    mx: 1,
+                    transition: "background-color 0.2s",
                   }}
                 >
-                  <Box style={{ fontSize: 20 }}>{item.icon}</Box>
-                  {!collapsed && <ListItemText primary={item.label} />}
-                  {!collapsed &&
-                    (openUserMenu ? <MdExpandLess /> : <MdExpandMore />)}
+                  <Tooltip
+                    title={!openSidebar ? item.label : ""}
+                    placement="right"
+                  >
+                    <Box style={{ fontSize: 22 }}>{item.icon}</Box>
+                  </Tooltip>
+                  {openSidebar && <ListItemText primary={item.label} />}
                 </ListItemButton>
-                <Collapse
-                  in={openUserMenu && !collapsed}
-                  timeout="auto"
-                  unmountOnExit
-                >
-                  <List component="div" disablePadding>
-                    {userSubItems.map((subItem) => (
-                      <NavLink
-                        key={subItem.to}
-                        to={subItem.to}
-                        style={({ isActive }) => ({
-                          textDecoration: "none",
-                          color: "#fff",
-                          background: isActive ? "#1f2937" : "transparent",
-                          display: "block",
-                        })}
-                      >
-                        <ListItemButton
-                          sx={{
-                            pl: 6,
-                            py: 1,
-                            "&:hover": { bgcolor: "#374151" },
-                          }}
-                        >
-                          <ListItemText primary={subItem.label} />
-                        </ListItemButton>
-                      </NavLink>
-                    ))}
-                  </List>
-                </Collapse>
-              </Box>
+              </NavLink>
             );
-          }
-
-          return (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              style={({ isActive }) => ({
-                textDecoration: "none",
-                color: "#fff",
-                background: isActive ? "#1f2937" : "transparent",
-                display: "block",
-              })}
-            >
-              <ListItemButton
-                sx={{
-                  gap: collapsed ? 0 : 1.5,
-                  py: 1.2,
-                  justifyContent: collapsed ? "center" : "flex-start",
-                  "&:hover": { bgcolor: "#1f2937" },
-                }}
-              >
-                <Box style={{ fontSize: 20 }}>{item.icon}</Box>
-                {!collapsed && <ListItemText primary={item.label} />}
-              </ListItemButton>
-            </NavLink>
-          );
-        })}
-      </List>
+          })}
+        </List>
+      </Drawer>
     </Box>
   );
 }

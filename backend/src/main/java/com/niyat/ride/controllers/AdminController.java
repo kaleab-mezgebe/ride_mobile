@@ -5,7 +5,6 @@ import com.niyat.ride.dtos.AdminSignupDTO;
 import com.niyat.ride.dtos.AdminUpdateDTO;
 import com.niyat.ride.services.AdminService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +22,8 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping("/signup")
-    @Operation(
-            summary = "Register a new admin",
-            description = "Creates a new admin account with the provided signup details.",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Admin created successfully"),
-                    @ApiResponse(responseCode = "400", description = "Validation error"),
-                    @ApiResponse(responseCode = "409", description = "Admin already exists"),
-                    @ApiResponse(responseCode = "500", description = "Internal server error")
-            }
-    )
+    @Operation(summary = "Register a new admin")
+
     public ResponseEntity<AdminResponseDTO> signUpAdmin(
             @Valid @RequestBody AdminSignupDTO adminSignupDTO) {
 

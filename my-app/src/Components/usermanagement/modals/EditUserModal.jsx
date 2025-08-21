@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 
 const EditUserModal = ({ user, onChange, onSave, onCancel }) => {
   if (!user) return null;
-
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(user.avatar);
 

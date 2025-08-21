@@ -5,6 +5,7 @@ import Pagination from "./Pagination";
 import UserRow from "./UserRow";
 import ViewUserModal from "./modals/ViewUserModal";
 import EditUserModal from "./modals/EditUserModal";
+
 const UserTable = ({ filter }) => {
   const [allUsers, setAllUsers] = useState(initialUsers);
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,6 +14,7 @@ const UserTable = ({ filter }) => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [editUser, setEditUser] = useState(null);
+
   useEffect(() => {
     const term = searchTerm.trim().toLowerCase();
     const byStatus = (u) => {
@@ -21,10 +23,6 @@ const UserTable = ({ filter }) => {
       if (filter === "inactive") return u.status.toLowerCase() === "inactive";
       return true;
     };
-
-    // !term
-    // If the search term is empty (term === ""), !term is true.
-    // That means if there is no search input, every user passes (because nothing to search for).
     const bySearch = (u) =>
       !term ||
       String(u.id).includes(term) ||
@@ -32,31 +30,37 @@ const UserTable = ({ filter }) => {
       u.email.toLowerCase().includes(term) ||
       u.role.toLowerCase().includes(term) ||
       u.status.toLowerCase().includes(term);
+
     const next = allUsers.filter(byStatus).filter(bySearch);
     setFilteredUsers(next);
     setCurrentPage(1);
   }, [searchTerm, filter, allUsers]);
+
   const totalPages = Math.max(1, Math.ceil(filteredUsers.length / rowsPerPage));
   const startIndex = (currentPage - 1) * rowsPerPage;
   const paginatedUsers = filteredUsers.slice(
     startIndex,
     startIndex + rowsPerPage
   );
+
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditUser({ ...editUser, [name]: value });
   };
+
   const handleDelete = (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       setAllUsers((prev) => prev.filter((u) => u.id !== userId));
     }
   };
+
   const saveChanges = () => {
     setAllUsers((prev) =>
       prev.map((u) => (u.id === editUser.id ? editUser : u))
     );
     setEditUser(null);
   };
+
   return (
     <div className="space-y-4">
       {/* Search Bar */}
@@ -65,47 +69,42 @@ const UserTable = ({ filter }) => {
         rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}
       />
+
       {/* User Table */}
-      <table className="w-full text-left border-collapse">
-        <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-700 ">
-            <th className="p-3">Profile</th>
-            <th className="p-3">User ID</th>
-            <th className="p-3">Name</th>
-            <th className="p-3">Email</th>
-            <th className="p-3">Role</th>
-            <th className="p-3">Status</th>
-            <th className="p-3">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedUsers.map((user) => (
-            <UserRow
-              key={user.id}
-              user={user}
-              onView={setSelectedUser}
-              onEdit={setEditUser}
-              onDelete={handleDelete}
-            />
-          ))}
-          {paginatedUsers.length === 0 && (
-            <tr>
-              <td
-                className="p-4 text-center text-gray-500 dark:text-gray-400"
-                colSpan={7}
-              >
-                No users found.
-              </td>
+      <div className="overflow-hidden rounded-lg border border-gray-300">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-[#dfdfdf] dark:bg-gray-700 border-b border-gray-400 dark:border-gray-800">
+              <th className="p-3">Profile</th>
+              <th className="p-3">User ID</th>
+              <th className="p-3">Name</th>
+              <th className="p-3">Email</th>
+              <th className="p-3">Role</th>
+              <th className="p-3">Status</th>
+              <th className="p-3">Actions</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {paginatedUsers.map((user) => (
+              <UserRow
+                key={user.id}
+                user={user}
+                onView={() => setSelectedUser(user)}
+                onEdit={() => setEditUser(user)}
+                onDelete={() => handleDelete(user.id)}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
+
       {/* Modals */}
       <ViewUserModal
         user={selectedUser}
@@ -120,4 +119,5 @@ const UserTable = ({ filter }) => {
     </div>
   );
 };
+
 export default UserTable;
