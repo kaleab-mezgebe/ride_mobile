@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   Box,
   List,
   ListItemButton,
   ListItemText,
   Collapse,
+  IconButton,
 } from "@mui/material";
 import {
   MdDashboard,
@@ -16,14 +17,18 @@ import {
   MdAssignment,
   MdExpandLess,
   MdExpandMore,
+  MdMenu,
+  MdClose,
 } from "react-icons/md";
 
 export default function Sidebar() {
   const [openUserMenu, setOpenUserMenu] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
 
   const navItems = [
-    { to: "/admin/dashboard", label: "Dashboard", icon: <MdDashboard /> },
-    { label: "User Management", icon: <MdPeople />, isDropdown: true }, // Dropdown
+    { to: "/dashboard", label: "Dashboard", icon: <MdDashboard /> },
+    { label: "User Management", icon: <MdPeople />, isDropdown: true },
     { to: "/admin/rides", label: "Ride Management", icon: <MdDirectionsCar /> },
     {
       to: "/admin/reports",
@@ -37,6 +42,7 @@ export default function Sidebar() {
       icon: <MdAssignment />,
     },
   ];
+
   const userSubItems = [
     { to: "/AllUsers", label: "All Users" },
     { to: "/ActiveUsers", label: "Active Users" },
@@ -44,32 +50,50 @@ export default function Sidebar() {
     { to: "/BannedUsers", label: "Banned Users" },
   ];
 
+  // Keep User Menu open if any sub-item route is active
+  useEffect(() => {
+    if (userSubItems.some((item) => location.pathname === item.to)) {
+      setOpenUserMenu(true);
+    }
+  }, [location.pathname]);
+
   return (
     <Box
       component="aside"
       sx={{
-        width: 220,
+        width: collapsed ? 70 : 220,
         flexShrink: 0,
         bgcolor: "#111",
         color: "#fff",
         minHeight: "100vh",
-        position: "sticky",
+        position: "",
         top: 0,
+        overflow: "hidden", // Prevent scroll
+        transition: "width 0.3s ease",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      {/* Logo */}
+      {/* Header with Toggle Button */}
       <Box
         sx={{
-          px: 2,
+          px: collapsed ? 1 : 2,
           py: 2,
           fontWeight: 700,
           display: "flex",
           alignItems: "center",
-          gap: 1,
+          justifyContent: collapsed ? "center" : "space-between",
           fontSize: 18,
+          whiteSpace: "nowrap",
         }}
       >
-        🚗 Nyat Ride
+        {!collapsed && "🚗 Nyat Ride"}
+        <IconButton
+          onClick={() => setCollapsed(!collapsed)}
+          sx={{ color: "#fff", fontSize: 22 }}
+        >
+          {collapsed ? <MdMenu /> : <MdClose />}
+        </IconButton>
       </Box>
 
       {/* Main Navigation */}
@@ -80,14 +104,23 @@ export default function Sidebar() {
               <Box key={item.label}>
                 <ListItemButton
                   onClick={() => setOpenUserMenu(!openUserMenu)}
-                  sx={{ gap: 1.5, py: 1.2 }}
+                  sx={{
+                    gap: collapsed ? 0 : 1.5,
+                    py: 1.2,
+                    justifyContent: collapsed ? "center" : "flex-start",
+                    "&:hover": { bgcolor: "#1f2937" },
+                  }}
                 >
                   <Box style={{ fontSize: 20 }}>{item.icon}</Box>
-                  <ListItemText primary={item.label} />
-                  {openUserMenu ? <MdExpandLess /> : <MdExpandMore />}
+                  {!collapsed && <ListItemText primary={item.label} />}
+                  {!collapsed &&
+                    (openUserMenu ? <MdExpandLess /> : <MdExpandMore />)}
                 </ListItemButton>
-
-                <Collapse in={openUserMenu} timeout="auto" unmountOnExit>
+                <Collapse
+                  in={openUserMenu && !collapsed}
+                  timeout="auto"
+                  unmountOnExit
+                >
                   <List component="div" disablePadding>
                     {userSubItems.map((subItem) => (
                       <NavLink
@@ -100,7 +133,13 @@ export default function Sidebar() {
                           display: "block",
                         })}
                       >
-                        <ListItemButton sx={{ pl: 6, py: 1 }}>
+                        <ListItemButton
+                          sx={{
+                            pl: 6,
+                            py: 1,
+                            "&:hover": { bgcolor: "#374151" },
+                          }}
+                        >
                           <ListItemText primary={subItem.label} />
                         </ListItemButton>
                       </NavLink>
@@ -122,9 +161,16 @@ export default function Sidebar() {
                 display: "block",
               })}
             >
-              <ListItemButton sx={{ gap: 1.5, py: 1.2 }}>
+              <ListItemButton
+                sx={{
+                  gap: collapsed ? 0 : 1.5,
+                  py: 1.2,
+                  justifyContent: collapsed ? "center" : "flex-start",
+                  "&:hover": { bgcolor: "#1f2937" },
+                }}
+              >
                 <Box style={{ fontSize: 20 }}>{item.icon}</Box>
-                <ListItemText primary={item.label} />
+                {!collapsed && <ListItemText primary={item.label} />}
               </ListItemButton>
             </NavLink>
           );

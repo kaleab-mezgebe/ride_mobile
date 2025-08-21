@@ -60,7 +60,6 @@ export default function Dashboard() {
       <Sidebar />
       <Box sx={{ flex: 1 }}>
         <Topbar />
-
         <Box component="main" sx={{ p: 3 }}>
           {/* KPI cards */}
           <Grid container spacing={2} mb={2}>

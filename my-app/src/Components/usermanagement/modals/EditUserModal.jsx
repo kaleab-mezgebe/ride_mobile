@@ -20,12 +20,10 @@ const EditUserModal = ({ user, onChange, onSave, onCancel }) => {
       reader.readAsDataURL(file);
     }
   };
-
   // Trigger file input click
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
-
   return (
     <div className="fixed inset-0 backdrop-blur-sm flex justify-center items-center z-50">
       <div className="bg-white dark:bg-gray-900 p-6 rounded-lg w-96 relative shadow-lg dark:shadow-gray-700">
