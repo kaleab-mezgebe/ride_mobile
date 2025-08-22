@@ -1,6 +1,7 @@
 import React from "react";
 
 const ViewUserModal = ({ user, onClose }) => {
+  // preventing from rendering the modal incase of no user selected
   if (!user) return null;
   return (
     <div className="fixed inset-0   backdrop-blur-sm flex justify-center items-center z-50">
@@ -19,7 +20,7 @@ const ViewUserModal = ({ user, onClose }) => {
             className="w-24 h-24 rounded-full mx-auto mb-4"
           />
           <h2 className="text-xl font-bold">{user.name}</h2>
-          <p className="text-gray-500">{user.role}</p>
+          <p className="mb-2">{user.role}</p>
           <span className="px-3 py-.5 border rounded disabled:opacity-50 bg-white dark:bg-gray-800">
             {user.status}
           </span>

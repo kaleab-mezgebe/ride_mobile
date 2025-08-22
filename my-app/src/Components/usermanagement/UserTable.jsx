@@ -5,25 +5,24 @@ import Pagination from "./Pagination";
 import UserRow from "./UserRow";
 import ViewUserModal from "./modals/ViewUserModal";
 import EditUserModal from "./modals/EditUserModal";
+
 const UserTable = ({ filter }) => {
   const [allUsers, setAllUsers] = useState(initialUsers);
   const [searchTerm, setSearchTerm] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredUsers, setFilteredUsers] = useState(initialUsers);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [editUser, setEditUser] = useState(null);
 
   useEffect(() => {
     const term = searchTerm.trim().toLowerCase();
-
     const byStatus = (u) => {
       if (filter === "banned") return u.status.toLowerCase() === "banned";
       if (filter === "active") return u.status.toLowerCase() === "active";
       if (filter === "inactive") return u.status.toLowerCase() === "inactive";
       return true;
     };
-
     const bySearch = (u) =>
       !term ||
       String(u.id).includes(term) ||
@@ -48,32 +47,34 @@ const UserTable = ({ filter }) => {
     const { name, value } = e.target;
     setEditUser({ ...editUser, [name]: value });
   };
+
   const handleDelete = (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       setAllUsers((prev) => prev.filter((u) => u.id !== userId));
     }
   };
+
   const saveChanges = () => {
     setAllUsers((prev) =>
       prev.map((u) => (u.id === editUser.id ? editUser : u))
     );
     setEditUser(null);
   };
+
   return (
     <div className="space-y-4">
       {/* Search Bar */}
       <SearchBar
-        searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}
       />
 
       {/* User Table */}
-      <div class="overflow-hidden rounded-lg border border-gray-300">
+      <div className="overflow-hidden rounded-lg border border-gray-300">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-[#dfdfdf] dark:bg-gray-700 border-b border-gray-400 border-b border-gray-200 dark:border-gray-800 ">
+            <tr className="bg-[#dfdfdf] dark:bg-gray-700 border-b border-gray-400 dark:border-gray-800">
               <th className="p-3">Profile</th>
               <th className="p-3">User ID</th>
               <th className="p-3">Name</th>
@@ -88,21 +89,11 @@ const UserTable = ({ filter }) => {
               <UserRow
                 key={user.id}
                 user={user}
-                onView={setSelectedUser}
-                onEdit={setEditUser}
-                onDelete={handleDelete}
+                onView={() => setSelectedUser(user)}
+                onEdit={() => setEditUser(user)}
+                onDelete={() => handleDelete(user.id)}
               />
             ))}
-            {paginatedUsers.length === 0 && (
-              <tr>
-                <td
-                  className="p-4 text-center text-gray-500 dark:text-gray-400"
-                  colSpan={7}
-                >
-                  No users found.
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
       </div>

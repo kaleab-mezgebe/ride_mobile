@@ -19,12 +19,10 @@ const EditUserModal = ({ user, onChange, onSave, onCancel }) => {
       reader.readAsDataURL(file);
     }
   };
-
   // Trigger file input click
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
-
   return (
     <div className="fixed inset-0 backdrop-blur-sm flex justify-center items-center z-50">
       <div className="bg-white dark:bg-gray-900 p-6 rounded-lg w-96 relative shadow-lg dark:shadow-gray-700">
@@ -35,12 +33,10 @@ const EditUserModal = ({ user, onChange, onSave, onCancel }) => {
         >
           ✖
         </button>
-
         {/* Header */}
         <h2 className="text-xl font-bold mb-4 text-center text-gray-900 dark:text-gray-200">
           Edit User Details
         </h2>
-
         {/* Avatar Section */}
         <div className="flex flex-col items-center mb-4">
           <img
