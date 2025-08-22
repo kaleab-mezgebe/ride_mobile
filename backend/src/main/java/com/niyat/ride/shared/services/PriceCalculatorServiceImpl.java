@@ -3,6 +3,7 @@ package com.niyat.ride.shared.services;
 import com.niyat.ride.features.ride_management.dtos.RideCostDTO;
 import com.niyat.ride.models.VehicleType;
 import com.niyat.ride.features.admin.vehicle_type_management.repositories.VehicleTypeRepository;
+import com.niyat.ride.features.admin.pricing_management.services.BasePriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,13 @@ import java.math.RoundingMode;
 public class PriceCalculatorServiceImpl implements PriceCalculatorService {
 
     private final VehicleTypeRepository vehicleTypeRepository;
+    private final BasePriceService basePriceService;
 
     @Override
     public RideCostDTO calculateEstimatedCost(Long vehicleTypeId, Double estimatedDistanceKm) {
         VehicleType vehicleType = getVehicleTypePricing(vehicleTypeId);
         
-        BigDecimal basePrice = vehicleType.getBasePrice();
+        BigDecimal basePrice = basePriceService.getCurrentBasePriceAmount();
         BigDecimal distancePrice = vehicleType.getPricePerKm()
                 .multiply(BigDecimal.valueOf(estimatedDistanceKm))
                 .setScale(2, RoundingMode.HALF_UP);

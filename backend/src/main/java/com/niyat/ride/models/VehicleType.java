@@ -21,9 +21,6 @@ public class VehicleType {
     private String image;
     
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal basePrice;
-    
-    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal pricePerKm;
     
     @Column(nullable = false)

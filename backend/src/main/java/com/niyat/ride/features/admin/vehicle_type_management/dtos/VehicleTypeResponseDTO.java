@@ -11,7 +11,6 @@ public class VehicleTypeResponseDTO {
     private String name;
     private String description;
     private String image;
-    private BigDecimal basePrice;
     private BigDecimal pricePerKm;
     private Boolean isActive;
     private LocalDateTime createdAt;

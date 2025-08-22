@@ -9,6 +9,8 @@ import com.niyat.ride.features.admin.ride_management.repositories.RideManagement
 import com.niyat.ride.features.admin.vehicle_type_management.repositories.VehicleTypeRepository;
 import com.niyat.ride.models.VehicleType;
 import com.niyat.ride.repositories.AdminRepository;
+import com.niyat.ride.features.admin.pricing_management.services.BasePriceService;
+import com.niyat.ride.features.admin.pricing_management.dtos.BasePriceUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,7 @@ public class PricingDashboardServiceImpl implements PricingDashboardService {
     private final RideManagementRepository rideManagementRepository;
     private final PricingHistoryRepository pricingHistoryRepository;
     private final AdminRepository adminRepository;
+    private final BasePriceService basePriceService;
 
     @Override
     public PricingOverviewDTO getPricingOverview() {
@@ -46,25 +49,16 @@ public class PricingDashboardServiceImpl implements PricingDashboardService {
                 .filter(vt -> vt.getDeletedAt() == null && !vt.getIsActive()).count());
 
         if (!activeTypes.isEmpty()) {
-            overview.setAverageBasePrice(activeTypes.stream()
-                    .map(VehicleType::getBasePrice)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add)
-                    .divide(BigDecimal.valueOf(activeTypes.size()), 2, RoundingMode.HALF_UP));
+            // Base price is global now; set overview metrics to the current global base price
+            BigDecimal currentBasePrice = basePriceService.getCurrentBasePriceAmount();
+            overview.setAverageBasePrice(currentBasePrice);
+            overview.setLowestBasePrice(currentBasePrice);
+            overview.setHighestBasePrice(currentBasePrice);
 
             overview.setAveragePricePerKm(activeTypes.stream()
                     .map(VehicleType::getPricePerKm)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .divide(BigDecimal.valueOf(activeTypes.size()), 2, RoundingMode.HALF_UP));
-
-            overview.setLowestBasePrice(activeTypes.stream()
-                    .map(VehicleType::getBasePrice)
-                    .min(BigDecimal::compareTo)
-                    .orElse(BigDecimal.ZERO));
-
-            overview.setHighestBasePrice(activeTypes.stream()
-                    .map(VehicleType::getBasePrice)
-                    .max(BigDecimal::compareTo)
-                    .orElse(BigDecimal.ZERO));
         }
 
         return overview;
@@ -112,26 +106,32 @@ public class PricingDashboardServiceImpl implements PricingDashboardService {
                 request.getPercentageIncrease().divide(BigDecimal.valueOf(100), 4, RoundingMode.HALF_UP)
         );
 
+        // Handle global base price increase once, if requested
+        if (Boolean.TRUE.equals(request.getApplyToBasePrice())) {
+            try {
+                BigDecimal currentBase = basePriceService.getCurrentBasePriceAmount();
+                BigDecimal newBase = currentBase.multiply(increaseMultiplier).setScale(2, RoundingMode.HALF_UP);
+                BasePriceUpdateDTO updateDTO = new BasePriceUpdateDTO();
+                updateDTO.setAmount(newBase);
+                updateDTO.setChangeReason(Optional.ofNullable(request.getReason()).orElse("Bulk percentage increase"));
+                basePriceService.updateBasePrice(updateDTO, adminId);
+                results.add("Successfully updated global base price");
+            } catch (Exception e) {
+                results.add("Failed to update global base price: " + e.getMessage());
+            }
+        }
+
         for (VehicleType vehicleType : vehicleTypes) {
             try {
                 // Create pricing history record
                 PricingHistory history = new PricingHistory();
                 history.setVehicleType(vehicleType);
-                history.setOldBasePrice(vehicleType.getBasePrice());
                 history.setOldPricePerKm(vehicleType.getPricePerKm());
                 history.setChangeReason(request.getReason());
                 history.setChangedByAdminId(adminId);
                 history.setChangePercentage(request.getPercentageIncrease());
 
                 // Apply price increases
-                if (request.getApplyToBasePrice()) {
-                    BigDecimal newBasePrice = vehicleType.getBasePrice()
-                            .multiply(increaseMultiplier)
-                            .setScale(2, RoundingMode.HALF_UP);
-                    vehicleType.setBasePrice(newBasePrice);
-                    history.setNewBasePrice(newBasePrice);
-                }
-
                 if (request.getApplyToPricePerKm()) {
                     BigDecimal newPricePerKm = vehicleType.getPricePerKm()
                             .multiply(increaseMultiplier)
@@ -160,7 +160,6 @@ public class PricingDashboardServiceImpl implements PricingDashboardService {
         return new PricingOverviewDTO.VehicleTypePricingDTO(
                 vehicleType.getId(),
                 vehicleType.getName(),
-                vehicleType.getBasePrice(),
                 vehicleType.getPricePerKm(),
                 vehicleType.getIsActive(),
                 0, // ridesCount - would need proper query

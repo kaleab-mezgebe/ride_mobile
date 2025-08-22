@@ -25,7 +25,6 @@ public class PricingOverviewDTO {
     public static class VehicleTypePricingDTO {
         private Long id;
         private String name;
-        private BigDecimal basePrice;
         private BigDecimal pricePerKm;
         private Boolean isActive;
         private Integer ridesCount;

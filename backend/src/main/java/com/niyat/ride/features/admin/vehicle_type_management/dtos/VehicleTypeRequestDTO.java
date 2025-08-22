@@ -16,10 +16,6 @@ public class VehicleTypeRequestDTO {
     private String description;
     private String image;
 
-    @NotNull(message = "Base price is required")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Base price must be positive")
-    private BigDecimal basePrice;
-
     @NotNull(message = "Price per km is required")
     @DecimalMin(value = "0.0", inclusive = false, message = "Price per km must be positive")
     private BigDecimal pricePerKm;

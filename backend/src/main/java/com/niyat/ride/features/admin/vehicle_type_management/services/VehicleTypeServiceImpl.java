@@ -51,7 +51,6 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
         vehicleType.setName(request.getName());
         vehicleType.setDescription(request.getDescription());
         vehicleType.setImage(request.getImage());
-        vehicleType.setBasePrice(request.getBasePrice());
         vehicleType.setPricePerKm(request.getPricePerKm());
         vehicleType.setCapacity(request.getCapacity());
         vehicleType.setFeatures(request.getFeatures());
@@ -85,7 +84,6 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
         vehicleType.setName(request.getName());
         vehicleType.setDescription(request.getDescription());
         vehicleType.setImage(request.getImage());
-        vehicleType.setBasePrice(request.getBasePrice());
         vehicleType.setPricePerKm(request.getPricePerKm());
         vehicleType.setCapacity(request.getCapacity());
         vehicleType.setFeatures(request.getFeatures());
@@ -133,7 +131,6 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
         dto.setName(vehicleType.getName());
         dto.setDescription(vehicleType.getDescription());
         dto.setImage(vehicleType.getImage());
-        dto.setBasePrice(vehicleType.getBasePrice());
         dto.setPricePerKm(vehicleType.getPricePerKm());
         dto.setIsActive(vehicleType.getIsActive());
         dto.setCreatedAt(vehicleType.getCreatedAt());
