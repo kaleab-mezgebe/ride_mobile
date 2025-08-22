@@ -27,7 +27,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("public")
                 .pathsToMatch("/api/**")
-                .packagesToScan("com.niyat.ride.controllers")
+                .packagesToScan("com.niyat.ride")
                 .build();
     }
 }
