@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.locationtech.jts.geom.Point;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -17,5 +18,22 @@ public class Driver extends User {
 
     @Column(name = "license_image_path")
     private String licenseImagePath;
+    
+    // PostGIS spatial column for current location
+    @Column(name = "current_location", columnDefinition = "GEOMETRY(Point, 4326)")
+    private Point currentLocation;
+    
+    // Backup coordinates for compatibility
+    @Column(name = "current_latitude")
+    private Double currentLatitude;
+    
+    @Column(name = "current_longitude")
+    private Double currentLongitude;
+    
+    @Column(name = "is_online")
+    private Boolean isOnline = false;
+    
+    @Column(name = "last_location_update")
+    private java.time.LocalDateTime lastLocationUpdate;
 
 }
