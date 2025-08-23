@@ -145,12 +145,12 @@ Notes: ${formData.passengerNotes || "-"}`);
   );
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen">
       <main className="flex-1 p-6">
         <h1 className="text-2xl font-bold mb-4">Manual Dispatch</h1>
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 h-[86vh]">
           {/* LEFT: Form + Drivers */}
-          <div className="bg-white shadow rounded-lg p-6 overflow-y-auto">
+          <div className=" dark:text-white shadow rounded-lg p-6 overflow-y-auto">
             <PassengerForm
               formData={formData}
               setFormData={setFormData}

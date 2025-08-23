@@ -20,21 +20,11 @@ export default function PassengerForm({
       <h2 className="text-lg font-semibold mb-4">Passenger Details</h2>
 
       {/* Phone */}
-      <div className="mb-3">
-        <label className="block text-sm text-gray-700 mb-1">Phone</label>
-        <input
-          type="tel"
-          name="userPhone"
-          className="w-full border rounded px-3 py-2"
-          value={formData.userPhone}
-          onChange={handleChange}
-        />
-      </div>
 
       {/* First & Last Name */}
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div>
-          <label className="block text-sm text-gray-700 mb-1">First Name</label>
+          <label className="block text-sm mb-1">First Name</label>
           <input
             type="text"
             name="firstName"
@@ -45,7 +35,7 @@ export default function PassengerForm({
           />
         </div>
         <div>
-          <label className="block text-sm text-gray-700 mb-1">Last Name</label>
+          <label className="block text-sm  mb-1">Last Name</label>
           <input
             type="text"
             name="lastName"
@@ -56,10 +46,20 @@ export default function PassengerForm({
           />
         </div>
       </div>
-
+      <div className="mb-3">
+        <label className="block text-sm  mb-1">Phone</label>
+        <input
+          type="tel"
+          name="userPhone"
+          className="w-full border rounded px-3 py-2"
+          placeholder="enter phone of the passenger"
+          value={formData.userPhone}
+          onChange={handleChange}
+        />
+      </div>
       {/* City */}
       <div className="mb-3">
-        <label className="block text-sm text-gray-700 mb-1">City</label>
+        <label className="block text-sm  mb-1">City</label>
         <select
           name="city"
           className="w-full border rounded px-3 py-2"
@@ -74,9 +74,7 @@ export default function PassengerForm({
 
       {/* Pickup Address */}
       <div className="mb-4 relative">
-        <label className="block text-sm text-gray-700 mb-1">
-          Pickup Address
-        </label>
+        <label className="block text-sm  mb-1">Pickup Address</label>
         <input
           type="text"
           name="pickupAddress"
@@ -91,7 +89,7 @@ export default function PassengerForm({
             {pickupSuggestions.map((item) => (
               <li
                 key={item.place_id}
-                className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                className="p-2 hover:bg-gray-100 dark:text-gray-600  cursor-pointer text-sm"
                 onClick={() => handleSelectSuggestion(item, "pickup")}
               >
                 {item.display_name}
@@ -103,13 +101,11 @@ export default function PassengerForm({
 
       {/* Dropoff Address */}
       <div className="mb-4 relative">
-        <label className="block text-sm text-gray-700 mb-1">
-          Drop-off Address
-        </label>
+        <label className="block text-sm  mb-1">Drop-off Address</label>
         <input
           type="text"
           name="dropoffAddress"
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 "
           placeholder="enter destination address"
           value={formData.dropoffAddress}
           onChange={onDropoffInput}
@@ -120,7 +116,7 @@ export default function PassengerForm({
             {dropoffSuggestions.map((item) => (
               <li
                 key={item.place_id}
-                className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                className="p-2 hover:bg-gray-100  dark:text-gray-600 cursor-pointer text-sm "
                 onClick={() => handleSelectSuggestion(item, "dropoff")}
               >
                 {item.display_name}
@@ -132,10 +128,10 @@ export default function PassengerForm({
 
       {/* Vehicle Type */}
       <div className="mb-3">
-        <label className="block text-sm text-gray-700 mb-1">Vehicle Type</label>
+        <label className="block text-sm  mb-1">Vehicle Type</label>
         <select
           name="vehicleType"
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 dark:text-gray-500"
           value={formData.vehicleType}
           onChange={handleChange}
         >
@@ -150,9 +146,7 @@ export default function PassengerForm({
 
       {/* Passenger Notes */}
       <div className="mb-4">
-        <label className="block text-sm text-gray-700 mb-1">
-          Passenger Notes
-        </label>
+        <label className="block text-sm  mb-1">Passenger Notes</label>
         <textarea
           name="passengerNotes"
           className="w-full border rounded px-3 py-2"
