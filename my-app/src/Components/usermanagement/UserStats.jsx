@@ -14,12 +14,12 @@ const roles = [
 
 const UserStats = () => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 flex flex-col ">
       {/* User Counts */}
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="bg-white  dark:bg-black p-4 rounded shadow"
+          className="w-100 text-center bg-white  dark:bg-black p-4 rounded shadow"
         >
           <p className="text-gray-500">{stat.label}</p>
           <p className="dark:text-white font-semibold">{stat.value}</p>
