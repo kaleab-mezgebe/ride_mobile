@@ -29,7 +29,6 @@ const monthly = [
   { month: "May", value: 650 },
   { month: "Jun", value: 780 },
 ];
-
 const recent = [
   {
     id: "001",
@@ -53,7 +52,6 @@ const recent = [
     date: "2023-10-01",
   },
 ];
-
 export default function Dashboard() {
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
