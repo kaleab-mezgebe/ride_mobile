@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Box,
@@ -15,7 +15,6 @@ import {
   MdPeople,
   MdDirectionsCar,
   MdAssessment,
-  MdMap,
   MdAssignment,
   MdExpandLess,
   MdExpandMore,
@@ -39,7 +38,6 @@ export default function Sidebar() {
       label: "Reports & Analytics",
       icon: <MdAssessment />,
     },
-    { to: "/dispatcher", label: "Dispatcher Dashboard", icon: <MdMap /> },
     {
       to: "/dispatcher",
       label: "Manual Assignment",

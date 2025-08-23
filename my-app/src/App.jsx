@@ -29,7 +29,6 @@ function App() {
         { path: "ActiveUsers", element: <ActiveUsers /> },
         { path: "BannedUsers", element: <BannedUsers /> },
         { path: "InactiveUsers", element: <InactiveUsers /> },
-
         { path: "dispatcher", element: <ManualDispatch /> },
 
         // { path: "*", element: <PageNotFound /> },
