@@ -41,7 +41,7 @@ export default function Sidebar() {
     },
     { to: "/dispatcher", label: "Dispatcher Dashboard", icon: <MdMap /> },
     {
-      to: "/dispatcher/assign",
+      to: "/dispatcher",
       label: "Manual Assignment",
       icon: <MdAssignment />,
     },

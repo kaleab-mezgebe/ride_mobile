@@ -9,6 +9,7 @@ import AllUsers from "./Pages/userManagement/AllUsers";
 import ActiveUsers from "./Pages/userManagement/ActiveUsers";
 import BannedUsers from "./Pages/userManagement/BannedUsers";
 import InactiveUsers from "./Pages/userManagement/InactiveUsers";
+import ManualDispatch from "./Pages/manualDispatch/ManualDispatch";
 // import PageNotFound from "./Pages/Layout/PageNotFound";
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
         { path: "ActiveUsers", element: <ActiveUsers /> },
         { path: "BannedUsers", element: <BannedUsers /> },
         { path: "InactiveUsers", element: <InactiveUsers /> },
+
+        { path: "dispatcher", element: <ManualDispatch /> },
 
         // { path: "*", element: <PageNotFound /> },
       ],

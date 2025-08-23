@@ -33,5 +33,4 @@ const UserRow = ({ user, onEdit, onDelete, onView }) => {
     </tr>
   );
 };
-
 export default UserRow;
