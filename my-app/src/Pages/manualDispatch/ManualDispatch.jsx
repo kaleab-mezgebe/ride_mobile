@@ -4,6 +4,7 @@ import DriverList from "./DriverList";
 import MapView from "./MapView";
 import { dummyDrivers, DEFAULT_CENTER } from "./constants";
 import L from "leaflet";
+import Sidebar from "../../Components/Sidebar";
 
 export default function ManualDispatch() {
   const [formData, setFormData] = useState({
@@ -146,6 +147,7 @@ Notes: ${formData.passengerNotes || "-"}`);
 
   return (
     <div className="flex h-screen">
+      <Sidebar />
       <main className="flex-1 p-6">
         <h1 className="text-2xl font-bold mb-4">Manual Dispatch</h1>
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 h-[86vh]">
