@@ -64,7 +64,7 @@ public class CustomerController {
     @PostMapping("/login/request-otp")
     @Operation(summary = "Request OTP for customer login")
     public ResponseEntity<String> requestLoginOtp(@RequestParam String phoneNumber) {
-        customerService.getCustomerByPhoneNumber(phoneNumber); // throws if not found
+        customerService.getCustomerByPhoneNumber(phoneNumber);
         otpService.sendOtp(phoneNumber);
         return ResponseEntity.ok("OTP sent to " + phoneNumber);
     }

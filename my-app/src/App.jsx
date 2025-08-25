@@ -1,23 +1,29 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa"; // import icons
+import { FaMoon, FaSun } from "react-icons/fa";
 
-import Login from "./Pages/Login";
 import RootLayout from "./Pages/RootLayout";
+import Login from "./Pages/Login";
 import AdminSignup from "./Pages/AdminSignup";
 import Dashboard from "./Pages/Dashboard";
-// import PageNotFound from "./Pages/Layout/PageNotFound";
 
+// User Management
+import AllUsers from "./Pages/userManagement/AllUsers";
+import ActiveUsers from "./Pages/userManagement/ActiveUsers";
+import BannedUsers from "./Pages/userManagement/BannedUsers";
+import InactiveUsers from "./Pages/userManagement/InactiveUsers";
+
+// Dispatcher
+import ManualDispatch from "./Pages/manualDispatch/ManualDispatch";
+
+// Ride Management
 import AllRides from "./Pages/RideManagement/AllRides";
-// import CreateRide from "./Pages/RideManagement/CreateRide";
-import CancelledRides from "./Pages/RideManagement/CancelledRides";
 import OngoingRides from "./Pages/RideManagement/OngoingRides";
 import CompletedRides from "./Pages/RideManagement/CompletedRides";
-
+import CancelledRides from "./Pages/RideManagement/CancelledRides";
 
 function App() {
   const [darkMode, setDarkmode] = useState(false);
-
   const toggleHandler = () => setDarkmode((prev) => !prev);
 
   const router = createBrowserRouter([
@@ -25,22 +31,44 @@ function App() {
       path: "/",
       element: <RootLayout />,
       children: [
-        { index: true, element: <Login /> }, // default route → Login
-        { path: "signup", element: <AdminSignup /> }, // signup route
-        { path: "dashboard", element: <Dashboard /> }, // ✅ dashboard route
-         // --- Ride Management routes ---
-      { path: "admin/rides", element: <AllRides /> },
-      { path: "admin/Completed", element: <CompletedRides /> },   // default = All Rides
-      { path: "admin/Ongoing", element: <OngoingRides /> },
-      { path: "admin/cancelled", element: <CancelledRides /> },
-        // { path: "*", element: <PageNotFound /> }, // optional - handle 404
+        // Auth + dashboard
+        { index: true, element: <Login /> },
+        { path: "signup", element: <AdminSignup /> },
+        { path: "dashboard", element: <Dashboard /> },
+
+        // ---- User Management (canonical paths) ----
+        { path: "admin/users", element: <AllUsers /> },
+        { path: "admin/users/active", element: <ActiveUsers /> },
+        { path: "admin/users/inactive", element: <InactiveUsers /> },
+        { path: "admin/users/banned", element: <BannedUsers /> },
+
+        // ---- User Management (legacy aliases; safe to keep for now) ----
+        { path: "AllUsers", element: <AllUsers /> },
+        { path: "ActiveUsers", element: <ActiveUsers /> },
+        { path: "InactiveUsers", element: <InactiveUsers /> },
+        { path: "BannedUsers", element: <BannedUsers /> },
+
+        // ---- Ride Management (canonical, lowercase) ----
+        { path: "admin/rides", element: <AllRides /> },
+        { path: "admin/ongoing", element: <OngoingRides /> },
+        { path: "admin/completed", element: <CompletedRides /> },
+        { path: "admin/cancelled", element: <CancelledRides /> },
+
+        // ---- Ride Management (legacy aliases for backward compat) ----
+        { path: "admin/Ongoing", element: <OngoingRides /> },
+        { path: "admin/Completed", element: <CompletedRides /> },
+
+        // ---- Dispatcher ----
+        { path: "dispatcher", element: <ManualDispatch /> },
+
+        // Optional 404
+        // { path: "*", element: <PageNotFound /> },
       ],
     },
   ]);
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      {/* top-level wrapper for Tailwind dark mode */}
       <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300 py-3">
         <RouterProvider router={router} />
         <button
