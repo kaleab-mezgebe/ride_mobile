@@ -87,7 +87,7 @@ export default function AllRides() {
   };
 
   return (
-    <Box sx={{ display: "flex", bgcolor: "#f6f7fb", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex",  minHeight: "100vh" }}>
       <Sidebar />
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
         <Topbar />
@@ -118,7 +118,7 @@ export default function AllRides() {
               }}
               sx={{ flex: 1, minWidth: 240, bgcolor: "#fff" }}
             />
-            <FormControl size="small" sx={{ minWidth: 180, bgcolor: "#fff" }}>
+            <FormControl size="small" sx={{ minWidth: 180,  }}>
               <InputLabel>Status</InputLabel>
               <Select
                 label="Status"
@@ -148,7 +148,7 @@ export default function AllRides() {
                 <Table stickyHeader>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ fontWeight: "bold", bgcolor: "#f9fafb" }}>Ride ID</TableCell>
+                      <TableCell sx={{ fontWeight: "bold",  }}>Ride ID</TableCell>
                       <TableCell sx={{ fontWeight: "bold", bgcolor: "#f9fafb" }}>Passenger</TableCell>
                       <TableCell sx={{ fontWeight: "bold", bgcolor: "#f9fafb" }}>Driver</TableCell>
                       <TableCell sx={{ fontWeight: "bold", bgcolor: "#f9fafb" }}>Status</TableCell>
