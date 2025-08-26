@@ -39,9 +39,12 @@ export default function Sidebar() {
   // auto-open menus depending on route
   useEffect(() => {
     if (location.pathname.startsWith("/admin/rides")) setOpenRides(true);
-    const isUserRoute = ["/AllUsers", "/ActiveUsers", "/InactiveUsers", "/BannedUsers"].some((r) =>
-      location.pathname.startsWith(r)
-    );
+    const isUserRoute = [
+      "/AllUsers",
+      "/ActiveUsers",
+      "/InactiveUsers",
+      "/BannedUsers",
+    ].some((r) => location.pathname.startsWith(r));
     if (isUserRoute) setOpenUserMenu(true);
   }, [location.pathname]);
 
@@ -94,7 +97,9 @@ export default function Sidebar() {
             borderBottom: "1px solid #333",
           }}
         >
-          {openSidebar && <Box sx={{ fontWeight: 700, fontSize: 18 }}>🚗 Nyat Ride</Box>}
+          {openSidebar && (
+            <Box sx={{ fontWeight: 700, fontSize: 18 }}>🚗 Nyat Ride</Box>
+          )}
           <IconButton onClick={toggleSidebar} sx={{ color: "#fff" }}>
             {openSidebar ? <MdClose /> : <MdMenu />}
           </IconButton>
@@ -111,12 +116,20 @@ export default function Sidebar() {
           </NavLink>
 
           {/* User Management Dropdown */}
-          <ListItemButton onClick={() => setOpenUserMenu(!openUserMenu)} sx={listItemSx}>
+          <ListItemButton
+            onClick={() => setOpenUserMenu(!openUserMenu)}
+            sx={listItemSx}
+          >
             <MdPeople style={{ fontSize: 20 }} />
             {openSidebar && <ListItemText primary="User Management" />}
-            {openSidebar && (openUserMenu ? <MdExpandLess /> : <MdExpandMore />)}
+            {openSidebar &&
+              (openUserMenu ? <MdExpandLess /> : <MdExpandMore />)}
           </ListItemButton>
-          <Collapse in={openUserMenu && openSidebar} timeout="auto" unmountOnExit>
+          <Collapse
+            in={openUserMenu && openSidebar}
+            timeout="auto"
+            unmountOnExit
+          >
             <List component="div" disablePadding>
               {[
                 { to: "/AllUsers", label: "All Users" },
@@ -129,7 +142,10 @@ export default function Sidebar() {
                     {openSidebar && (
                       <ListItemText
                         primary={sub.label}
-                        primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
+                        primaryTypographyProps={{
+                          fontSize: 14,
+                          fontWeight: 500,
+                        }}
                       />
                     )}
                   </ListItemButton>
@@ -139,7 +155,10 @@ export default function Sidebar() {
           </Collapse>
 
           {/* Ride Management Dropdown */}
-          <ListItemButton onClick={() => setOpenRides((v) => !v)} sx={listItemSx}>
+          <ListItemButton
+            onClick={() => setOpenRides((v) => !v)}
+            sx={listItemSx}
+          >
             <MdDirectionsCar style={{ fontSize: 20 }} />
             {openSidebar && <ListItemText primary="Ride Management" />}
             {openSidebar && (openRides ? <MdExpandLess /> : <MdExpandMore />)}
@@ -157,7 +176,10 @@ export default function Sidebar() {
                     {openSidebar && (
                       <ListItemText
                         primary={sub.label}
-                        primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
+                        primaryTypographyProps={{
+                          fontSize: 14,
+                          fontWeight: 500,
+                        }}
                       />
                     )}
                   </ListItemButton>
