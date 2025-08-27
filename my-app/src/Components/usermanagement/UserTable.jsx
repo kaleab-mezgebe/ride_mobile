@@ -5,7 +5,6 @@ import Pagination from "./Pagination";
 import UserRow from "./UserRow";
 import ViewUserModal from "./modals/ViewUserModal";
 import EditUserModal from "./modals/EditUserModal";
-
 const UserTable = ({ filter }) => {
   const [allUsers, setAllUsers] = useState(initialUsers);
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,37 +16,35 @@ const UserTable = ({ filter }) => {
 
   useEffect(() => {
     const term = searchTerm.trim().toLowerCase();
-    const byStatus = (u) => {
-      if (filter === "banned") return u.status.toLowerCase() === "banned";
-      if (filter === "active") return u.status.toLowerCase() === "active";
-      if (filter === "inactive") return u.status.toLowerCase() === "inactive";
+    const byRole = (u) => {
+      if (filter === "drivers") return u.role.toLowerCase() === "driver";
+      if (filter === "passengers") return u.role.toLowerCase() === "passenger";
+      if (filter === "dispatchers")
+        return u.role.toLowerCase() === "dispatcher";
       return true;
     };
     const bySearch = (u) =>
       !term ||
       String(u.id).includes(term) ||
       u.name.toLowerCase().includes(term) ||
-      u.email.toLowerCase().includes(term) ||
+      u.phone.toLowerCase().includes(term) ||
       u.role.toLowerCase().includes(term) ||
       u.status.toLowerCase().includes(term);
 
-    const next = allUsers.filter(byStatus).filter(bySearch);
+    const next = allUsers.filter(byRole).filter(bySearch);
     setFilteredUsers(next);
     setCurrentPage(1);
   }, [searchTerm, filter, allUsers]);
-
   const totalPages = Math.max(1, Math.ceil(filteredUsers.length / rowsPerPage));
   const startIndex = (currentPage - 1) * rowsPerPage;
   const paginatedUsers = filteredUsers.slice(
     startIndex,
     startIndex + rowsPerPage
   );
-
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditUser({ ...editUser, [name]: value });
   };
-
   const handleDelete = (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       setAllUsers((prev) => prev.filter((u) => u.id !== userId));
@@ -60,7 +57,6 @@ const UserTable = ({ filter }) => {
     );
     setEditUser(null);
   };
-
   return (
     <div className="space-y-4">
       {/* Search Bar */}
@@ -68,8 +64,8 @@ const UserTable = ({ filter }) => {
         setSearchTerm={setSearchTerm}
         rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}
+        filter={filter}
       />
-
       {/* User Table */}
       <div className="overflow-hidden rounded-lg border border-gray-300">
         <table className="w-full text-left border-collapse">
@@ -78,7 +74,7 @@ const UserTable = ({ filter }) => {
               <th className="p-3">Profile</th>
               <th className="p-3">User ID</th>
               <th className="p-3">Name</th>
-              <th className="p-3">Email</th>
+              <th className="p-3">Phone</th>
               <th className="p-3">Role</th>
               <th className="p-3">Status</th>
               <th className="p-3">Actions</th>

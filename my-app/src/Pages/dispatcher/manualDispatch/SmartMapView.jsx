@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
-
 export default function SmartMapView({ pickup, dropoff }) {
   const map = useMap();
-
   useEffect(() => {
     if (pickup && dropoff) {
       const group = L.featureGroup([L.marker(pickup), L.marker(dropoff)]);

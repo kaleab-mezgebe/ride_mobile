@@ -28,6 +28,7 @@ export default function PassengerForm({
           <input
             type="text"
             name="firstName"
+            required
             placeholder="enter first name"
             className="w-full border rounded px-3 py-2"
             value={formData.firstName}

@@ -1,6 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-const SearchBar = ({ setSearchTerm, rowsPerPage, setRowsPerPage }) => {
+const SearchBar = ({ setSearchTerm, filter, rowsPerPage, setRowsPerPage }) => {
   return (
     <div className="flex justify-between mb-4 items-center">
       {/* Search Input */}
@@ -12,6 +13,11 @@ const SearchBar = ({ setSearchTerm, rowsPerPage, setRowsPerPage }) => {
                    dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500 dark:border-gray-600"
       />
       {/* Rows per page Select */}
+      {filter === "dispatchers" && (
+        <button className="rounded bg-blue-500 text-white p-4">
+          <NavLink to="">Create dispatcher</NavLink>
+        </button>
+      )}
       <select
         value={rowsPerPage}
         onChange={(e) => setRowsPerPage(Number(e.target.value))}

@@ -2,7 +2,6 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import SmartMapView from "./SmartMapView";
 import MapClickSetter from "./MapClickSetter";
 import { defaultIcon } from "./constants";
-
 export default function MapView({
   pickupLocation,
   dropoffLocation,

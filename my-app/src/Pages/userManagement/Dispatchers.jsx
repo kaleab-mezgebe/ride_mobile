@@ -3,7 +3,7 @@ import UserTable from "../../components/usermanagement/UserTable";
 import UserStats from "../../components/usermanagement/UserStats";
 import Sidebar from "../../Components/Sidebar";
 
-const BannedUsers = () => {
+const Dispatchers = () => {
   return (
     <div className="flex">
       <Sidebar />
@@ -11,10 +11,10 @@ const BannedUsers = () => {
       {/* Main User Table Panel */}
       <div className="dark:bg-gray-900 dark:shadow-gray-700">
         <h1 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-200">
-          Banned Users
+          Dispatchers{" "}
         </h1>
         {/* Pass filter="banned" to show only banned users */}
-        <UserTable filter="banned" />
+        <UserTable filter="dispatchers" />
       </div>
       <div className="col-span-4">
         <UserStats />
@@ -23,4 +23,4 @@ const BannedUsers = () => {
   );
 };
 
-export default BannedUsers;
+export default Dispatchers;

@@ -34,6 +34,7 @@ export default function Sidebar() {
     if (saved !== null) return saved === "true";
     return location.pathname.startsWith("/admin/rides");
   });
+  const [openDispatcherMenu, setOpenDispatcherMenu] = useState(true);
 
   const toggleSidebar = () => setOpenSidebar(!openSidebar);
 
@@ -42,11 +43,18 @@ export default function Sidebar() {
     if (location.pathname.startsWith("/admin/rides")) setOpenRides(true);
     const isUserRoute = [
       "/AllUsers",
-      "/ActiveUsers",
-      "/InactiveUsers",
-      "/BannedUsers",
+      "/drivers",
+      "/passengers",
+      "/dispatchers",
     ].some((r) => location.pathname.startsWith(r));
     if (isUserRoute) setOpenUserMenu(true);
+
+    if (
+      ["/dispatcher", "/dispatcher/livemap", "/dispatcher/manual"].some((r) =>
+        location.pathname.startsWith(r)
+      )
+    )
+      setOpenDispatcherMenu(true);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -116,94 +124,128 @@ export default function Sidebar() {
             </ListItemButton>
           </NavLink>
 
-          {/* ✅ Admin-only menus */}
-          {role === "admin" && (
-            <>
-              {/* User Management */}
-              <ListItemButton
-                onClick={() => setOpenUserMenu(!openUserMenu)}
-                sx={listItemSx}
-              >
-                <MdPeople style={{ fontSize: 20 }} />
-                {openSidebar && <ListItemText primary="User Management" />}
-                {openSidebar &&
-                  (openUserMenu ? <MdExpandLess /> : <MdExpandMore />)}
-              </ListItemButton>
-              <Collapse in={openUserMenu && openSidebar} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  {[
-                    { to: "/AllUsers", label: "All Users" },
-                    { to: "/ActiveUsers", label: "Active Users" },
-                    { to: "/InactiveUsers", label: "Inactive Users" },
-                    { to: "/BannedUsers", label: "Banned Users" },
-                  ].map((sub) => (
-                    <NavLink key={sub.to} to={sub.to} style={linkStyle}>
-                      <ListItemButton sx={{ ...listItemSx, pl: 6 }}>
-                        {openSidebar && (
-                          <ListItemText
-                            primary={sub.label}
-                            primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
-                          />
-                        )}
-                      </ListItemButton>
-                    </NavLink>
-                  ))}
-                </List>
-              </Collapse>
+          {/* User Management Dropdown */}
+          <ListItemButton
+            onClick={() => setOpenUserMenu(!openUserMenu)}
+            sx={listItemSx}
+          >
+            <MdPeople style={{ fontSize: 20 }} />
+            {openSidebar && <ListItemText primary="User Management" />}
+            {openSidebar &&
+              (openUserMenu ? <MdExpandLess /> : <MdExpandMore />)}
+          </ListItemButton>
+          <Collapse
+            in={openUserMenu && openSidebar}
+            timeout="auto"
+            unmountOnExit
+          >
+            <List component="div" disablePadding>
+              {[
+                { to: "/AllUsers", label: "All Users" },
+                { to: "/drivers", label: "Drivers" },
+                { to: "/passengers", label: "Passengers " },
+                { to: "/dispatchers", label: "Dispatchers" },
+              ].map((sub) => (
+                <NavLink key={sub.to} to={sub.to} style={linkStyle}>
+                  <ListItemButton sx={{ ...listItemSx, pl: 6 }}>
+                    {openSidebar && (
+                      <ListItemText
+                        primary={sub.label}
+                        primaryTypographyProps={{
+                          fontSize: 14,
+                          fontWeight: 500,
+                        }}
+                      />
+                    )}
+                  </ListItemButton>
+                </NavLink>
+              ))}
+            </List>
+          </Collapse>
 
-              {/* Ride Management */}
-              <ListItemButton onClick={() => setOpenRides((v) => !v)} sx={listItemSx}>
-                <MdDirectionsCar style={{ fontSize: 20 }} />
-                {openSidebar && <ListItemText primary="Ride Management" />}
-                {openSidebar && (openRides ? <MdExpandLess /> : <MdExpandMore />)}
-              </ListItemButton>
-              <Collapse in={openRides && openSidebar} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  {[
-                    { to: "/admin/rides", label: "All Rides" },
-                    { to: "/admin/ongoing", label: "Ongoing Rides" },
-                    { to: "/admin/completed", label: "Completed Rides" },
-                    { to: "/admin/cancelled", label: "Cancelled Rides" },
-                  ].map((sub) => (
-                    <NavLink key={sub.to} to={sub.to} style={linkStyle}>
-                      <ListItemButton sx={{ ...listItemSx, pl: 6 }}>
-                        {openSidebar && (
-                          <ListItemText
-                            primary={sub.label}
-                            primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
-                          />
-                        )}
-                      </ListItemButton>
-                    </NavLink>
-                  ))}
-                </List>
-              </Collapse>
+          {/* Ride Management */}
+          <ListItemButton
+            onClick={() => setOpenRides((v) => !v)}
+            sx={listItemSx}
+          >
+            <MdDirectionsCar style={{ fontSize: 20 }} />
+            {openSidebar && <ListItemText primary="Ride Management" />}
+            {openSidebar && (openRides ? <MdExpandLess /> : <MdExpandMore />)}
+          </ListItemButton>
+          <Collapse in={openRides && openSidebar} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              {[
+                { to: "/admin/rides", label: "All Rides" },
+                { to: "/admin/ongoing", label: "Ongoing Rides" },
+                { to: "/admin/completed", label: "Completed Rides" },
+                { to: "/admin/cancelled", label: "Cancelled Rides" },
+              ].map((sub) => (
+                <NavLink key={sub.to} to={sub.to} style={linkStyle}>
+                  <ListItemButton sx={{ ...listItemSx, pl: 6 }}>
+                    {openSidebar && (
+                      <ListItemText
+                        primary={sub.label}
+                        primaryTypographyProps={{
+                          fontSize: 14,
+                          fontWeight: 500,
+                        }}
+                      />
+                    )}
+                  </ListItemButton>
+                </NavLink>
+              ))}
+            </List>
+          </Collapse>
 
-              {/* Reports */}
-              <NavLink to="/admin/reports" style={linkStyle}>
-                <ListItemButton sx={listItemSx}>
-                  <MdAssessment style={{ fontSize: 20 }} />
-                  {openSidebar && <ListItemText primary="Reports & Analytics" />}
-                </ListItemButton>
-              </NavLink>
-            </>
-          )}
+          {/* Reports */}
+          <NavLink to="/admin/reports" style={linkStyle}>
+            <ListItemButton sx={listItemSx}>
+              <MdAssessment style={{ fontSize: 20 }} />
+              {openSidebar && <ListItemText primary="Reports & Analytics" />}
+            </ListItemButton>
+          </NavLink>
 
-          {/* ✅ Dispatcher menus (visible to both admin & dispatcher) */}
+          {/* ✅ Dispatcher menus */}
           {(role === "admin" || role === "dispatcher") && (
             <>
-              <NavLink to="/dispatcher" style={linkStyle}>
-                <ListItemButton sx={listItemSx}>
-                  <MdMap style={{ fontSize: 20 }} />
-                  {openSidebar && <ListItemText primary="Dispatcher Dashboard" />}
-                </ListItemButton>
-              </NavLink>
-              <NavLink to="/dispatcher/assign" style={linkStyle}>
-                <ListItemButton sx={listItemSx}>
-                  <MdAssignment style={{ fontSize: 20 }} />
-                  {openSidebar && <ListItemText primary="Manual Assignment" />}
-                </ListItemButton>
-              </NavLink>
+              <ListItemButton
+                onClick={() => setOpenDispatcherMenu((v) => !v)}
+                sx={listItemSx}
+              >
+                <MdMap style={{ fontSize: 20 }} />
+                {openSidebar && <ListItemText primary="Dispatcher" />}
+                {openSidebar &&
+                  (openDispatcherMenu ? <MdExpandLess /> : <MdExpandMore />)}
+              </ListItemButton>
+              <Collapse
+                in={openDispatcherMenu && openSidebar}
+                timeout="auto"
+                unmountOnExit
+              >
+                <List component="div" disablePadding>
+                  {[
+                    { to: "/dispatcher/livemap", label: "Live Map" },
+                    {
+                      to: "/dispatcher/manualAssignment",
+                      label: "Manual Assignment",
+                    },
+                  ].map((sub) => (
+                    <NavLink key={sub.to} to={sub.to} style={linkStyle}>
+                      <ListItemButton sx={{ ...listItemSx, pl: 6 }}>
+                        {openSidebar && (
+                          <ListItemText
+                            primary={sub.label}
+                            primaryTypographyProps={{
+                              fontSize: 14,
+                              fontWeight: 500,
+                            }}
+                          />
+                        )}
+                      </ListItemButton>
+                    </NavLink>
+                  ))}
+                </List>
+              </Collapse>
             </>
           )}
         </List>

@@ -1,22 +1,23 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa"; 
+import { FaMoon, FaSun } from "react-icons/fa";
 import Login from "./Pages/Login";
 import RootLayout from "./Pages/RootLayout";
 import AdminSignup from "./Pages/AdminSignup";
 import Dashboard from "./Pages/Dashboard";
 import AllUsers from "./Pages/userManagement/AllUsers";
-import ActiveUsers from "./Pages/userManagement/ActiveUsers";
-import BannedUsers from "./Pages/userManagement/BannedUsers";
-import InactiveUsers from "./Pages/userManagement/InactiveUsers";
-import ManualDispatch from "./Pages/manualDispatch/ManualDispatch";
+import Dispatchers from "./Pages/userManagement/Dispatchers";
+import Passengers from "./Pages/userManagement/Passengers";
+import Drivers from "./Pages/userManagement/Drivers";
+
+// Dispatcher
 import AllRides from "./Pages/RideManagement/AllRides";
 import CancelledRides from "./Pages/RideManagement/CancelledRides";
 import OngoingRides from "./Pages/RideManagement/OngoingRides";
 import CompletedRides from "./Pages/RideManagement/CompletedRides";
-
 import ProtectedRoute from "./Components/ProtectedRoute"; // ✅ role-based protection
-
+import LiveMap from "./Pages/dispatcher/LiveMap";
+import ManualDispatch from "./Pages/dispatcher/manualDispatch/ManualDispatch.jsx";
 function App() {
   const [darkMode, setDarkmode] = useState(false);
   const toggleHandler = () => setDarkmode((prev) => !prev);
@@ -28,7 +29,31 @@ function App() {
       children: [
         { index: true, element: <Login /> },
         { path: "signup", element: <AdminSignup /> },
+        // ---- User Management (canonical paths) ----
+        { path: "admin/users", element: <AllUsers /> },
+        { path: "admin/users/drivers", element: <Drivers /> },
+        { path: "admin/users/passengers", element: <Passengers /> },
+        { path: "admin/users/dispatchers", element: <Dispatchers /> },
+        // ---- User Management (legacy aliases; safe to keep for now) ----
+        { path: "AllUsers", element: <AllUsers /> },
+        { path: "drivers", element: <Drivers /> },
+        { path: "passengers", element: <Passengers /> },
+        { path: "dispatchers", element: <Dispatchers /> },
+        // ---- Ride Management (canonical, lowercase) ----
+        { path: "admin/rides", element: <AllRides /> },
+        { path: "admin/ongoing", element: <OngoingRides /> },
+        { path: "admin/completed", element: <CompletedRides /> },
+        { path: "admin/cancelled", element: <CancelledRides /> },
 
+        // ---- Ride Management (legacy aliases for backward compat) ----
+        { path: "admin/Ongoing", element: <OngoingRides /> },
+        { path: "admin/Completed", element: <CompletedRides /> },
+        // ---- Dispatcher ----
+        { path: "dispatcher/manualAssignment", element: <ManualDispatch /> },
+        { path: "dispatcher/livemap", element: <LiveMap /> },
+
+        // Optional 404
+        // { path: "*", element: <PageNotFound /> },
         // ✅ Admin routes (accessible only to admin)
         {
           path: "dashboard",
@@ -47,26 +72,26 @@ function App() {
           ),
         },
         {
-          path: "ActiveUsers",
+          path: "passengers",
           element: (
             <ProtectedRoute allowedRoles={["admin"]}>
-              <ActiveUsers />
+              <Passengers />
             </ProtectedRoute>
           ),
         },
         {
-          path: "BannedUsers",
+          path: "dispatchers",
           element: (
             <ProtectedRoute allowedRoles={["admin"]}>
-              <BannedUsers />
+              <Dispatchers />
             </ProtectedRoute>
           ),
         },
         {
-          path: "InactiveUsers",
+          path: "drivers",
           element: (
             <ProtectedRoute allowedRoles={["admin"]}>
-              <InactiveUsers />
+              <Drivers />
             </ProtectedRoute>
           ),
         },
@@ -106,7 +131,15 @@ function App() {
         // ✅ Dispatcher routes (accessible to both admin and dispatcher)
         // I've updated the allowedRoles prop to include "admin".
         {
-          path: "dispatcher",
+          path: "dispacherPanel",
+          element: (
+            <ProtectedRoute allowedRoles={["admin", "dispatcher"]}>
+              <LiveMap />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "manualAssignment",
           element: (
             <ProtectedRoute allowedRoles={["admin", "dispatcher"]}>
               <ManualDispatch />
