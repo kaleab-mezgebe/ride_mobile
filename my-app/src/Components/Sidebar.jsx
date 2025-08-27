@@ -9,7 +9,6 @@ import {
   ListItemButton,
   ListItemText,
   Collapse,
-  Tooltip,
 } from "@mui/material";
 import {
   MdDashboard,
@@ -41,9 +40,12 @@ export default function Sidebar() {
   // auto-open menus depending on route
   useEffect(() => {
     if (location.pathname.startsWith("/admin/rides")) setOpenRides(true);
-    const isUserRoute = ["/AllUsers", "/ActiveUsers", "/InactiveUsers", "/BannedUsers"].some((r) =>
-      location.pathname.startsWith(r)
-    );
+    const isUserRoute = [
+      "/AllUsers",
+      "/ActiveUsers",
+      "/InactiveUsers",
+      "/BannedUsers",
+    ].some((r) => location.pathname.startsWith(r));
     if (isUserRoute) setOpenUserMenu(true);
   }, [location.pathname]);
 
@@ -96,7 +98,9 @@ export default function Sidebar() {
             borderBottom: "1px solid #333",
           }}
         >
-          {openSidebar && <Box sx={{ fontWeight: 700, fontSize: 18 }}>🚗 Nyat Ride</Box>}
+          {openSidebar && (
+            <Box sx={{ fontWeight: 700, fontSize: 18 }}>🚗 Nyat Ride</Box>
+          )}
           <IconButton onClick={toggleSidebar} sx={{ color: "#fff" }}>
             {openSidebar ? <MdClose /> : <MdMenu />}
           </IconButton>
@@ -116,10 +120,14 @@ export default function Sidebar() {
           {role === "admin" && (
             <>
               {/* User Management */}
-              <ListItemButton onClick={() => setOpenUserMenu(!openUserMenu)} sx={listItemSx}>
+              <ListItemButton
+                onClick={() => setOpenUserMenu(!openUserMenu)}
+                sx={listItemSx}
+              >
                 <MdPeople style={{ fontSize: 20 }} />
                 {openSidebar && <ListItemText primary="User Management" />}
-                {openSidebar && (openUserMenu ? <MdExpandLess /> : <MdExpandMore />)}
+                {openSidebar &&
+                  (openUserMenu ? <MdExpandLess /> : <MdExpandMore />)}
               </ListItemButton>
               <Collapse in={openUserMenu && openSidebar} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
