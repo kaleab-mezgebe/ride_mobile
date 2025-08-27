@@ -27,8 +27,8 @@ public class DataSeeder {
     private final CredentialRepository credentialRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${nyat.admin.username:admin}")
-    private String adminUsername; // used as email for Credential
+    @Value("${nyat.admin.email:admin@niyat.com}")
+    private String adminEmail; // used as email for Credential
 
     @Value("${nyat.admin.password:Admin@123}")
     private String adminPassword;
@@ -53,7 +53,7 @@ public class DataSeeder {
         admin.setFirstName("System");
         admin.setLastName("Administrator");
         admin.setPhoneNumber(adminPhone);
-        admin.setEmail(adminUsername);
+        admin.setEmail(adminEmail);
         admin.setIsVerified(true);
         admin.setVerifiedAt(LocalDateTime.now());
         admin.setRole(Role.Admin);
@@ -63,12 +63,12 @@ public class DataSeeder {
 
         // Create Credential for password login
         Credential credential = new Credential();
-        credential.setEmail(adminUsername);
+        credential.setEmail(adminEmail);
         credential.setPasswordHash(passwordEncoder.encode(adminPassword));
         credential.setUser(admin);
         credential.setActive(true);
         credentialRepository.save(credential);
 
-        log.info("Seeded default admin with email {}", adminUsername);
+        log.info("Seeded default admin with email {}", adminEmail);
     }
 }
