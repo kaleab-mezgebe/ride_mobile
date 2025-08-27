@@ -76,26 +76,26 @@ function App() {
           ),
         },
         {
-          path: "ActiveUsers",
+          path: "passengers",
           element: (
             <ProtectedRoute allowedRoles={["admin"]}>
-              <ActiveUsers />
+              <Passengers />
             </ProtectedRoute>
           ),
         },
         {
-          path: "BannedUsers",
+          path: "dispatchers",
           element: (
             <ProtectedRoute allowedRoles={["admin"]}>
-              <BannedUsers />
+              <Dispatchers />
             </ProtectedRoute>
           ),
         },
         {
-          path: "InactiveUsers",
+          path: "drivers",
           element: (
             <ProtectedRoute allowedRoles={["admin"]}>
-              <InactiveUsers />
+              <Drivers />
             </ProtectedRoute>
           ),
         },
