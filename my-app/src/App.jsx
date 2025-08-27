@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa"; // import icons
+import { FaMoon, FaSun } from "react-icons/fa"; 
 import Login from "./Pages/Login";
 import RootLayout from "./Pages/RootLayout";
 import AdminSignup from "./Pages/AdminSignup";
@@ -10,11 +10,15 @@ import ActiveUsers from "./Pages/userManagement/ActiveUsers";
 import BannedUsers from "./Pages/userManagement/BannedUsers";
 import InactiveUsers from "./Pages/userManagement/InactiveUsers";
 import ManualDispatch from "./Pages/manualDispatch/ManualDispatch";
-// import PageNotFound from "./Pages/Layout/PageNotFound";
+import AllRides from "./Pages/RideManagement/AllRides";
+import CancelledRides from "./Pages/RideManagement/CancelledRides";
+import OngoingRides from "./Pages/RideManagement/OngoingRides";
+import CompletedRides from "./Pages/RideManagement/CompletedRides";
+
+import ProtectedRoute from "./Components/ProtectedRoute"; // ✅ role-based protection
 
 function App() {
   const [darkMode, setDarkmode] = useState(false);
-
   const toggleHandler = () => setDarkmode((prev) => !prev);
 
   const router = createBrowserRouter([
@@ -24,21 +28,105 @@ function App() {
       children: [
         { index: true, element: <Login /> },
         { path: "signup", element: <AdminSignup /> },
-        { path: "dashboard", element: <Dashboard /> },
-        { path: "AllUsers", element: <AllUsers /> },
-        { path: "ActiveUsers", element: <ActiveUsers /> },
-        { path: "BannedUsers", element: <BannedUsers /> },
-        { path: "InactiveUsers", element: <InactiveUsers /> },
-        { path: "dispatcher", element: <ManualDispatch /> },
 
-        // { path: "*", element: <PageNotFound /> },
+        // ✅ Admin routes (accessible only to admin)
+        {
+          path: "dashboard",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <Dashboard />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "AllUsers",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AllUsers />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "ActiveUsers",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <ActiveUsers />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "BannedUsers",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <BannedUsers />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "InactiveUsers",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <InactiveUsers />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "admin/rides",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AllRides />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "admin/ongoing",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <OngoingRides />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "admin/completed",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <CompletedRides />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "admin/cancelled",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <CancelledRides />
+            </ProtectedRoute>
+          ),
+        },
+
+        // ✅ Dispatcher routes (accessible to both admin and dispatcher)
+        // I've updated the allowedRoles prop to include "admin".
+        {
+          path: "dispatcher",
+          element: (
+            <ProtectedRoute allowedRoles={["admin", "dispatcher"]}>
+              <ManualDispatch />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "dispatcher/assign",
+          element: (
+            <ProtectedRoute allowedRoles={["admin", "dispatcher"]}>
+              <ManualDispatch />
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
   ]);
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      {/* top-level wrapper for Tailwind dark mode */}
       <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300 py-3">
         <RouterProvider router={router} />
         <button
