@@ -15,10 +15,11 @@ const Login = () => {
   const Redirectpath = location.state?.path || "/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [values, setValues] = useState({
     email: "",
     password: "",
-    isChecked: false,
+    role: "admin", // ✅ default role is admin
   });
 
   const InputChangeHandler = (event) => {
@@ -32,19 +33,26 @@ const Login = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    // ✅ Temporary local login (fallback if backend not ready)
+    const role = values.role;
+
+    // ✅ Save into Redux
     dispatch(
       authActions.login({
         email: values.email,
-        name: "Admin",
-        fullName: "Admin User",
+        name: role === "admin" ? "Admin" : "Dispatcher",
+        fullName: role === "admin" ? "Admin User" : "Dispatcher User",
         _id: "12345",
         token: "dummy-token",
-        role: "admin",
+        role,
       })
     );
 
-    navigate("/dashboard", { replace: true });
+    // ✅ Redirect to proper dashboard
+    if (role === "admin") {
+      navigate("/dashboard", { replace: true });
+    } else {
+      navigate("/dispatcher", { replace: true });
+    }
   };
 
   const { width } = Windowresponsiv();
@@ -52,18 +60,20 @@ const Login = () => {
   // ✅ Google login handler
   const handleGoogleSuccess = async (response) => {
     try {
-      // Replace this with your API later
       console.log("Google login success:", response);
+
+      // For now, all Google logins = admin
       dispatch(
         authActions.login({
-          email: values.email,
+          email: values.email || "googleuser@example.com",
           name: "Google User",
           fullName: "Google Admin",
           _id: "google-123",
           token: response.credential,
-          role: "admin",
+          role: "admin", 
         })
       );
+
       navigate("/dashboard");
     } catch (error) {
       dispatch(setError("Google login failed!"));
@@ -78,7 +88,7 @@ const Login = () => {
     <>
       <h2 className="flex items-center justify-center gap-10 text-[32px] font-bold max-[414px]:flex-col max-[414px]:text-[28px] ">
         <img src={admin} alt="" width={90} height={90} className="dark:invert" />
-        Admin Login
+        Login
       </h2>
       <GoogleOAuthProvider clientId="">
         <form onSubmit={submitHandler} className=" mx-1 lg:w-1/3 lg:mx-auto">
@@ -105,6 +115,30 @@ const Login = () => {
               isVisible={true}
               icon={<img src={key} alt="" width={23} height={12} />}
             />
+
+            {/* ✅ Role Selector */}
+            <div className="flex gap-6 items-center justify-center">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="role"
+                  value="admin"
+                  checked={values.role === "admin"}
+                  onChange={InputChangeHandler}
+                />
+                Admin
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="role"
+                  value="dispatcher"
+                  checked={values.role === "dispatcher"}
+                  onChange={InputChangeHandler}
+                />
+                Dispatcher
+              </label>
+            </div>
           </div>
 
           {/* Submit */}
