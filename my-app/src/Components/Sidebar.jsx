@@ -41,7 +41,7 @@ export default function Sidebar() {
     if (location.pathname.startsWith("/admin/rides")) setOpenRides(true);
     const isUserRoute = [
       "/AllUsers",
-      "/ActiveUsers",
+      "/drivers",
       "/InactiveUsers",
       "/BannedUsers",
     ].some((r) => location.pathname.startsWith(r));
@@ -133,9 +133,9 @@ export default function Sidebar() {
             <List component="div" disablePadding>
               {[
                 { to: "/AllUsers", label: "All Users" },
-                { to: "/ActiveUsers", label: "Active Users" },
-                { to: "/InactiveUsers", label: "Inactive Users" },
-                { to: "/BannedUsers", label: "Banned Users" },
+                { to: "/drivers", label: "Drivers" },
+                { to: "/passengers", label: "Passengers " },
+                { to: "/dispatchers", label: "Dispatchers" },
               ].map((sub) => (
                 <NavLink key={sub.to} to={sub.to} style={linkStyle}>
                   <ListItemButton sx={{ ...listItemSx, pl: 6 }}>

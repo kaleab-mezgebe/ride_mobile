@@ -3,7 +3,7 @@ import UserTable from "../../components/userManagement/UserTable";
 import UserStats from "../../components/userManagement/UserStats";
 import Sidebar from "../../Components/Sidebar";
 
-const InactiveUsers = () => {
+const Passengers = () => {
   return (
     <div className="flex">
       <Sidebar />
@@ -11,9 +11,9 @@ const InactiveUsers = () => {
       {/* Main User Table Panel */}
       <div className="dark:bg-gray-900  dark:shadow-gray-700">
         <h1 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-200">
-          Inactive Users
+          Passengers{" "}
         </h1>
-        <UserTable filter="inactive" />
+        <UserTable filter="passengers" />
       </div>
       <div className="flex flex-col justify-bitween items-center">
         <UserStats />
@@ -22,4 +22,4 @@ const InactiveUsers = () => {
   );
 };
 
-export default InactiveUsers;
+export default Passengers;

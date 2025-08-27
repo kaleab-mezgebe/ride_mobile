@@ -5,7 +5,6 @@ import MapView from "./MapView";
 import { dummyDrivers, DEFAULT_CENTER } from "./constants";
 import L from "leaflet";
 import Sidebar from "../../Components/Sidebar";
-
 export default function ManualDispatch() {
   const [formData, setFormData] = useState({
     userPhone: "",
@@ -53,7 +52,6 @@ export default function ManualDispatch() {
       else setDropoffSuggestions([]);
     }
   };
-
   const onPickupInput = (e) => {
     setFormData((prev) => ({ ...prev, pickupAddress: e.target.value }));
     setActiveField("pickup");
@@ -99,14 +97,12 @@ export default function ManualDispatch() {
       setFormData((prev) => ({ ...prev, dropoffAddress: display }));
     }
   };
-
   const calculateDistance = (loc) => {
     if (!pickupLocation || !loc) return "-";
     const point1 = L.latLng(pickupLocation[0], pickupLocation[1]);
     const point2 = L.latLng(loc[0], loc[1]);
     return `${(point1.distanceTo(point2) / 1000).toFixed(2)} km`;
   };
-
   const handleAssignRide = () => {
     const driver = drivers.find(
       (d) => String(d.id) === formData.selectedDriverId
@@ -139,7 +135,6 @@ Notes: ${formData.passengerNotes || "-"}`);
     setDropoffSuggestions([]);
     setActiveField("pickup");
   };
-
   const mapCenter = useMemo(
     () => pickupLocation || dropoffLocation || DEFAULT_CENTER,
     [pickupLocation, dropoffLocation]

@@ -71,7 +71,6 @@ export default function PassengerForm({
           <option value="Adigrat">Adigrat</option>
         </select>
       </div>
-
       {/* Pickup Address */}
       <div className="mb-4 relative">
         <label className="block text-sm  mb-1">Pickup Address</label>

@@ -9,9 +9,9 @@ import Dashboard from "./Pages/Dashboard";
 
 // User Management
 import AllUsers from "./Pages/userManagement/AllUsers";
-import ActiveUsers from "./Pages/userManagement/ActiveUsers";
-import BannedUsers from "./Pages/userManagement/BannedUsers";
-import InactiveUsers from "./Pages/userManagement/InactiveUsers";
+import Dispatchers from "./Pages/userManagement/Dispatchers";
+import Passengers from "./Pages/userManagement/Passengers";
+import Drivers from "./Pages/userManagement/Drivers";
 
 // Dispatcher
 import ManualDispatch from "./Pages/manualDispatch/ManualDispatch";
@@ -21,7 +21,6 @@ import AllRides from "./Pages/RideManagement/AllRides";
 import OngoingRides from "./Pages/RideManagement/OngoingRides";
 import CompletedRides from "./Pages/RideManagement/CompletedRides";
 import CancelledRides from "./Pages/RideManagement/CancelledRides";
-
 function App() {
   const [darkMode, setDarkmode] = useState(false);
   const toggleHandler = () => setDarkmode((prev) => !prev);
@@ -38,15 +37,15 @@ function App() {
 
         // ---- User Management (canonical paths) ----
         { path: "admin/users", element: <AllUsers /> },
-        { path: "admin/users/active", element: <ActiveUsers /> },
-        { path: "admin/users/inactive", element: <InactiveUsers /> },
-        { path: "admin/users/banned", element: <BannedUsers /> },
+        { path: "admin/users/drivers", element: <Drivers /> },
+        { path: "admin/users/passengers", element: <Passengers /> },
+        { path: "admin/users/dispatchers", element: <Dispatchers /> },
 
         // ---- User Management (legacy aliases; safe to keep for now) ----
         { path: "AllUsers", element: <AllUsers /> },
-        { path: "ActiveUsers", element: <ActiveUsers /> },
-        { path: "InactiveUsers", element: <InactiveUsers /> },
-        { path: "BannedUsers", element: <BannedUsers /> },
+        { path: "drivers", element: <Drivers /> },
+        { path: "passengers", element: <Passengers /> },
+        { path: "dispatchers", element: <Dispatchers /> },
 
         // ---- Ride Management (canonical, lowercase) ----
         { path: "admin/rides", element: <AllRides /> },

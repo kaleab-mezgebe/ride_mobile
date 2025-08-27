@@ -13,7 +13,7 @@ const UserRow = ({ user, onEdit, onDelete, onView }) => {
       </td>
       <td className="p-3">{user.id}</td>
       <td className="p-3">{user.name}</td>
-      <td className="p-3">{user.email}</td>
+      <td className="p-3">{user.phone}</td>
       <td className="p-3">{user.role}</td>
       <td className="p-3">{user.status}</td>
       <td className="p-3 flex gap-3">

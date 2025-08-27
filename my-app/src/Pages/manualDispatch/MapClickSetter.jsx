@@ -1,5 +1,4 @@
 import { useMapEvents } from "react-leaflet";
-
 export default function MapClickSetter({ activeField, onSet }) {
   useMapEvents({
     async click(e) {
