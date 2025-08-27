@@ -4,7 +4,7 @@ import DriverList from "./DriverList";
 import MapView from "./MapView";
 import { dummyDrivers, DEFAULT_CENTER } from "./constants";
 import L from "leaflet";
-import Sidebar from "../../Components/Sidebar";
+import Sidebar from "../../../Components/Sidebar";
 export default function ManualDispatch() {
   const [formData, setFormData] = useState({
     userPhone: "",
@@ -15,20 +15,16 @@ export default function ManualDispatch() {
     dropoffAddress: "",
     vehicleType: "",
     passengerNotes: "",
-    selectedDriverId: "",
+    selectedDriverName: "",
   });
-
   const [pickupLocation, setPickupLocation] = useState(null);
   const [dropoffLocation, setDropoffLocation] = useState(null);
   const [pickupSuggestions, setPickupSuggestions] = useState([]);
   const [dropoffSuggestions, setDropoffSuggestions] = useState([]);
   const [activeField, setActiveField] = useState("pickup");
-
-  const [drivers] = useState(dummyDrivers);
-
+  // const [drivers] = useState(dummyDrivers);
   const pickupDebounceRef = useRef(null);
   const dropoffDebounceRef = useRef(null);
-
   // Fetch Suggestions
   const fetchSuggestions = async (query, type, cityBias) => {
     if (!query || query.trim().length < 2) {
@@ -61,7 +57,6 @@ export default function ManualDispatch() {
       300
     );
   };
-
   const onDropoffInput = (e) => {
     setFormData((prev) => ({ ...prev, dropoffAddress: e.target.value }));
     setActiveField("dropoff");
@@ -87,8 +82,8 @@ export default function ManualDispatch() {
       setDropoffSuggestions([]);
     }
   };
-
   const handleMapSet = ({ lat, lon, display }, type) => {
+    console.log("==", display, lat, lon, type);
     if (type === "pickup") {
       setPickupLocation([lat, lon]);
       setFormData((prev) => ({ ...prev, pickupAddress: display }));
@@ -104,17 +99,18 @@ export default function ManualDispatch() {
     return `${(point1.distanceTo(point2) / 1000).toFixed(2)} km`;
   };
   const handleAssignRide = () => {
-    const driver = drivers.find(
-      (d) => String(d.id) === formData.selectedDriverId
-    );
+    // const driver = drivers.find(
+    //   (d) => String(d.id) === formData.selectedDriverId
+    // );
     alert(`Ride assigned!\n\nPassenger: ${formData.firstName} ${
       formData.lastName
     } (${formData.userPhone})
-Pickup: ${formData.pickupAddress}
-Dropoff: ${formData.dropoffAddress}
-Driver: ${driver?.name || "-"}
+Pickup: ${pickupLocation}
+Dropoff: ${dropoffLocation}
+Driver: ${formData.selectedDriverName || "-"}
 Vehicle Type: ${formData.vehicleType}
 Notes: ${formData.passengerNotes || "-"}`);
+    console.log(formData);
   };
 
   const resetForm = () => {
@@ -135,11 +131,11 @@ Notes: ${formData.passengerNotes || "-"}`);
     setDropoffSuggestions([]);
     setActiveField("pickup");
   };
+
   const mapCenter = useMemo(
     () => pickupLocation || dropoffLocation || DEFAULT_CENTER,
     [pickupLocation, dropoffLocation]
   );
-
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -159,7 +155,7 @@ Notes: ${formData.passengerNotes || "-"}`);
               setActiveField={setActiveField}
             />
             <DriverList
-              drivers={drivers}
+              drivers={dummyDrivers}
               formData={formData}
               setFormData={setFormData}
               calculateDistance={calculateDistance}
@@ -192,7 +188,7 @@ Notes: ${formData.passengerNotes || "-"}`);
           <MapView
             pickupLocation={pickupLocation}
             dropoffLocation={dropoffLocation}
-            drivers={drivers}
+            drivers={dummyDrivers}
             activeField={activeField}
             handleMapSet={handleMapSet}
             mapCenter={mapCenter}

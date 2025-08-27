@@ -5,19 +5,17 @@ export default function DriverList({
   calculateDistance,
 }) {
   // Calculate distance for each driver
-  const driversWithDistance = drivers.map((d) => ({
+  const driversWithDistance = drivers?.map((d) => ({
     ...d,
     distance:
       formData.pickupAddress && calculateDistance(d.location)
         ? parseFloat(calculateDistance(d.location))
         : Infinity, // Infinity if pickupAddress is empty
   }));
-
   // Sort drivers by distance
   const sortedDrivers = [...driversWithDistance].sort(
     (a, b) => a.distance - b.distance
   );
-
   // Closest driver only if pickupAddress is filled
   const closestDriverId =
     formData.pickupAddress && sortedDrivers.length > 0
@@ -26,7 +24,6 @@ export default function DriverList({
   return (
     <>
       <h2 className="text-lg font-semibold mt-6 mb-2">Available Drivers</h2>
-
       {/* Dropdown */}
       <div className="mb-4">
         <label className="block text-sm text-gray-700 mb-1">
@@ -35,17 +32,17 @@ export default function DriverList({
         <select
           name="selectedDriverId"
           className="w-full border rounded px-3 py-2"
-          value={formData.selectedDriverId ?? ""}
+          value={formData.selectedDriverName ?? ""}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
-              selectedDriverId: e.target.value,
+              selectedDriverName: e.target.value,
             }))
           }
         >
           <option value="">-- Select a driver --</option>
-          {sortedDrivers.map((d) => (
-            <option key={d.id} value={d.id}>
+          {sortedDrivers?.map((d) => (
+            <option key={d.id} value={d.name}>
               {d.name} ({d.vehicle}) -{" "}
               {formData.pickupAddress ? d.distance.toFixed(2) : "-"}
               {formData.pickupAddress && d.id === closestDriverId
@@ -58,7 +55,7 @@ export default function DriverList({
 
       {/* Driver List */}
       <ul className="space-y-2 max-h-48 overflow-y-auto">
-        {sortedDrivers.map((d) => (
+        {sortedDrivers?.map((d) => (
           <li
             key={d.id}
             className={`border p-2 rounded flex justify-between items-center ${
@@ -87,7 +84,7 @@ export default function DriverList({
             <button
               className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
               onClick={() =>
-                setFormData((prev) => ({ ...prev, selectedDriverId: d.id }))
+                setFormData((prev) => ({ ...prev, selectedDriverName: d.name }))
               }
             >
               Select

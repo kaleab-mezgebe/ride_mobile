@@ -11,14 +11,13 @@ import Passengers from "./Pages/userManagement/Passengers";
 import Drivers from "./Pages/userManagement/Drivers";
 
 // Dispatcher
-import ManualDispatch from "./Pages/manualDispatch/ManualDispatch";
 import AllRides from "./Pages/RideManagement/AllRides";
 import CancelledRides from "./Pages/RideManagement/CancelledRides";
 import OngoingRides from "./Pages/RideManagement/OngoingRides";
 import CompletedRides from "./Pages/RideManagement/CompletedRides";
-
 import ProtectedRoute from "./Components/ProtectedRoute"; // ✅ role-based protection
-
+import LiveMap from "./Pages/dispatcher/LiveMap";
+import ManualDispatch from "./Pages/dispatcher/manualDispatch/ManualDispatch.jsx";
 function App() {
   const [darkMode, setDarkmode] = useState(false);
   const toggleHandler = () => setDarkmode((prev) => !prev);
@@ -30,19 +29,16 @@ function App() {
       children: [
         { index: true, element: <Login /> },
         { path: "signup", element: <AdminSignup /> },
-
         // ---- User Management (canonical paths) ----
         { path: "admin/users", element: <AllUsers /> },
         { path: "admin/users/drivers", element: <Drivers /> },
         { path: "admin/users/passengers", element: <Passengers /> },
         { path: "admin/users/dispatchers", element: <Dispatchers /> },
-
         // ---- User Management (legacy aliases; safe to keep for now) ----
         { path: "AllUsers", element: <AllUsers /> },
         { path: "drivers", element: <Drivers /> },
         { path: "passengers", element: <Passengers /> },
         { path: "dispatchers", element: <Dispatchers /> },
-
         // ---- Ride Management (canonical, lowercase) ----
         { path: "admin/rides", element: <AllRides /> },
         { path: "admin/ongoing", element: <OngoingRides /> },
@@ -52,9 +48,9 @@ function App() {
         // ---- Ride Management (legacy aliases for backward compat) ----
         { path: "admin/Ongoing", element: <OngoingRides /> },
         { path: "admin/Completed", element: <CompletedRides /> },
-
         // ---- Dispatcher ----
-        { path: "dispatcher", element: <ManualDispatch /> },
+        { path: "dispatcher/manualAssignment", element: <ManualDispatch /> },
+        { path: "dispatcher/livemap", element: <LiveMap /> },
 
         // Optional 404
         // { path: "*", element: <PageNotFound /> },
@@ -135,7 +131,15 @@ function App() {
         // ✅ Dispatcher routes (accessible to both admin and dispatcher)
         // I've updated the allowedRoles prop to include "admin".
         {
-          path: "dispatcher",
+          path: "dispacherPanel",
+          element: (
+            <ProtectedRoute allowedRoles={["admin", "dispatcher"]}>
+              <LiveMap />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "manualAssignment",
           element: (
             <ProtectedRoute allowedRoles={["admin", "dispatcher"]}>
               <ManualDispatch />
