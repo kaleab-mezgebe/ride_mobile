@@ -1,13 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
-
-import RootLayout from "./Pages/RootLayout";
 import Login from "./Pages/Login";
+import RootLayout from "./Pages/RootLayout";
 import AdminSignup from "./Pages/AdminSignup";
 import Dashboard from "./Pages/Dashboard";
-
-// User Management
 import AllUsers from "./Pages/userManagement/AllUsers";
 import Dispatchers from "./Pages/userManagement/Dispatchers";
 import Passengers from "./Pages/userManagement/Passengers";
@@ -15,12 +12,13 @@ import Drivers from "./Pages/userManagement/Drivers";
 
 // Dispatcher
 import ManualDispatch from "./Pages/manualDispatch/ManualDispatch";
-
-// Ride Management
 import AllRides from "./Pages/RideManagement/AllRides";
+import CancelledRides from "./Pages/RideManagement/CancelledRides";
 import OngoingRides from "./Pages/RideManagement/OngoingRides";
 import CompletedRides from "./Pages/RideManagement/CompletedRides";
-import CancelledRides from "./Pages/RideManagement/CancelledRides";
+
+import ProtectedRoute from "./Components/ProtectedRoute"; // ✅ role-based protection
+
 function App() {
   const [darkMode, setDarkmode] = useState(false);
   const toggleHandler = () => setDarkmode((prev) => !prev);
@@ -30,10 +28,8 @@ function App() {
       path: "/",
       element: <RootLayout />,
       children: [
-        // Auth + dashboard
         { index: true, element: <Login /> },
         { path: "signup", element: <AdminSignup /> },
-        { path: "dashboard", element: <Dashboard /> },
 
         // ---- User Management (canonical paths) ----
         { path: "admin/users", element: <AllUsers /> },
@@ -62,6 +58,98 @@ function App() {
 
         // Optional 404
         // { path: "*", element: <PageNotFound /> },
+        // ✅ Admin routes (accessible only to admin)
+        {
+          path: "dashboard",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <Dashboard />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "AllUsers",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AllUsers />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "ActiveUsers",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <ActiveUsers />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "BannedUsers",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <BannedUsers />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "InactiveUsers",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <InactiveUsers />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "admin/rides",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AllRides />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "admin/ongoing",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <OngoingRides />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "admin/completed",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <CompletedRides />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "admin/cancelled",
+          element: (
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <CancelledRides />
+            </ProtectedRoute>
+          ),
+        },
+
+        // ✅ Dispatcher routes (accessible to both admin and dispatcher)
+        // I've updated the allowedRoles prop to include "admin".
+        {
+          path: "dispatcher",
+          element: (
+            <ProtectedRoute allowedRoles={["admin", "dispatcher"]}>
+              <ManualDispatch />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "dispatcher/assign",
+          element: (
+            <ProtectedRoute allowedRoles={["admin", "dispatcher"]}>
+              <ManualDispatch />
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
   ]);
