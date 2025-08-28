@@ -3,7 +3,7 @@ package com.niyat.ride.features.admin.vehicle_type_management.services;
 import com.niyat.ride.features.admin.vehicle_type_management.dtos.VehicleTypeRequestDTO;
 import com.niyat.ride.features.admin.vehicle_type_management.dtos.VehicleTypeResponseDTO;
 import com.niyat.ride.features.admin.vehicle_type_management.repositories.VehicleTypeRepository;
-import com.niyat.ride.vehicle.VehicleType;
+import com.niyat.ride.vehicle.models.VehicleType;
 import com.niyat.ride.shared.utils.PaginationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

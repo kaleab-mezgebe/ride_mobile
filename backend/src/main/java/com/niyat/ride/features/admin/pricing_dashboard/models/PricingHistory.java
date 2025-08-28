@@ -1,6 +1,6 @@
 package com.niyat.ride.features.admin.pricing_dashboard.models;
 
-import com.niyat.ride.vehicle.VehicleType;
+import com.niyat.ride.vehicle.models.VehicleType;
 import jakarta.persistence.*;
 import lombok.Data;
 

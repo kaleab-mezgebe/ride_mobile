@@ -7,7 +7,7 @@ import com.niyat.ride.features.admin.pricing_dashboard.models.PricingHistory;
 import com.niyat.ride.features.admin.pricing_dashboard.repositories.PricingHistoryRepository;
 import com.niyat.ride.features.admin.ride_management.repositories.RideManagementRepository;
 import com.niyat.ride.features.admin.vehicle_type_management.repositories.VehicleTypeRepository;
-import com.niyat.ride.vehicle.VehicleType;
+import com.niyat.ride.vehicle.models.VehicleType;
 import com.niyat.ride.admin.repositories.AdminRepository;
 import com.niyat.ride.features.admin.pricing_management.services.BasePriceService;
 import com.niyat.ride.features.admin.pricing_management.dtos.BasePriceUpdateDTO;

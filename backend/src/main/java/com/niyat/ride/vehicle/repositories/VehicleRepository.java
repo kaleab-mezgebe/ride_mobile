@@ -1,5 +1,6 @@
-package com.niyat.ride.vehicle;
+package com.niyat.ride.vehicle.repositories;
 
+import com.niyat.ride.vehicle.models.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

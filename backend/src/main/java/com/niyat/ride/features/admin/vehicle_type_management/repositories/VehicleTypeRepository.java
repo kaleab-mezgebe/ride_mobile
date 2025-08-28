@@ -1,6 +1,6 @@
 package com.niyat.ride.features.admin.vehicle_type_management.repositories;
 
-import com.niyat.ride.vehicle.VehicleType;
+import com.niyat.ride.vehicle.models.VehicleType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

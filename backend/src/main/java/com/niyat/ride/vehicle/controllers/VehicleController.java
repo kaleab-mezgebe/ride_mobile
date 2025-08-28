@@ -1,6 +1,8 @@
-package com.niyat.ride.vehicle;
+package com.niyat.ride.vehicle.controllers;
 
 
+import com.niyat.ride.vehicle.services.VehicleService;
+import com.niyat.ride.vehicle.models.Vehicle;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

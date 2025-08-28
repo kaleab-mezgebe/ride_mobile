@@ -1,4 +1,4 @@
-package com.niyat.ride.vehicle;
+package com.niyat.ride.vehicle.models;
 
 import com.niyat.ride.driver.models.Driver;
 import jakarta.persistence.*;

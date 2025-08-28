@@ -1,7 +1,7 @@
 package com.niyat.ride.shared.services;
 
 import com.niyat.ride.features.ride_management.dtos.RideCostDTO;
-import com.niyat.ride.vehicle.VehicleType;
+import com.niyat.ride.vehicle.models.VehicleType;
 import com.niyat.ride.features.admin.vehicle_type_management.repositories.VehicleTypeRepository;
 import com.niyat.ride.features.admin.pricing_management.services.BasePriceService;
 import lombok.RequiredArgsConstructor;

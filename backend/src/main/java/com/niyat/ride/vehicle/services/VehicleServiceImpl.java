@@ -1,7 +1,9 @@
-package com.niyat.ride.vehicle;
+package com.niyat.ride.vehicle.services;
 
 import com.niyat.ride.driver.models.Driver;
 import com.niyat.ride.driver.repositories.DriverRepository;
+import com.niyat.ride.vehicle.models.Vehicle;
+import com.niyat.ride.vehicle.repositories.VehicleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -7,7 +7,7 @@ import com.niyat.ride.features.dispatcher.ride_creation.dtos.DispatcherRideRespo
 import com.niyat.ride.features.dispatcher.ride_creation.dtos.LocationDTO;
 import com.niyat.ride.customer.models.Customer;
 import com.niyat.ride.ride.models.RideRequest;
-import com.niyat.ride.vehicle.VehicleType;
+import com.niyat.ride.vehicle.models.VehicleType;
 import com.niyat.ride.driver.repositories.DriverRepository;
 import com.niyat.ride.ride.repositories.RideRequestRepository;
 import com.niyat.ride.features.admin.vehicle_type_management.repositories.VehicleTypeRepository;
