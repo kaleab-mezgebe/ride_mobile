@@ -39,7 +39,6 @@ export function SectionTitle({ children }) {
     </h2>
   );
 }
-
 // TopBar component
 export function TopBar({ count, onSearch }) {
   return (
@@ -64,7 +63,6 @@ export function TopBar({ count, onSearch }) {
     </div>
   );
 }
-
 // ActionsMenu
 export function ActionsMenu({ trip, onReassign, onCancel, onEmergency }) {
   return (

@@ -183,7 +183,6 @@ Notes: ${formData.passengerNotes || "-"}`);
               </button>
             </div>
           </div>
-
           {/* RIGHT: Map */}
           <MapView
             pickupLocation={pickupLocation}

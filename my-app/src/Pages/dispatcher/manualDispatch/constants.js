@@ -11,7 +11,14 @@ export const defaultIcon = new L.Icon({
   popupAnchor: [0, -28],
   shadowSize: [41, 41],
 });
-
+// For drivers (optional custom car icon)
+export const carIcon = L.icon({
+  iconUrl: "/icons/car.png", // must be in public/icons/
+  iconSize: [32, 32],
+  iconAnchor: [16, 16],
+});
+// Polyline color for routes
+export const ROUTE_COLOR = "#007bff";
 // --- Demo drivers
 export const dummyDrivers = [
   {
@@ -44,5 +51,4 @@ export const vehicleTypes = [
   { value: "hatchback", label: "Hatchback" },
   { value: "minivan", label: "Minivan" },
 ];
-
 export const DEFAULT_CENTER = [13.4962, 39.4753]; // Mek'ele

@@ -51,7 +51,7 @@ const Login = () => {
     if (role === "admin") {
       navigate("/dashboard", { replace: true });
     } else {
-      navigate("/dispatcher", { replace: true });
+      navigate("/dispatcher/livemap", { replace: true });
     }
   };
 
@@ -70,7 +70,7 @@ const Login = () => {
           fullName: "Google Admin",
           _id: "google-123",
           token: response.credential,
-          role: "admin", 
+          role: "admin",
         })
       );
 
@@ -87,7 +87,13 @@ const Login = () => {
   return (
     <>
       <h2 className="flex items-center justify-center gap-10 text-[32px] font-bold max-[414px]:flex-col max-[414px]:text-[28px] ">
-        <img src={admin} alt="" width={90} height={90} className="dark:invert" />
+        <img
+          src={admin}
+          alt=""
+          width={90}
+          height={90}
+          className="dark:invert"
+        />
         Login
       </h2>
       <GoogleOAuthProvider clientId="">
@@ -163,7 +169,9 @@ const Login = () => {
 
           {/* Divider */}
           <div className="relative text-center text-[14px] font-bold text-gray-500 my-6">
-            <span className="relative z-10 bg-white px-3">OR CONTINUE WITH</span>
+            <span className="relative z-10 bg-white px-3">
+              OR CONTINUE WITH
+            </span>
             <div className="absolute top-1/2 left-0 w-[35%] h-[3px] bg-gray-300"></div>
             <div className="absolute top-1/2 right-0 w-[35%] h-[3px] bg-gray-300"></div>
           </div>

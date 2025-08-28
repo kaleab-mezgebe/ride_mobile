@@ -35,6 +35,7 @@ export default function MapView({
               <Popup>Drop-off</Popup>
             </Marker>
           )}
+
           {drivers.map((d) => (
             <Marker key={d.id} position={d.location} icon={defaultIcon}>
               <Popup>
