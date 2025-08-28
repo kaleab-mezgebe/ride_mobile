@@ -2,10 +2,10 @@ package com.niyat.ride.config;
 
 import com.niyat.ride.enums.AccountStatus;
 import com.niyat.ride.enums.Role;
-import com.niyat.ride.models.Admin;
-import com.niyat.ride.models.Credential;
-import com.niyat.ride.repositories.AdminRepository;
-import com.niyat.ride.repositories.CredentialRepository;
+import com.niyat.ride.admin.models.Admin;
+import com.niyat.ride.shared.models.Credential;
+import com.niyat.ride.admin.repositories.AdminRepository;
+import com.niyat.ride.shared.repositories.CredentialRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

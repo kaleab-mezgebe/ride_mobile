@@ -1,7 +1,7 @@
 package com.niyat.ride.features.dispatcher.ride_creation.services;
 
 import com.niyat.ride.features.dispatcher.ride_creation.dtos.CustomerInfoDTO;
-import com.niyat.ride.models.Customer;
+import com.niyat.ride.customer.models.Customer;
 
 public interface CustomerOrchestrationService {
     

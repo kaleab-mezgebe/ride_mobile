@@ -1,7 +1,7 @@
 package com.niyat.ride.shared.services;
 
 import com.niyat.ride.features.ride_management.dtos.RideCostDTO;
-import com.niyat.ride.models.VehicleType;
+import com.niyat.ride.vehicle.VehicleType;
 
 import java.math.BigDecimal;
 

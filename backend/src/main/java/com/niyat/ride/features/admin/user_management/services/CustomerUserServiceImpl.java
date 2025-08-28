@@ -3,7 +3,7 @@ package com.niyat.ride.features.admin.user_management.services;
 import com.niyat.ride.enums.AccountStatus;
 import com.niyat.ride.features.admin.user_management.dtos.CustomerUserResponseDTO;
 import com.niyat.ride.features.admin.user_management.repositories.CustomerUserRepository;
-import com.niyat.ride.models.Customer;
+import com.niyat.ride.customer.models.Customer;
 import com.niyat.ride.shared.utils.PaginationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

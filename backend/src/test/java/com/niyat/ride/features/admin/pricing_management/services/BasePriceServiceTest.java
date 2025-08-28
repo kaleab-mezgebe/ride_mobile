@@ -4,7 +4,7 @@ import com.niyat.ride.features.admin.pricing_management.dtos.BasePriceResponseDT
 import com.niyat.ride.features.admin.pricing_management.dtos.BasePriceUpdateDTO;
 import com.niyat.ride.features.admin.pricing_management.models.BasePrice;
 import com.niyat.ride.features.admin.pricing_management.repositories.BasePriceRepository;
-import com.niyat.ride.repositories.AdminRepository;
+import com.niyat.ride.admin.repositories.AdminRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

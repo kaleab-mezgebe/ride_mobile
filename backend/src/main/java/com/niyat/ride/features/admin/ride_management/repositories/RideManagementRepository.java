@@ -1,7 +1,7 @@
 package com.niyat.ride.features.admin.ride_management.repositories;
 
 import com.niyat.ride.enums.RideStatus;
-import com.niyat.ride.models.RideRequest;
+import com.niyat.ride.ride.models.RideRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

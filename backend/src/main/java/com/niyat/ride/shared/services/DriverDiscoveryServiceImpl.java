@@ -1,21 +1,16 @@
 package com.niyat.ride.shared.services;
 
 import com.niyat.ride.enums.RideStatus;
-import com.niyat.ride.models.Driver;
-import com.niyat.ride.models.RideRequest;
-import com.niyat.ride.models.VehicleType;
-import com.niyat.ride.repositories.DriverRepository;
-import com.niyat.ride.repositories.RideRequestRepository;
+import com.niyat.ride.driver.models.Driver;
+import com.niyat.ride.driver.repositories.DriverRepository;
+import com.niyat.ride.ride.repositories.RideRequestRepository;
 import com.niyat.ride.features.admin.vehicle_type_management.repositories.VehicleTypeRepository;
 import com.niyat.ride.shared.dtos.NearbyDriverDTO;
 import com.niyat.ride.shared.exceptions.DriverDiscoveryException;
-import com.niyat.ride.shared.exceptions.GeospatialException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 
 import java.math.BigDecimal;
 import java.util.List;

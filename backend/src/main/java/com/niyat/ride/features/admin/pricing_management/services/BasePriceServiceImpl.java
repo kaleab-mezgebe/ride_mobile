@@ -4,7 +4,7 @@ import com.niyat.ride.features.admin.pricing_management.dtos.BasePriceResponseDT
 import com.niyat.ride.features.admin.pricing_management.dtos.BasePriceUpdateDTO;
 import com.niyat.ride.features.admin.pricing_management.models.BasePrice;
 import com.niyat.ride.features.admin.pricing_management.repositories.BasePriceRepository;
-import com.niyat.ride.repositories.AdminRepository;
+import com.niyat.ride.admin.repositories.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
