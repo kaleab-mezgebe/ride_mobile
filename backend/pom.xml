@@ -62,14 +62,13 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
+
         <!-- Hibernate Spatial for PostGIS -->
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-spatial</artifactId>
-            <version>${hibernate.version}</version>
         </dependency>
-        
+
         <!-- PostGIS JDBC Driver -->
         <dependency>
             <groupId>net.postgis</groupId>
@@ -172,6 +171,13 @@
             <artifactId>spring-dotenv</artifactId>
             <version>4.0.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
 
     </dependencies>
 

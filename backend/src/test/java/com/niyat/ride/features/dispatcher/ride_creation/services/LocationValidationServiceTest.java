@@ -27,7 +27,7 @@ class LocationValidationServiceTest {
         validAddisAbabaLocation.setAddress("Bole, Addis Ababa");
 
         invalidLocation = new LocationDTO();
-        invalidLocation.setLatitude(200.0); // Invalid latitude
+        invalidLocation.setLatitude(199.0); // Invalid latitude
         invalidLocation.setLongitude(38.8);
         invalidLocation.setAddress("Invalid Location");
     }
