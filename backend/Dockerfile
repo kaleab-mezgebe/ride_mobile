@@ -1,5 +1,5 @@
-# Use a Java 17 base image
-FROM eclipse-temurin:17-jdk-alpine
+# Use a Java 21 base image
+FROM eclipse-temurin:21-jdk-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -8,6 +8,9 @@ WORKDIR /app
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
+
+# Make mvnw executable
+RUN chmod +x mvnw
 
 # Copy the source code
 COPY src src
@@ -19,4 +22,4 @@ RUN ./mvnw package -DskipTests
 EXPOSE 10000
 
 # Run the JAR file. The PORT is provided by Render at runtime.
-ENTRYPOINT ["java", "-jar", "/app/target/ride-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT:-8080} -jar /app/target/ride-0.0.1-SNAPSHOT.jar"]

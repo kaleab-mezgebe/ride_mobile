@@ -32,12 +32,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/customers/**").permitAll()
                         .requestMatchers("/api/drivers/**").permitAll()
                         .requestMatchers("/api/dispatchers/**").permitAll()
+                        .requestMatchers("/api/admin/**").permitAll()
                         .requestMatchers("/api/admins/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/v3/api-docs/public").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(roleAccessFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                // .addFilterAfter(roleAccessFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

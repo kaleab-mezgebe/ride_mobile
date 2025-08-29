@@ -58,7 +58,13 @@ public class RoleAccessFilter extends OncePerRequestFilter {
         }
 
         // Role-based checks by path prefix
-        if (startsWith(path, "/api/admins/")) {
+        if (startsWith(path, "/api/admin/")) {
+            if (!"Admin".equals(role)) { // enum name used in project
+                writeError(response, HttpStatus.FORBIDDEN, "Forbidden: requires Admin role");
+            } else {
+                filterChain.doFilter(request, response);
+            }
+        } else if (startsWith(path, "/api/admins/")) {
             if (!"Admin".equals(role)) { // enum name used in project
                 writeError(response, HttpStatus.FORBIDDEN, "Forbidden: requires Admin role");
                 return;
