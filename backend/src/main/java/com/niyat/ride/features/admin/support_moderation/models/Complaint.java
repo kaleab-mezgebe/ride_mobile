@@ -3,7 +3,7 @@ package com.niyat.ride.features.admin.support_moderation.models;
 import com.niyat.ride.enums.ComplaintPriority;
 import com.niyat.ride.enums.ComplaintStatus;
 import com.niyat.ride.ride.models.RideRequest;
-import com.niyat.ride.shared.models.User;
+import com.niyat.ride.user.models.User;
 import jakarta.persistence.*;
 import lombok.Data;
 

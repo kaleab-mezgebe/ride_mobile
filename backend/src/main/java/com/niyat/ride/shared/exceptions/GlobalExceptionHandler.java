@@ -1,4 +1,4 @@
-package com.niyat.ride.exceptions;
+package com.niyat.ride.shared.exceptions;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;

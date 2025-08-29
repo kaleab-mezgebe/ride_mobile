@@ -1,6 +1,5 @@
 package com.niyat.ride.user.models;
 
-import com.niyat.ride.shared.models.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

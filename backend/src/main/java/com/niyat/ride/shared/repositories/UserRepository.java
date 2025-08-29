@@ -1,6 +1,6 @@
 package com.niyat.ride.shared.repositories;
 
-import com.niyat.ride.shared.models.User;
+import com.niyat.ride.user.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

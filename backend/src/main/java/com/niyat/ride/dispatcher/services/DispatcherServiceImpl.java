@@ -7,7 +7,7 @@ import com.niyat.ride.dispatcher.mappers.DispatcherMapper;
 import com.niyat.ride.dispatcher.models.Dispatcher;
 import com.niyat.ride.dispatcher.repositories.DispatcherRepository;
 import com.niyat.ride.enums.Role;
-import com.niyat.ride.shared.models.Credential;
+import com.niyat.ride.user.models.Credential;
 import com.niyat.ride.shared.repositories.CredentialRepository;
 import com.niyat.ride.utils.Helpers;
 import lombok.RequiredArgsConstructor;

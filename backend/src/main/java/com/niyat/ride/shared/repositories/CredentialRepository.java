@@ -2,7 +2,7 @@ package com.niyat.ride.shared.repositories;
 
 
 
-import com.niyat.ride.shared.models.Credential;
+import com.niyat.ride.user.models.Credential;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

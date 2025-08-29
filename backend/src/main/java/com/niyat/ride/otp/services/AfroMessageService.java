@@ -1,4 +1,4 @@
-package com.niyat.ride.services;
+package com.niyat.ride.otp.services;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

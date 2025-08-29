@@ -4,7 +4,7 @@ import com.niyat.ride.user.dtos.DriverResponseDTO;
 import com.niyat.ride.user.services.DriverService;
 import com.niyat.ride.user.dtos.DriverSignupDTO;
 import com.niyat.ride.user.dtos.DriverUpdateDTO;
-import com.niyat.ride.services.OtpService;
+import com.niyat.ride.otp.services.OtpService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

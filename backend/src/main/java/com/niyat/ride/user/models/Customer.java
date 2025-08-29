@@ -1,5 +1,4 @@
 package com.niyat.ride.user.models;
-import com.niyat.ride.shared.models.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

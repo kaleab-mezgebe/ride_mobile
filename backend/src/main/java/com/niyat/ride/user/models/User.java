@@ -1,4 +1,4 @@
-package com.niyat.ride.shared.models;
+package com.niyat.ride.user.models;
 
 import com.niyat.ride.enums.AccountStatus;
 import com.niyat.ride.enums.Role;

@@ -1,12 +1,12 @@
 package com.niyat.ride.auth.services;
 
-import com.niyat.ride.shared.models.Credential;
+import com.niyat.ride.user.models.Credential;
 import com.niyat.ride.shared.repositories.CredentialRepository;
 import com.niyat.ride.auth.dtos.AuthResponseDTO;
 import com.niyat.ride.auth.dtos.LoginRequestDTO;
 import com.niyat.ride.enums.AccountStatus;
 import com.niyat.ride.enums.Role;
-import com.niyat.ride.shared.models.User;
+import com.niyat.ride.user.models.User;
 import com.niyat.ride.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

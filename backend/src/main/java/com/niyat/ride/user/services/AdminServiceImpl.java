@@ -7,7 +7,7 @@ import com.niyat.ride.user.mappers.AdminMapper;
 import com.niyat.ride.user.models.Admin;
 import com.niyat.ride.user.repositories.AdminRepository;
 import com.niyat.ride.enums.Role;
-import com.niyat.ride.shared.models.Credential;
+import com.niyat.ride.user.models.Credential;
 import com.niyat.ride.shared.repositories.CredentialRepository;
 import com.niyat.ride.utils.Helpers;
 import lombok.RequiredArgsConstructor;

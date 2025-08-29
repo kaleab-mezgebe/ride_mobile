@@ -4,7 +4,7 @@ import com.niyat.ride.user.dtos.CustomerResponseDTO;
 import com.niyat.ride.user.services.CustomerService;
 import com.niyat.ride.user.dtos.CustomerSignupDTO;
 import com.niyat.ride.user.dtos.CustomerUpdateDTO;
-import com.niyat.ride.services.OtpService;
+import com.niyat.ride.otp.services.OtpService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

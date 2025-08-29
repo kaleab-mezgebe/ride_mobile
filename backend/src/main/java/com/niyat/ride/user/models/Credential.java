@@ -1,4 +1,4 @@
-package com.niyat.ride.shared.models;
+package com.niyat.ride.user.models;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.niyat.ride.services;
+package com.niyat.ride.otp.services;
 
 import org.springframework.stereotype.Service;
 

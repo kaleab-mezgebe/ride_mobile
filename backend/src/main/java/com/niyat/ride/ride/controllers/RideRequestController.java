@@ -3,7 +3,7 @@ package com.niyat.ride.ride.controllers;
 import com.niyat.ride.ride.dtos.RideRequestDTO;
 import com.niyat.ride.ride.models.RideRequest;
 import com.niyat.ride.ride.services.RideRequestService;
-import com.niyat.ride.shared.models.User;
+import com.niyat.ride.user.models.User;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
