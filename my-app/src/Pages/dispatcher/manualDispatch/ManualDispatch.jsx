@@ -66,7 +66,6 @@ export default function ManualDispatch() {
       300
     );
   };
-
   const handleSelectSuggestion = (item, type) => {
     const lat = parseFloat(item.lat),
       lon = parseFloat(item.lon),
@@ -99,9 +98,7 @@ export default function ManualDispatch() {
     return `${(point1.distanceTo(point2) / 1000).toFixed(2)} km`;
   };
   const handleAssignRide = () => {
-    // const driver = drivers.find(
-    //   (d) => String(d.id) === formData.selectedDriverId
-    // );
+    const date = new Date();
     alert(`Ride assigned!\n\nPassenger: ${formData.firstName} ${
       formData.lastName
     } (${formData.userPhone})
@@ -109,8 +106,8 @@ Pickup: ${pickupLocation}
 Dropoff: ${dropoffLocation}
 Driver: ${formData.selectedDriverName || "-"}
 Vehicle Type: ${formData.vehicleType}
+date: ${date.toLocaleString()}
 Notes: ${formData.passengerNotes || "-"}`);
-    console.log(formData);
   };
 
   const resetForm = () => {

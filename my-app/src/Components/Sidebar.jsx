@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux"; // ✅ get role from Redux
+import { useSelector } from "react-redux";
 import {
   Box,
   Drawer,
@@ -15,7 +15,6 @@ import {
   MdPeople,
   MdDirectionsCar,
   MdAssessment,
-  MdAssignment,
   MdMap,
   MdExpandLess,
   MdExpandMore,
@@ -28,19 +27,32 @@ export default function Sidebar() {
   const { role } = useSelector((state) => state.auth); // ✅ role = "admin" | "dispatcher"
 
   const [openSidebar, setOpenSidebar] = useState(true);
-  const [openUserMenu, setOpenUserMenu] = useState(true);
+
+  // ✅ Persisted states for menus
+  const [openUserMenu, setOpenUserMenu] = useState(() => {
+    const saved = localStorage.getItem("nyat_open_user_menu");
+    if (saved !== null) return saved === "true";
+    return location.pathname.startsWith("/AllUsers");
+  });
+
   const [openRides, setOpenRides] = useState(() => {
     const saved = localStorage.getItem("nyat_open_rides");
     if (saved !== null) return saved === "true";
     return location.pathname.startsWith("/admin/rides");
   });
-  const [openDispatcherMenu, setOpenDispatcherMenu] = useState(true);
+
+  const [openDispatcherMenu, setOpenDispatcherMenu] = useState(() => {
+    const saved = localStorage.getItem("nyat_open_dispatcher_menu");
+    if (saved !== null) return saved === "true";
+    return location.pathname.startsWith("/dispatcher");
+  });
 
   const toggleSidebar = () => setOpenSidebar(!openSidebar);
 
-  // auto-open menus depending on route
+  // ✅ Auto-open menus when navigating
   useEffect(() => {
     if (location.pathname.startsWith("/admin/rides")) setOpenRides(true);
+
     const isUserRoute = [
       "/AllUsers",
       "/drivers",
@@ -50,16 +62,30 @@ export default function Sidebar() {
     if (isUserRoute) setOpenUserMenu(true);
 
     if (
-      ["/dispatcher", "/dispatcher/livemap", "/dispatcher/manual"].some((r) =>
-        location.pathname.startsWith(r)
-      )
+      [
+        "/dispatcher",
+        "/dispatcher/livemap",
+        "/dispatcher/manualAssignment",
+      ].some((r) => location.pathname.startsWith(r))
     )
       setOpenDispatcherMenu(true);
   }, [location.pathname]);
 
+  // ✅ Sync menu states to localStorage
   useEffect(() => {
     localStorage.setItem("nyat_open_rides", String(openRides));
   }, [openRides]);
+
+  useEffect(() => {
+    localStorage.setItem("nyat_open_user_menu", String(openUserMenu));
+  }, [openUserMenu]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "nyat_open_dispatcher_menu",
+      String(openDispatcherMenu)
+    );
+  }, [openDispatcherMenu]);
 
   const listItemSx = {
     gap: 1.5,
@@ -116,7 +142,7 @@ export default function Sidebar() {
 
         {/* Navigation List */}
         <List sx={{ pt: 1 }}>
-          {/* ✅ Dashboard - visible to all */}
+          {/* ✅ Dashboard */}
           <NavLink to="/dashboard" style={linkStyle} end>
             <ListItemButton sx={listItemSx}>
               <MdDashboard style={{ fontSize: 20 }} />
@@ -124,9 +150,9 @@ export default function Sidebar() {
             </ListItemButton>
           </NavLink>
 
-          {/* User Management Dropdown */}
+          {/* ✅ User Management */}
           <ListItemButton
-            onClick={() => setOpenUserMenu(!openUserMenu)}
+            onClick={() => setOpenUserMenu((v) => !v)}
             sx={listItemSx}
           >
             <MdPeople style={{ fontSize: 20 }} />
@@ -143,7 +169,7 @@ export default function Sidebar() {
               {[
                 { to: "/AllUsers", label: "All Users" },
                 { to: "/drivers", label: "Drivers" },
-                { to: "/passengers", label: "Passengers " },
+                { to: "/passengers", label: "Passengers" },
                 { to: "/dispatchers", label: "Dispatchers" },
               ].map((sub) => (
                 <NavLink key={sub.to} to={sub.to} style={linkStyle}>
@@ -163,7 +189,7 @@ export default function Sidebar() {
             </List>
           </Collapse>
 
-          {/* Ride Management */}
+          {/* ✅ Ride Management */}
           <ListItemButton
             onClick={() => setOpenRides((v) => !v)}
             sx={listItemSx}
@@ -197,7 +223,7 @@ export default function Sidebar() {
             </List>
           </Collapse>
 
-          {/* Reports */}
+          {/* ✅ Reports */}
           <NavLink to="/admin/reports" style={linkStyle}>
             <ListItemButton sx={listItemSx}>
               <MdAssessment style={{ fontSize: 20 }} />
@@ -205,7 +231,7 @@ export default function Sidebar() {
             </ListItemButton>
           </NavLink>
 
-          {/* ✅ Dispatcher menus */}
+          {/* ✅ Dispatcher Menu */}
           {(role === "admin" || role === "dispatcher") && (
             <>
               <ListItemButton
