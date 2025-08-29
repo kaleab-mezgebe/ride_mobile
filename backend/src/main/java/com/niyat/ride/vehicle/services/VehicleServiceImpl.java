@@ -1,7 +1,7 @@
 package com.niyat.ride.vehicle.services;
 
-import com.niyat.ride.driver.models.Driver;
-import com.niyat.ride.driver.repositories.DriverRepository;
+import com.niyat.ride.user.models.Driver;
+import com.niyat.ride.user.repositories.DriverRepository;
 import com.niyat.ride.vehicle.models.Vehicle;
 import com.niyat.ride.vehicle.repositories.VehicleRepository;
 import jakarta.transaction.Transactional;

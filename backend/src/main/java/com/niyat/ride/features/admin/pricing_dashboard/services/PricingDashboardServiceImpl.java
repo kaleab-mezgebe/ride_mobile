@@ -8,7 +8,7 @@ import com.niyat.ride.features.admin.pricing_dashboard.repositories.PricingHisto
 import com.niyat.ride.features.admin.ride_management.repositories.RideManagementRepository;
 import com.niyat.ride.features.admin.vehicle_type_management.repositories.VehicleTypeRepository;
 import com.niyat.ride.vehicle.models.VehicleType;
-import com.niyat.ride.admin.repositories.AdminRepository;
+import com.niyat.ride.user.repositories.AdminRepository;
 import com.niyat.ride.features.admin.pricing_management.services.BasePriceService;
 import com.niyat.ride.features.admin.pricing_management.dtos.BasePriceUpdateDTO;
 import lombok.RequiredArgsConstructor;

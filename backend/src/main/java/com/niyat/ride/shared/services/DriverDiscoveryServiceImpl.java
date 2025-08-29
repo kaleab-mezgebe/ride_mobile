@@ -1,8 +1,8 @@
 package com.niyat.ride.shared.services;
 
 import com.niyat.ride.enums.RideStatus;
-import com.niyat.ride.driver.models.Driver;
-import com.niyat.ride.driver.repositories.DriverRepository;
+import com.niyat.ride.user.models.Driver;
+import com.niyat.ride.user.repositories.DriverRepository;
 import com.niyat.ride.ride.repositories.RideRequestRepository;
 import com.niyat.ride.features.admin.vehicle_type_management.repositories.VehicleTypeRepository;
 import com.niyat.ride.shared.dtos.NearbyDriverDTO;

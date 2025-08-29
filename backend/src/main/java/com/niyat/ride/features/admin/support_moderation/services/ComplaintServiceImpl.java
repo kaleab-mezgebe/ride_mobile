@@ -8,7 +8,7 @@ import com.niyat.ride.features.admin.support_moderation.models.ComplaintNote;
 import com.niyat.ride.features.admin.support_moderation.repositories.ComplaintRepository;
 import com.niyat.ride.ride.models.RideRequest;
 import com.niyat.ride.shared.models.User;
-import com.niyat.ride.admin.repositories.AdminRepository;
+import com.niyat.ride.user.repositories.AdminRepository;
 import com.niyat.ride.ride.repositories.RideRequestRepository;
 import com.niyat.ride.shared.repositories.UserRepository;
 import com.niyat.ride.shared.utils.PaginationUtil;

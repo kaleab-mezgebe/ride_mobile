@@ -14,11 +14,12 @@ import java.util.Optional;
 public class JpaAuditingConfig {
 
     @Bean
-    public AuditorAware<Long> auditorAware() {
+    public AuditorAware<String> auditorAware() {
         return () -> {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication != null && authentication.isAuthenticated()) {
-                return Optional.of(Long.parseLong(authentication.getName()));
+            if (authentication != null && authentication.isAuthenticated()
+                    && !"anonymousUser".equals(authentication.getName())) {
+                return Optional.of(authentication.getName());
             }
             return Optional.empty();
         };

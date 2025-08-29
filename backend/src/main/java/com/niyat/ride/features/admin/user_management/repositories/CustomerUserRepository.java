@@ -1,7 +1,7 @@
 package com.niyat.ride.features.admin.user_management.repositories;
 
 import com.niyat.ride.enums.AccountStatus;
-import com.niyat.ride.customer.models.Customer;
+import com.niyat.ride.user.models.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

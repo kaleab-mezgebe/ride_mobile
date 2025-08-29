@@ -2,9 +2,9 @@ package com.niyat.ride.config;
 
 import com.niyat.ride.enums.AccountStatus;
 import com.niyat.ride.enums.Role;
-import com.niyat.ride.admin.models.Admin;
+import com.niyat.ride.user.models.Admin;
 import com.niyat.ride.shared.models.Credential;
-import com.niyat.ride.admin.repositories.AdminRepository;
+import com.niyat.ride.user.repositories.AdminRepository;
 import com.niyat.ride.shared.repositories.CredentialRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

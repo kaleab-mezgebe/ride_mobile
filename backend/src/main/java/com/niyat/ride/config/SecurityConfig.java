@@ -2,7 +2,7 @@ package com.niyat.ride.config;
 
 import com.niyat.ride.security.JwtAuthenticationFilter;
 import com.niyat.ride.security.JwtUtil;
-import com.niyat.ride.security.RoleAccessFilter;
+//import com.niyat.ride.security.RoleAccessFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
-    private final RoleAccessFilter roleAccessFilter;
+//    private final RoleAccessFilter roleAccessFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -36,8 +36,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/admins/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/v3/api-docs/public").permitAll()
                         .anyRequest().authenticated()
-                )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                );
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
                 // .addFilterAfter(roleAccessFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

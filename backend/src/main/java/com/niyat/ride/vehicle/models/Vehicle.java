@@ -1,6 +1,6 @@
 package com.niyat.ride.vehicle.models;
 
-import com.niyat.ride.driver.models.Driver;
+import com.niyat.ride.user.models.Driver;
 import jakarta.persistence.*;
 import lombok.Data;
 
