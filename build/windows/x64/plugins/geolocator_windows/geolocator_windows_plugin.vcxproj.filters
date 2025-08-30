@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\windows\flutter\ephemeral\.plugin_symlinks\geolocator_windows\windows\geolocator_windows.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\windows\flutter\ephemeral\.plugin_symlinks\geolocator_windows\windows\geolocator_plugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\windows\flutter\ephemeral\.plugin_symlinks\geolocator_windows\windows\include\geolocator_windows\geolocator_windows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\windows\flutter\ephemeral\.plugin_symlinks\geolocator_windows\windows\geolocator_plugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\windows\flutter\ephemeral\.plugin_symlinks\geolocator_windows\windows\geolocator_enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\windows\flutter\ephemeral\.plugin_symlinks\geolocator_windows\windows\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{24A79E95-E20D-31B5-A7C3-C98B10DEA3B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D51F8C93-8CE8-361A-BCD2-80DD565CDB75}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

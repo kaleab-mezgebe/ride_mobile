@@ -1,0 +1,15 @@
+# Target labels
+ nuget-populate
+# Source files and their labels
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/nuget-populate
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/b56dfe46207dede5ee4bb96d2613dfe0/nuget-populate.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/3f0469a3bd7d52c83ba2d91679718751/nuget-populate-complete.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/a15998baf633ea459d0f691256bbaf99/nuget-populate-build.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/a15998baf633ea459d0f691256bbaf99/nuget-populate-configure.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/a15998baf633ea459d0f691256bbaf99/nuget-populate-copyfile.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/a15998baf633ea459d0f691256bbaf99/nuget-populate-download.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/a15998baf633ea459d0f691256bbaf99/nuget-populate-install.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/a15998baf633ea459d0f691256bbaf99/nuget-populate-mkdir.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/a15998baf633ea459d0f691256bbaf99/nuget-populate-patch.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/a15998baf633ea459d0f691256bbaf99/nuget-populate-test.rule
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/a15998baf633ea459d0f691256bbaf99/nuget-populate-update.rule
