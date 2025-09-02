@@ -160,6 +160,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{D50CAD96-06EC-3960-8760-BACBDA0E3A05}</Project>
       <Name>nyat_ride_system</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\build\windows\x64\plugins\permission_handler_windows\permission_handler_windows_plugin.vcxproj">
+      <Project>{056E3D73-EF5D-3C3B-83A2-97C230BA33B0}</Project>
+      <Name>permission_handler_windows_plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\build\windows\x64\plugins\url_launcher_windows\url_launcher_windows_plugin.vcxproj">
+      <Project>{B1FEDA87-DE58-394E-82A3-263422E5774B}</Project>
+      <Name>url_launcher_windows_plugin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,9 +2,12 @@ C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/flutter_windows.dll
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/flutter_secure_storage_windows_plugin.dll
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/geolocator_windows_plugin.dll
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/permission_handler_windows_plugin.dll
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/url_launcher_windows_plugin.dll
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.bin
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.json
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/fonts/Noto_Sans_Ethiopic/NotoSansEthiopic-VariableFont_wdth,wght.ttf
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/driver.png
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/dropoff.png
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/final.png
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/first.png
@@ -12,6 +15,7 @@ C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/onboard1.png
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/onboard2.png
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/onboard3.png
+C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/passenger.png
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/pickup.png
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/second.png
 C:/flutter/Nyat Ride System/nyat_ride_system/Passenger_Mobile_App/build/windows/x64/runner/Debug/data/flutter_assets/assets/images/welcome.png

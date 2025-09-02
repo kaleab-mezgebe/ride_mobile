@@ -155,7 +155,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\build\windows\x64\runner\ALL_BUILD.vcxproj">
+    <ProjectReference Include="C:\flutter\Nyat Ride System\nyat_ride_system\Passenger_Mobile_App\build\windows\x64\plugins\url_launcher_windows\ALL_BUILD.vcxproj">
       <Project>{DE73B089-94AB-385D-9391-CC5098E782F6}</Project>
       <Name>ALL_BUILD</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

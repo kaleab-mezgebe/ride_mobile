@@ -1,31 +1,6 @@
-// import 'package:flutter/material.dart';
-// import 'theme/app_theme.dart';
-// import 'screens/onboarding_screen.dart';
-
-// class NyatApp extends StatelessWidget {
-//   const NyatApp({Key? key}) : super(key: key);
-
-//   // Global dark mode notifier
-//   static final ValueNotifier<bool> isDarkMode = ValueNotifier(false);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ValueListenableBuilder<bool>(
-//       valueListenable: isDarkMode,
-//       builder: (_, darkMode, __) {
-//         return MaterialApp(
-//           title: "Nyat Passenger",
-//           debugShowCheckedModeBanner: false,
-//           theme: darkMode ? ThemeData.dark() : AppTheme.light(),
-//           home: const OnboardingScreen(),
-//         );
-//       },
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
-import 'theme/app_theme.dart';
-import 'screens/onboarding_screen.dart';
+import 'shared/theme/app_theme.dart';
+import 'features/onboarding/presentation/screens/onboarding_screen.dart';
 
 class NyatApp extends StatefulWidget {
   const NyatApp({Key? key}) : super(key: key);
