@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DriverBubble extends StatelessWidget {
   final String driverPicture;
   final VoidCallback onTap;
-
+  
   const DriverBubble({
     Key? key,
     required this.driverPicture,
