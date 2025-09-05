@@ -955,10 +955,12 @@ class ApiService {
   // ----------------------
   // Base URL of your backend
   // ----------------------
-  final String baseUrl = "http://10.244.86.221:8080/api";
+  final String baseUrl = "http://10.50.215.221:8080/api";
 
   Future<String> sendOtp(String phone) async {
-    final url = Uri.parse("$baseUrl/customers/request-otp");
+    final url = Uri.parse(
+      "http://10.50.215.221:8080/api/customers/request-otp",
+    );
 
     try {
       // ✅ Print phone number before sending
@@ -987,7 +989,7 @@ class ApiService {
     String phoneNumber,
     String otp,
   ) async {
-    final url = Uri.parse("$baseUrl/customers/verify-otp");
+    final url = Uri.parse("http://10.50.215.221:8080/api/customers/verify-otp");
 
     try {
       final response = await http
@@ -1013,9 +1015,7 @@ class ApiService {
     }
   }
 
-  // ----------------------
   // 🔹 RESEND OTP
-  // ----------------------
   Future<String> resendOtp(String phoneNumber) async {
     final url = Uri.parse("$baseUrl/resend-otp");
     final response = await http.post(
@@ -1032,67 +1032,17 @@ class ApiService {
     }
   }
 
-  // Update profile
-  Future<UserModel?> updateProfile(
-    UserModel updatedUser,
-    int customerId,
-  ) async {
-    final url = Uri.parse("$baseUrl/customers/updateCustomer/$customerId");
-
-    try {
-      final response = await http.patch(
-        url,
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "firstName": updatedUser.firstName,
-          "lastName": updatedUser.lastName,
-          "email": updatedUser.email,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return UserModel.fromJson({
-          'phone': data['phoneNumber'],
-          'firstName': data['firstName'],
-          'lastName': data['lastName'],
-          'email': data['email'],
-        });
-      } else {
-        print("Failed to update profile: ${response.body}");
-        return null;
-      }
-    } catch (e) {
-      print("Error updating profile: $e");
-      return null;
-    }
-  }
-
-  // ----------------------
-  // GET USER PROFILE
-  // ----------------------
-  // Future<UserModel?> getUserProfile(String phoneNumber) async {
-  //   final url = Uri.parse("$baseUrl/users/$phoneNumber");
-  //   final response = await http.get(url);
-
-  //   if (response.statusCode == 200) {
-  //     final data = jsonDecode(response.body);
-  //     return UserModel.fromJson(data);
-  //   }
-  //   return null;
-  // }
-
-  // ----------------------
-  // UPDATE PROFILE
-  // // ----------------------
+  // // Update profile
   // Future<UserModel?> updateProfile(
   //   UserModel updatedUser,
   //   int customerId,
   // ) async {
-  //   final url = Uri.parse("$baseUrl/customers/updateCustomer/$customerId");
+  //   final url = Uri.parse(
+  //     "http://10.50.215.221:8080/api/customers/updateCustomer/$customerId",
+  //   );
 
   //   try {
-  //     final response = await http.put(
+  //     final response = await http.patch(
   //       url,
   //       headers: {"Content-Type": "application/json"},
   //       body: jsonEncode({
@@ -1105,6 +1055,7 @@ class ApiService {
   //     if (response.statusCode == 200) {
   //       final data = jsonDecode(response.body);
   //       return UserModel.fromJson({
+  //         'id': data['id'],
   //         'phone': data['phoneNumber'],
   //         'firstName': data['firstName'],
   //         'lastName': data['lastName'],
@@ -1120,9 +1071,41 @@ class ApiService {
   //   }
   // }
 
-  // ----------------------
+  Future<UserModel?> updateProfile(
+    UserModel updatedUser,
+    int customerId,
+  ) async {
+    final url = Uri.parse(
+      "http://10.50.215.221:8080/api/customers/updateCustomer/$customerId",
+    );
+
+    try {
+      final response = await http.patch(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(updatedUser.toJson()),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return UserModel.fromJson({
+          'id': data['id'],
+          'phoneNumber': data['phoneNumber'],
+          'firstName': data['firstName'],
+          'lastName': data['lastName'],
+          'email': data['email'],
+        });
+      } else {
+        print("Failed to update profile: ${response.body}");
+        return null;
+      }
+    } catch (e) {
+      print("Error updating profile: $e");
+      return null;
+    }
+  }
+
   // GET AVAILABLE CARS
-  // ----------------------
   Future<List<Map<String, dynamic>>> getAvailableCars() async {
     final url = Uri.parse("$baseUrl/cars");
     final response = await http.get(url);

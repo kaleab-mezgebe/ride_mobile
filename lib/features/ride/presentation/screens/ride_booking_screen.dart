@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:nyat_ride_system/core/constants/flutter_maps/secrets.dart';
+import 'package:nyat_ride_system/features/auth/presentation/controllers/user_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../app.dart';
 import '../../domain/models/ride_type.dart';
 import '../../../../core/services/api_service.dart';
@@ -45,6 +49,7 @@ class _RideBookingScreenState extends State<RideBookingScreen> {
   double? _routeDistanceKm;
   double? _routeDurationMin;
   double? _totalPrice;
+  final UserController userController = Get.find<UserController>();
 
   final PolylinePoints _polylinePoints = PolylinePoints();
 
@@ -194,7 +199,15 @@ class _RideBookingScreenState extends State<RideBookingScreen> {
                 ),
               );
             },
-            onLogout: () {
+            onLogout: () async {
+              // 1. Clear GetX global user
+              userController.currentUser.value = null;
+
+              // 2. Clear saved token / user data (if you use SharedPreferences or storage)
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+
+              // 3. Navigate to login/register screen
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (_) => const PhoneRegisterScreen()),

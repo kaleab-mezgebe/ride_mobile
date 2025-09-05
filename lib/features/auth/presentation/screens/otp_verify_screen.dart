@@ -794,8 +794,16 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   //     final data = await ApiService().verifyOtp(widget.phone, _otp);
 
   //     if (data != null) {
+  //       // ✅ Convert JSON to UserModel
+  //       final user = UserModel.fromJson(data);
+
+  //       // ✅ Store user in GetX controller
+  //       final userController = Get.find<UserController>();
+  //       userController.setUser(user);
+
   //       setState(() => _loading = false);
 
+  //       // Navigate to next screen
   //       Navigator.pushReplacement(
   //         context,
   //         MaterialPageRoute(builder: (_) => const RideBookingScreen()),
@@ -821,7 +829,6 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   //     );
   //   }
   // }
-
   Future<void> _verifyOtp() async {
     setState(() {
       _loading = true;
@@ -832,10 +839,10 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
       final data = await ApiService().verifyOtp(widget.phone, _otp);
 
       if (data != null) {
-        // ✅ Convert JSON to UserModel
+        // ✅ Convert JSON to UserModel with correct id
         final user = UserModel.fromJson(data);
 
-        // ✅ Store user in GetX controller
+        // ✅ Store user in GetX controller globally
         final userController = Get.find<UserController>();
         userController.setUser(user);
 

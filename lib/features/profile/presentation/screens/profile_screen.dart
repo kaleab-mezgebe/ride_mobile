@@ -261,7 +261,6 @@ class _ProfilePageState extends State<ProfilePage> {
   late TextEditingController lastNameController;
   late TextEditingController emailController;
   String phoneNumber = "";
-  int id = 0;
   bool isEditing = false;
   bool _loading = true;
 
@@ -283,10 +282,7 @@ class _ProfilePageState extends State<ProfilePage> {
       firstNameController.text = user.firstName;
       lastNameController.text = user.lastName;
       emailController.text = user.email;
-      phoneNumber = user.phone;
-      id = user.id;
-
-      // globally saved phone number
+      phoneNumber = user.phone; // globally saved phone number
     }
     setState(() => _loading = false);
   }
