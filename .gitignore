@@ -46,3 +46,10 @@ app.*.map.json
 *.apk
 *.aab
 *.ipa
+# Windows build outputs
+/windows/flutter/ephemeral/
+/windows/build/
+build/windows/
+# Flutter plugin dependencies (auto-generated)
+.flutter-plugins
+.flutter-plugins-dependencies
