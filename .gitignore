@@ -1,4 +1,6 @@
+# --------------------------
 # Miscellaneous
+# --------------------------
 *.class
 *.log
 *.pyc
@@ -12,44 +14,110 @@
 .swiftpm/
 migrate_working_dir/
 
+# --------------------------
 # IntelliJ related
+# --------------------------
 *.iml
 *.ipr
 *.iws
 .idea/
 
+# --------------------------
+# VS Code
+# --------------------------
 # The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
+# VS Code which you may wish to be included in version control.
+# Uncomment if you don't want to commit it:
 #.vscode/
 
-# Flutter/Dart/Pub related
+# --------------------------
+# Flutter / Dart / Pub related
+# --------------------------
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.packages
 .pub-cache/
 .pub/
-/build/
+build/
+coverage/
 
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
+# --------------------------
+# Android
+# --------------------------
 /android/app/debug
 /android/app/profile
 /android/app/release
 *.apk
 *.aab
-*.ipa
-# Windows build outputs
+
+# --------------------------
+# iOS
+# --------------------------
+/ios/Flutter/flutter_export_environment.sh
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Flutter.podspec
+/ios/ServiceDefinitions.json
+/ios/Runner/GeneratedPluginRegistrant.*
+/ios/Pods/
+/ios/.symlinks/
+/ios/build/
+/ios/.generated/
+/ios/.dart_tool/
+/ios/.pub-cache/
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata/
+DerivedData/
+
+# --------------------------
+# macOS
+# --------------------------
+/macos/Flutter/ephemeral/
+/macos/Pods/
+/macos/build/
+/macos/.dart_tool/
+/macos/.pub-cache/
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata/
+DerivedData/
+
+# --------------------------
+# Windows
+# --------------------------
 /windows/flutter/ephemeral/
 /windows/build/
 build/windows/
-# Flutter plugin dependencies (auto-generated)
-.flutter-plugins
-.flutter-plugins-dependencies
+
+# --------------------------
+# Linux
+# --------------------------
+/linux/flutter/ephemeral/
+/linux/build/
+build/linux/
+
+# --------------------------
+# Web
+# --------------------------
+/web/.dart_tool/
+/web/.pub-cache/
+/web/build/
+
+# --------------------------
+# Symbolication & Obfuscation
+# --------------------------
+app.*.symbols
+app.*.map.json
+
+# --------------------------
+# iOS/Android/Other binaries
+# --------------------------
+*.ipa
+*.dmg
+*.exe
+*.msi
+*.zip
+*.tar.gz
