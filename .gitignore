@@ -13,6 +13,11 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
+last_build.bin
+*.bin
+*.map
+*.tmp
+*.cache
 
 # --------------------------
 # IntelliJ related
@@ -38,6 +43,7 @@ migrate_working_dir/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.flutter-plugins-generated
 .packages
 .pub-cache/
 .pub/
