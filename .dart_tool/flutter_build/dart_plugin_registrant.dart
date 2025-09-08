@@ -19,6 +19,7 @@ import 'package:path_provider_foundation/path_provider_foundation.dart';
 import 'package:pointer_interceptor_ios/pointer_interceptor_ios.dart';
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart';
 import 'package:url_launcher_ios/url_launcher_ios.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_keyboard_visibility_linux/flutter_keyboard_visibility_linux.dart';
 import 'package:geolocator_linux/geolocator_linux.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -162,6 +163,15 @@ class _PluginRegistrant {
       }
 
     } else if (Platform.isLinux) {
+      try {
+        ConnectivityPlusLinuxPlugin.registerWith();
+      } catch (err) {
+        print(
+          '`connectivity_plus` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
       try {
         FlutterKeyboardVisibilityPluginLinux.registerWith();
       } catch (err) {
