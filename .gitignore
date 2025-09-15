@@ -1,45 +1,35 @@
 # --------------------------
-# Miscellaneous
+# Miscellaneous / Temp
 # --------------------------
 *.class
 *.log
 *.pyc
 *.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-last_build.bin
-*.bin
-*.map
 *.tmp
 *.cache
+.DS_Store
+.last_build.bin
+*.bin
+*.map
+.history
+.build/
+.buildlog/
+migrate_working_dir/
 
 # --------------------------
-# IntelliJ related
+# IDE / Editor
 # --------------------------
+# IntelliJ / Android Studio
 *.iml
 *.ipr
 *.iws
 .idea/
-
-# --------------------------
 # VS Code
-# --------------------------
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control.
-# Uncomment if you don't want to commit it:
-#.vscode/
+.vscode/
 
 # --------------------------
-# Flutter / Dart / Pub related
+# Flutter / Dart / Pub
 # --------------------------
-**/doc/api/
-**/ios/Flutter/.last_build_id
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -49,13 +39,15 @@ last_build.bin
 .pub/
 build/
 coverage/
+**/doc/api/
+**/ios/Flutter/.last_build_id
 
 # --------------------------
 # Android
 # --------------------------
-/android/app/debug
-/android/app/profile
-/android/app/release
+/android/app/debug/
+/android/app/profile/
+/android/app/release/
 *.apk
 *.aab
 
@@ -127,3 +119,9 @@ app.*.map.json
 *.msi
 *.zip
 *.tar.gz
+
+# --------------------------
+# Test outputs
+# --------------------------
+/test_output/
+/coverage/

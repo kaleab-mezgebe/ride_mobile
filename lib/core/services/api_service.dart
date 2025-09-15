@@ -1,6 +1,7 @@
-
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
+import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../features/auth/domain/models/user.dart';
 import '../../features/driver/domain/models/driver.dart';
@@ -76,8 +77,8 @@ class ApiService {
     },
   ];
 
-  // ----------------------
-  // SEND OTP
+  //----------------------
+  //SEND OTP
   // ----------------------
   Future<String> sendOtp(String phoneNumber) async {
     await Future.delayed(const Duration(seconds: 1));
@@ -135,6 +136,155 @@ class ApiService {
     _users[updatedUser.phone] = updatedUser;
     return updatedUser;
   }
+
+  // // ----------------------
+  // // Base URL of your backend
+  // // ----------------------
+  // final String baseUrl = "https://niyat-ride-1-q0om.onrender.com/api";
+
+  // Future<String> sendOtp(String phone) async {
+  //   final url = Uri.parse("$baseUrl/customers/request-otp");
+
+  //   try {
+  //     // ✅ Print phone number before sending
+  //     print("Sending OTP to phone number: $phone");
+
+  //     final response = await http
+  //         .post(url, body: {'phoneNumber': phone})
+  //         .timeout(const Duration(seconds: 50));
+
+  //     print("Status: ${response.statusCode}");
+  //     print("Body: ${response.body}");
+
+  //     if (response.statusCode == 200) {
+  //       return response.body.trim();
+  //     } else {
+  //       throw Exception("Failed to send OTP: ${response.body}");
+  //     }
+  //   } catch (e) {
+  //     print("Error sending OTP: $e");
+  //     rethrow;
+  //   }
+  // }
+
+  // // Verify OTP
+  // Future<Map<String, dynamic>?> verifyOtp(
+  //   String phoneNumber,
+  //   String otp,
+  // ) async {
+  //   final url = Uri.parse("$baseUrl/customers/verify-otp");
+
+  //   try {
+  //     final response = await http
+  //         .post(url, body: {'phoneNumber': phoneNumber, 'otp': otp})
+  //         .timeout(const Duration(seconds: 15));
+
+  //     print("Response status: ${response.statusCode}");
+  //     print("Response body: ${response.body}");
+
+  //     if (response.statusCode == 200) {
+  //       return response.body.isNotEmpty
+  //           ? Map<String, dynamic>.from(
+  //             jsonDecode(response.body) as Map<String, dynamic>,
+  //           )
+  //           : null;
+  //     } else {
+  //       print("Failed to verify OTP: ${response.body}");
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     print("Error verifying OTP: $e");
+  //     return null;
+  //   }
+  // }
+
+  // // 🔹 RESEND OTP
+  // Future<String> resendOtp(String phoneNumber) async {
+  //   final url = Uri.parse("$baseUrl/resend-otp");
+  //   final response = await http.post(
+  //     url,
+  //     headers: {"Content-Type": "application/json"},
+  //     body: jsonEncode({"phone": phoneNumber}),
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //     return data["message"] ?? "OTP resent";
+  //   } else {
+  //     throw Exception("Failed to resend OTP: ${response.body}");
+  //   }
+  // }
+
+  // // Update profile
+  // Future<UserModel?> updateProfile(
+  //   UserModel updatedUser,
+  //   int customerId,
+  // ) async {
+  //   final url = Uri.parse(
+  //     "https://niyat-ride-1-q0om.onrender.com/api/customers/updateCustomer/$customerId",
+  //   );
+
+  //   try {
+  //     final response = await http.patch(
+  //       url,
+  //       headers: {"Content-Type": "application/json"},
+  //       body: jsonEncode({
+  //         "firstName": updatedUser.firstName,
+  //         "lastName": updatedUser.lastName,
+  //         "email": updatedUser.email,
+  //       }),
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       final data = jsonDecode(response.body);
+  //       return UserModel.fromJson({
+  //         'id': data['id'],
+  //         'phone': data['phoneNumber'],
+  //         'firstName': data['firstName'],
+  //         'lastName': data['lastName'],
+  //         'email': data['email'],
+  //       });
+  //     } else {
+  //       print("Failed to update profile: ${response.body}");
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     print("Error updating profile: $e");
+  //     return null;
+  //   }
+  // }
+
+  // Future<UserModel?> updateProfile(
+  //   UserModel updatedUser,
+  //   int customerId,
+  // ) async {
+  //   final url = Uri.parse("$baseUrl/customers/updateCustomer/$customerId");
+
+  //   try {
+  //     final response = await http.patch(
+  //       url,
+  //       headers: {"Content-Type": "application/json"},
+  //       body: jsonEncode(updatedUser.toJson()),
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       final data = jsonDecode(response.body);
+  //       return UserModel.fromJson({
+  //         'id': data['id'],
+  //         'phoneNumber': data['phoneNumber'],
+  //         'firstName': data['firstName'],
+  //         'lastName': data['lastName'],
+  //         'email': data['email'],
+  //       });
+  //     } else {
+  //       print("Failed to update profile: ${response.body}");
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     print("Error updating profile: $e");
+  //     return null;
+  //   }
+  // }
 
   // ----------------------
   // GET AVAILABLE CARS
@@ -313,12 +463,10 @@ class ApiService {
 //   // ----------------------
 //   // Base URL of your backend
 //   // ----------------------
-//   final String baseUrl = "http://10.50.215.221:8080/api";
+//   final String baseUrl = "https://niyat-ride-1-q0om.onrender.com/api";
 
 //   Future<String> sendOtp(String phone) async {
-//     final url = Uri.parse(
-//       "http://10.50.215.221:8080/api/customers/request-otp",
-//     );
+//     final url = Uri.parse("$baseUrl/customers/request-otp");
 
 //     try {
 //       // ✅ Print phone number before sending
@@ -326,7 +474,7 @@ class ApiService {
 
 //       final response = await http
 //           .post(url, body: {'phoneNumber': phone})
-//           .timeout(const Duration(seconds: 30));
+//           .timeout(const Duration(seconds: 50));
 
 //       print("Status: ${response.statusCode}");
 //       print("Body: ${response.body}");
@@ -347,7 +495,7 @@ class ApiService {
 //     String phoneNumber,
 //     String otp,
 //   ) async {
-//     final url = Uri.parse("http://10.50.215.221:8080/api/customers/verify-otp");
+//     final url = Uri.parse("$baseUrl/customers/verify-otp");
 
 //     try {
 //       final response = await http
@@ -396,7 +544,7 @@ class ApiService {
 //   //   int customerId,
 //   // ) async {
 //   //   final url = Uri.parse(
-//   //     "http://10.50.215.221:8080/api/customers/updateCustomer/$customerId",
+//   //     "https://niyat-ride-1-q0om.onrender.com/api/customers/updateCustomer/$customerId",
 //   //   );
 
 //   //   try {
@@ -433,9 +581,7 @@ class ApiService {
 //     UserModel updatedUser,
 //     int customerId,
 //   ) async {
-//     final url = Uri.parse(
-//       "http://10.50.215.221:8080/api/customers/updateCustomer/$customerId",
-//     );
+//     final url = Uri.parse("$baseUrl/customers/updateCustomer/$customerId");
 
 //     try {
 //       final response = await http.patch(
